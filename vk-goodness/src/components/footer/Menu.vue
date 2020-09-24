@@ -48,7 +48,7 @@ export default {
 @media (max-width: $Media-SizeS)
   .menu
     &__item
-      margin-left: 0.75rem
+      margin-left: 1rem
     &__link
       width: 2rem
       height: 2rem
@@ -58,7 +58,7 @@ export default {
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
   .menu
     &__item
-      margin-left: 1.125rem
+      margin-left: 1.5rem
     &__link
       width: 3rem
       height: 3rem
@@ -68,7 +68,7 @@ export default {
 @media (min-width: $Media-SizeL)
   .menu
     &__item
-      margin-left: 1.5rem
+      margin-left: 2rem
     &__link
       width: 4rem
       height: 4rem

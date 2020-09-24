@@ -44,8 +44,8 @@ body
 a
   text-decoration: none
 
-button
-  outline: none
+h1, h2, h3
+  +RobotoSerif
 
 li
   list-style-type: none
@@ -55,17 +55,44 @@ li
   +flexColumn()
 
 .panel
-  flex-grow: 3
+  flex-grow: 1
 
 @media (max-width: $Media-SizeS)
-  body
-    font-size: 2rem
+  p
+    font-size: 1rem
+  h1
+    font-size: 1.375rem
+    line-height: 1.375rem * 1.25
+  h2
+    font-size: 1.25rem
+    line-height: 1.25rem * 1.25
+  h3
+    font-size: 1.125rem
+    line-height: 1.125rem * 1.25
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  body
-    font-size: 2.25rem
+  p
+    font-size: 1.125rem
+  h1
+    font-size: 1.5rem
+    line-height: 1.5rem * 1.25
+  h2
+    font-size: 1.375rem
+    line-height: 1.375rem * 1.25
+  h3
+    font-size: 1.25rem
+    line-height: 1.25rem * 1.25
 
 @media (min-width: $Media-SizeL)
-  body
-    font-size: 2.5rem
+  p
+    font-size: 1.25rem
+  h1
+    font-size: 1.625rem
+    line-height: 1.625rem * 1.25
+  h2
+    font-size: 1.5rem
+    line-height: 1.5rem * 1.25
+  h3
+    font-size: 1.375rem
+    line-height: 1.375rem * 1.25
 </style>

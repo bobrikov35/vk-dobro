@@ -1,6 +1,7 @@
 <template>
   <footer class="footer">
     <Line />
+    <div class="footer__space"></div>
     <div class="footer__fixed">
       <nav class="footer__container">
         <Menu />
@@ -24,27 +25,35 @@ export default {
 
 <style scoped lang="sass">
 @import '../../styles/var'
+@import '../../styles/mixin'
 
 .footer
   background-color: $ColorMainBlue
-  &__fixid
+  &__fixed
+    width: 100%
     background-color: $ColorMainBlue
     position: fixed
     bottom: 0
   &__container
     min-width: $Site-MinWidth
     max-width: $Site-MaxWidth
+    +flexCC
     margin: 0 auto
 
 @media (max-width: $Media-SizeS)
-  .footer__container
-    padding: 0.5rem
+  .footer
+    &__space, &__fixed, &__container
+      height: 3rem
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .footer__container
-    padding: 0.75rem
+  .footer
+    height: 4.5rem
+    &__space, &__fixed, &__container
+      height: 4.5rem
 
 @media (min-width: $Media-SizeL)
-  .footer__container
-    padding: 1rem
+  .footer
+    height: 6rem
+    &__space, &__fixed, &__container
+      height: 6rem
 </style>

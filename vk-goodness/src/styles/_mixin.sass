@@ -23,77 +23,57 @@
   display: flex
   justify-content: center
   align-items: center
+=flexLC()
+  display: flex
+  justify-content: flex-start
+  align-items: center
+=flexRC()
+  display: flex
+  justify-content: flex-end
+  align-items: center
 =flexSb()
   display: flex
   justify-content: space-between
-
-// текст
-=textLineHeight($size)
-  line-height: $size
-=textSize($size)
-  font-size: $size
-=textSpace($space)
-  letter-spacing: $space
+=flexSbC()
+  display: flex
+  justify-content: space-between
+  align-items: center
 
 // отступы
-=margin($all)
-  margin: $all
-=marginVertHor($vertical, $horizontal)
-  margin: $vertical $horizontal
-=marginTop($top)
-  margin-top: $top
-=marginRight($right)
-  margin-right: $right
-=marginBottom($bottom)
-  margin-bottom: $bottom
-=marginLeft($left)
-  margin-left: $left
 =marginTopRight($top, $right)
   margin-top: $top
   margin-right: $right
 =marginTopBottom($top, $bottom)
   margin-top: $top
-  padding-bottom: $bottom
+  margin-bottom: $bottom
 =marginTopLeft($top, $left)
   margin-top: $top
-  padding-left: $left
+  margin-left: $left
 =marginRightBottom($right, $bottom)
   margin-right: $right
-  padding-bottom: $bottom
+  margin-bottom: $bottom
 =marginRightLeft($right, $left)
   margin-right: $right
-  padding-left: $left
+  margin-left: $left
 =marginBottomLeft($bottom, $left)
-  padding-bottom: $bottom
-  padding-left: $left
-=marginTopRightBottom($size)
-  margin-top: $size
-  margin-right: $size
-  margin-bottom: $size
-=marginTopRightLeft($size)
-  margin-top: $size
-  margin-right: $size
-  margin-left: $size
-=marginTopBottomLeft($size)
-  margin-top: $size
-  margin-bottom: $size
-  margin-left: $size
-=marginRightBottomLeft($size)
-  margin-right: $size
-  margin-bottom: $size
-  margin-left: $size
-=padding($all)
-  padding: $all
-=paddingVertHor($vertical, $horizontal)
-  padding: $vertical $horizontal
-=paddingTop($top)
-  padding-top: $top
-=paddingRight($right)
-  padding-right: $right
-=paddingBottom($bottom)
-  padding-bottom: $bottom
-=paddingLeft($left)
-  padding-left: $left
+  margin-bottom: $bottom
+  margin-left: $left
+=marginTopRightBottom($top, $right, $bottom)
+  margin-top: $top
+  margin-right: $top
+  margin-bottom: $bottom
+=marginTopRightLeft($top, $right, $left)
+  margin-top: $top
+  margin-right: $right
+  margin-left: $left
+=marginTopBottomLeft($top, $bottom, $left)
+  margin-top: $top
+  margin-bottom: $bottom
+  margin-left: $left
+=marginRightBottomLeft($right, $bottom, $left)
+  margin-right: $right
+  margin-bottom: $bottom
+  margin-left: $left
 =paddingTopRight($top, $right)
   padding-top: $top
   padding-right: $right
@@ -112,46 +92,36 @@
 =paddingBottomLeft($bottom, $left)
   padding-bottom: $bottom
   padding-left: $left
-=paddingTopRightBottom($size)
-  padding-top: $size
-  padding-right: $size
-  padding-bottom: $size
-=paddingTopRightLeft($size)
-  padding-top: $size
-  padding-right: $size
-  padding-left: $size
-=paddingTopBottomLeft($size)
-  padding-top: $size
-  padding-bottom: $size
-  padding-left: $size
-=paddingRightBottomLeft($size)
-  padding-right: $size
-  padding-bottom: $size
-  padding-left: $size
-=posTop($top)
-  top: $top
-=posRight($right)
-  right: $right
-=posBottom($bottom)
-  bottom: $bottom
-=posLeft($left)
-  left: $left
+=paddingTopRightBottom($top, $right, $bottom)
+  padding-top: $top
+  padding-right: $top
+  padding-bottom: $bottom
+=paddingTopRightLeft($top, $right, $left)
+  padding-top: $top
+  padding-right: $right
+  padding-left: $left
+=paddingTopBottomLeft($top, $bottom, $left)
+  padding-top: $top
+  padding-bottom: $bottom
+  padding-left: $left
+=paddingRightBottomLeft($right, $bottom, $left)
+  padding-right: $right
+  padding-bottom: $bottom
+  padding-left: $left
 =posTopRight($top, $right)
   top: $top
   right: $right
-=posTopRight($top, $left)
+=posTopLeft($top, $left)
   top: $top
   left: $left
 =posBottomRight($bottom, $right)
   bottom: $bottom
   right: $right
-=posBottomRight($bottom, $left)
+=posBottomLeft($bottom, $left)
   bottom: $bottom
   left: $left
 
 // границы и заливка
-=radius($radius)
-  border-radius: $radius
 =radiusTop($radius)
   border-top-left-radius: $radius
   border-top-right-radius: $radius

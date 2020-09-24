@@ -1,0 +1,68 @@
+@import 'var'
+@import 'mixin'
+
+.article__item
+  &_text
+    text-align: justify
+  &_quote
+    font-size: 1.25em
+    text-align: center
+    .quote
+      +RobotoSlabSerif
+      +flexSb()
+      &::before
+        +Awesome()
+        content: "\f10d"
+      &::after
+        +Awesome()
+        content: "\f10e"
+  &_image
+    text-align: center
+    & img
+      width: 94%
+
+$BaseArticlePaddingBottom: 8px
+$BaseImageMargin: 8px
+$BaseImageShadow: 3px
+$BaseQuoteMargin: 8px
+
+@media (max-width: $Media-SizeS)
+  .article__item
+    +paddingBottom($BaseArticlePaddingBottom)
+    &_quote .quote
+      &::before
+        +marginRight($BaseQuoteMargin)
+      &::after
+        +marginLeft($BaseQuoteMargin)
+    &_image
+      +marginVertHor($BaseImageMargin, auto)
+      & img
+        border: 1px solid $Border
+        border-radius: 4px
+        +shadow(0, 0, $BaseImageShadow)
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .article__item
+    +paddingBottom($BaseArticlePaddingBottom * 1.5)
+    &_quote .quote
+      &::before
+        +marginRight($BaseQuoteMargin * 1.5)
+      &::after
+        +marginLeft($BaseQuoteMargin * 1.5)
+    &_image
+      +marginVertHor($BaseImageMargin * 1.5, auto)
+      & img
+        +shadow(0, 0, $BaseImageShadow * 1.67)
+
+@media (min-width: $Media-SizeL)
+  .article__item
+    +paddingBottom($BaseArticlePaddingBottom * 2)
+    &_quote .quote
+      &::before
+        +marginRight($BaseQuoteMargin * 2)
+      &::after
+        +marginLeft($BaseQuoteMargin * 2)
+    &_image
+      +marginVertHor($BaseImageMargin * 2, auto)
+      & img
+        +shadow(0, 0, $BaseImageShadow * 2.33)

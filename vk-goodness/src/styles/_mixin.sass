@@ -1,0 +1,174 @@
+@import 'var'
+
+// шрифты
+=Awesome()
+  font-family: FontAwesome
+=RobotoSlabSerif()
+  font-family: Roboto Slab, serif
+=RobotoSerif()
+  font-family: Roboto, serif
+=RobotoSansSerif()
+  font-family: Roboto, sans-serif
+
+// дисплей
+=flexColumn()
+  display: flex
+  flex-direction: column
+=flexColumnCC()
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+=flexCC()
+  display: flex
+  justify-content: center
+  align-items: center
+=flexSb()
+  display: flex
+  justify-content: space-between
+
+// текст
+=textLineHeight($size)
+  line-height: $size
+=textSize($size)
+  font-size: $size
+=textSpace($space)
+  letter-spacing: $space
+
+// отступы
+=margin($all)
+  margin: $all
+=marginVertHor($vertical, $horizontal)
+  margin: $vertical $horizontal
+=marginTop($top)
+  margin-top: $top
+=marginRight($right)
+  margin-right: $right
+=marginBottom($bottom)
+  margin-bottom: $bottom
+=marginLeft($left)
+  margin-left: $left
+=marginTopRight($top, $right)
+  margin-top: $top
+  margin-right: $right
+=marginTopBottom($top, $bottom)
+  margin-top: $top
+  padding-bottom: $bottom
+=marginTopLeft($top, $left)
+  margin-top: $top
+  padding-left: $left
+=marginRightBottom($right, $bottom)
+  margin-right: $right
+  padding-bottom: $bottom
+=marginRightLeft($right, $left)
+  margin-right: $right
+  padding-left: $left
+=marginBottomLeft($bottom, $left)
+  padding-bottom: $bottom
+  padding-left: $left
+=marginTopRightBottom($size)
+  margin-top: $size
+  margin-right: $size
+  margin-bottom: $size
+=marginTopRightLeft($size)
+  margin-top: $size
+  margin-right: $size
+  margin-left: $size
+=marginTopBottomLeft($size)
+  margin-top: $size
+  margin-bottom: $size
+  margin-left: $size
+=marginRightBottomLeft($size)
+  margin-right: $size
+  margin-bottom: $size
+  margin-left: $size
+=padding($all)
+  padding: $all
+=paddingVertHor($vertical, $horizontal)
+  padding: $vertical $horizontal
+=paddingTop($top)
+  padding-top: $top
+=paddingRight($right)
+  padding-right: $right
+=paddingBottom($bottom)
+  padding-bottom: $bottom
+=paddingLeft($left)
+  padding-left: $left
+=paddingTopRight($top, $right)
+  padding-top: $top
+  padding-right: $right
+=paddingTopBottom($top, $bottom)
+  padding-top: $top
+  padding-bottom: $bottom
+=paddingTopLeft($top, $left)
+  padding-top: $top
+  padding-left: $left
+=paddingRightBottom($right, $bottom)
+  padding-right: $right
+  padding-bottom: $bottom
+=paddingRightLeft($right, $left)
+  padding-right: $right
+  padding-left: $left
+=paddingBottomLeft($bottom, $left)
+  padding-bottom: $bottom
+  padding-left: $left
+=paddingTopRightBottom($size)
+  padding-top: $size
+  padding-right: $size
+  padding-bottom: $size
+=paddingTopRightLeft($size)
+  padding-top: $size
+  padding-right: $size
+  padding-left: $size
+=paddingTopBottomLeft($size)
+  padding-top: $size
+  padding-bottom: $size
+  padding-left: $size
+=paddingRightBottomLeft($size)
+  padding-right: $size
+  padding-bottom: $size
+  padding-left: $size
+=posTop($top)
+  top: $top
+=posRight($right)
+  right: $right
+=posBottom($bottom)
+  bottom: $bottom
+=posLeft($left)
+  left: $left
+=posTopRight($top, $right)
+  top: $top
+  right: $right
+=posTopRight($top, $left)
+  top: $top
+  left: $left
+=posBottomRight($bottom, $right)
+  bottom: $bottom
+  right: $right
+=posBottomRight($bottom, $left)
+  bottom: $bottom
+  left: $left
+
+// границы и заливка
+=radius($radius)
+  border-radius: $radius
+=radiusTop($radius)
+  border-top-left-radius: $radius
+  border-top-right-radius: $radius
+=radiusRight($radius)
+  border-top-right-radius: $radius
+  border-bottom-right-radius: $radius
+=radiusBottom($radius)
+  border-bottom-left-radius: $radius
+  border-bottom-right-radius: $radius
+=radiusLeft($radius)
+  border-top-left-radius: $radius
+  border-bottom-left-radius: $radius
+=shadow($x, $y, $deg)
+  box-shadow: $x $y $deg $Shadow
+=shadowContrast($x, $y, $deg)
+  box-shadow: $x $y $deg $ShadowContrast
+=shadowText($x, $y, $deg)
+  text-shadow: $x $y $deg $TextShadow
+=shadowTextContrast($x, $y, $deg)
+  text-shadow: $x $y $deg $TextShadowContrast

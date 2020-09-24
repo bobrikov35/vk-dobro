@@ -3,16 +3,19 @@
     <div class="header__container">
       <Logo />
     </div>
+    <Line />
   </header>
 </template>
 
 <script>
 import Logo from '@/components/header/Logo.vue';
+import Line from '@/components/objects/Line.vue';
 
 export default {
   name: 'Header',
   components: {
     Logo,
+    Line,
   },
 };
 </script>

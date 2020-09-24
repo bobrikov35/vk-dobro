@@ -1,5 +1,6 @@
 <template>
   <footer class="footer">
+    <Line />
     <div class="footer__fixed">
       <nav class="footer__container">
         <Menu />
@@ -10,10 +11,12 @@
 
 <script>
 import Menu from '@/components/footer/Menu.vue';
+import Line from '@/components/objects/Line.vue';
 
 export default {
   name: 'Footer',
   components: {
+    Line,
     Menu,
   },
 };

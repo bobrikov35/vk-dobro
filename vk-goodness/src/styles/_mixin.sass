@@ -19,32 +19,45 @@
   flex-direction: column
   justify-content: center
   align-items: center
-=flexCC()
+=flexJcC()
   display: flex
   justify-content: center
+=flexAiC()
+  display: flex
   align-items: center
+=flexCC()
+  +flexAiC
+  justify-content: center
 =flexLC()
-  display: flex
+  +flexAiC
   justify-content: flex-start
-  align-items: center
 =flexRC()
-  display: flex
+  +flexAiC
   justify-content: flex-end
-  align-items: center
 =flexSa()
   display: flex
   justify-content: space-around
 =flexSaC()
-  display: flex
-  justify-content: space-around
+  +flexSa
   align-items: center
+=flexSaWrap()
+  +flexSa
+  flex-wrap: wrap
+=flexSaCWrap()
+  +flexSaC
+  flex-wrap: wrap
 =flexSb()
   display: flex
   justify-content: space-between
 =flexSbC()
-  display: flex
-  justify-content: space-between
+  +flexSb
   align-items: center
+=flexSbWrap()
+  +flexSb
+  flex-wrap: wrap
+=flexSbCWrap()
+  +flexSbC
+  flex-wrap: wrap
 
 // отступы
 =marginTopRight($top, $right)

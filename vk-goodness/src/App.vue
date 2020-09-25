@@ -46,6 +46,7 @@ a
 
 h1, h2, h3
   +RobotoSerif
+  font-weight: bold
 
 li
   list-style-type: none

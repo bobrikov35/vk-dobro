@@ -90,7 +90,7 @@ export default {
     text-shadow: none
     text-align: center
     background-color: $UrgentColor
-    +borderRightBottomLeft(1px, $Border)
+    +borderBottomLeft(1px, $Border)
     position: absolute
     +posTopRight(0, 0)
     padding-left: 0.125rem
@@ -152,8 +152,8 @@ export default {
     &__control, &__button, &__progressbar
       bottom: 0.75rem
     &__button
-      margin-bottom: 0.5rem
       letter-spacing: 0.19rem
+      margin-bottom: 0.5rem
 
 @media (min-width: $Media-SizeL)
   .projects-card
@@ -177,6 +177,6 @@ export default {
     &__control, &__button, &__progressbar
       bottom: 1rem
     &__button
-      margin-bottom: 0.625rem
       letter-spacing: 0.25rem
+      margin-bottom: 0.625rem
 </style>

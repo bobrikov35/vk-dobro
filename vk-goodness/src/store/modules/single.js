@@ -22,13 +22,13 @@ const single = {
     },
   },
   actions: {
-    fetchProjects({ commit }, name) {
+    fetchProject({ commit }, name) {
       commit('RESET');
       fetch(`${ApiUrls.single}/${name}`)
         .then((response) => response.json())
         .then((data) => {
-          commit('SET_PROJECT', data);
           commit('SET_RESULT', true);
+          commit('SET_PROJECT', data);
         })
         .catch(() => {
           commit('SET_RESULT', false);

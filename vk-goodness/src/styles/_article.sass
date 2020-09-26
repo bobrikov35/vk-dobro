@@ -2,6 +2,8 @@
 @import 'mixin'
 
 .article__item
+  & p
+    line-height: 1.33em
   &_text
     text-align: justify
   &_quote
@@ -17,52 +19,48 @@
         +Awesome()
         content: "\f10e"
   &_image
-    text-align: center
+    width: 92%
     & img
-      width: 94%
-
-$BaseArticlePaddingBottom: 8px
-$BaseImageMargin: 8px
-$BaseImageShadow: 3px
-$BaseQuoteMargin: 8px
+      max-width: 100%
 
 @media (max-width: $Media-SizeS)
   .article__item
-    +paddingBottom($BaseArticlePaddingBottom)
+    margin-top: 0.5rem
     &_quote .quote
       &::before
-        +marginRight($BaseQuoteMargin)
+        margin-right: 0.5rem
       &::after
-        +marginLeft($BaseQuoteMargin)
+        margin-left: 0.5rem
     &_image
-      +marginVertHor($BaseImageMargin, auto)
+      margin: 0.75rem auto
       & img
-        border: 1px solid $Border
         border-radius: 4px
-        +shadow(0, 0, $BaseImageShadow)
+        +shadow(0, 0, 3px)
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
   .article__item
-    +paddingBottom($BaseArticlePaddingBottom * 1.5)
+    margin-top: 0.75rem
     &_quote .quote
       &::before
-        +marginRight($BaseQuoteMargin * 1.5)
+        margin-right: 0.75rem
       &::after
-        +marginLeft($BaseQuoteMargin * 1.5)
+        margin-left: 0.75rem
     &_image
-      +marginVertHor($BaseImageMargin * 1.5, auto)
+      margin: 1rem auto
       & img
-        +shadow(0, 0, $BaseImageShadow * 1.67)
+        border-radius: 6px
+        +shadow(0, 0, 5px)
 
 @media (min-width: $Media-SizeL)
   .article__item
-    +paddingBottom($BaseArticlePaddingBottom * 2)
+    margin-top: 1rem
     &_quote .quote
       &::before
-        +marginRight($BaseQuoteMargin * 2)
+        margin-right: 1rem
       &::after
-        +marginLeft($BaseQuoteMargin * 2)
+        margin-left: 1rem
     &_image
-      +marginVertHor($BaseImageMargin * 2, auto)
+      margin: 1.25rem auto
       & img
-        +shadow(0, 0, $BaseImageShadow * 2.33)
+        border-radius: 8px
+        +shadow(0, 0, 7px)

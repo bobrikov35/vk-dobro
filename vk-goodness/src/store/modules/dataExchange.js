@@ -41,8 +41,8 @@ const dataExchange = {
     SET_IS_LOADING(state, { name, value }) {
       state[name].isLoading = value;
     },
-    SET_LIST(state, data) {
-      state[data.name].list = data;
+    SET_LIST(state, { name, list }) {
+      state[name].list = [...AppCities.concat(list)];
     },
   },
   actions: {
@@ -56,7 +56,6 @@ const dataExchange = {
           commit('SET_BRIDGE_RESULT', true);
         })
         .catch((error) => {
-          console.log('server');
           console.log(error);
           commit('SET_BRIDGE_ERROR', error);
           commit('SET_BRIDGE_RESULT', false);
@@ -72,7 +71,6 @@ const dataExchange = {
           commit('SET_BRIDGE_RESULT', true);
         })
         .catch((error) => {
-          console.log('server');
           console.log(error);
           commit('SET_BRIDGE_ERROR', error);
           commit('SET_BRIDGE_RESULT', false);
@@ -83,7 +81,16 @@ const dataExchange = {
       fetch(ApiUrls[listName])
         .then((response) => response.json())
         .then((data) => {
-          commit('SET_LIST}', data);
+          switch (listName) {
+            case 'cities':
+              commit('SET_LIST', { name: listName, list: data.cities });
+              break;
+            case 'stats':
+              commit('SET_LIST', { name: listName, list: data.stats });
+              break;
+            default:
+              commit('SET_LIST', { name: listName, list: data });
+          }
           commit('SET_IS_LOADING', { name: listName, value: true });
         })
         .catch(() => {
@@ -101,7 +108,6 @@ const dataExchange = {
           });
         })
         .catch((error) => {
-          console.log('bridge');
           console.log(error);
           commit('SET_BRIDGE_ERROR', error);
           commit('SET_BRIDGE_RESULT', false);
@@ -128,7 +134,6 @@ const dataExchange = {
           commit('SET_BRIDGE_RESULT', true);
         })
         .catch((error) => {
-          console.log('bridge');
           console.log(error);
           commit('SET_BRIDGE_ERROR', error);
           commit('SET_BRIDGE_RESULT', false);
@@ -156,13 +161,12 @@ const dataExchange = {
     },
   },
   getters: {
-    isLoading: (state, name) => state[name].isLoading,
-    getList: (state, name) => {
-      if (state[name].isLoading) {
-        return [];
-      }
-      return state[name].list;
-    },
+    isLoadingCategories: (state) => state.categories.isLoading,
+    getCategories: (state) => state.categories.list,
+    isLoadingCities: (state) => state.cities.isLoading,
+    getCities: (state) => state.cities.list,
+    isLoadingStats: (state) => state.stats.isLoading,
+    getStats: (state) => state.stats.list,
   },
 };
 

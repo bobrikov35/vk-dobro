@@ -1,10 +1,10 @@
-import { ApiUrls, AppCategories, AppCities } from '@/config';
+import { ApiUrls } from '@/config';
 
 const projects = {
   namespaced: true,
   state: {
-    category: AppCategories[0],
-    city: AppCities,
+    categoryIndex: 0,
+    cityIndex: 0,
     projects: {
       page: 1,
       pages: 1,
@@ -27,11 +27,11 @@ const projects = {
       state.response = true;
       state.result = result;
     },
-    SET_CATEGORY(state, categoryObject) {
-      state.category = categoryObject;
+    SET_CATEGORY_INDEX(state, index) {
+      state.categoryIndex = index;
     },
-    SET_CITY(state, cityObject) {
-      state.city = cityObject;
+    SET_CITY_INDEX(state, index) {
+      state.cityIndex = index;
     },
     SET_PROJECTS(state, data) {
       state.projects = {
@@ -42,32 +42,31 @@ const projects = {
     },
   },
   actions: {
-    fetchProjects({ state, commit }, page) {
+    fetchProjects({ commit }, { category, city, page }) {
       commit('RESET');
-      const category = state.category.name;
-      const city = state.city.name;
       fetch(`${ApiUrls.projects}/?recipient=${category}&city=${city}&page=${page}`)
         .then((response) => response.json())
         .then((data) => {
-          commit('SET_PROJECTS', data);
           commit('SET_RESULT', true);
+          commit('SET_PROJECTS', data);
         })
         .catch(() => {
           commit('SET_RESULT', false);
         });
     },
-    setCategory({ commit }, categoryObject) {
-      commit('SET_CATEGORY', categoryObject);
+    setCategoryIndex({ commit }, index) {
+      commit('SET_CATEGORY_INDEX', index);
     },
-    setCity({ commit }, cityObject) {
-      commit('SET_CITY', cityObject);
+    setCityIndex({ state, commit }, index) {
+      commit('SET_CITY_INDEX', index);
+      console.log(state.cityIndex);
     },
   },
   getters: {
     isResponse: (state) => state.response,
     isResult: (state) => state.result,
-    getCategory: (state) => state.category,
-    getCity: (state) => state.city,
+    getCategoryIndex: (state) => state.categoryIndex,
+    getCityIndex: (state) => state.cityIndex,
     getProjects: (state) => state.projects.list,
     getProjectsPage: (state) => state.projects.page,
     getProjectsPages: (state) => state.projects.pages,

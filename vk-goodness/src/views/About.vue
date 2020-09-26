@@ -29,5 +29,5 @@ export default {
 
 .about
   min-height: 100%
-  background-color: $ColorWhite
+  background-color: $Background
 </style>

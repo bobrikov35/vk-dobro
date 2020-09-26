@@ -12,12 +12,12 @@ const ApiUrls = {
 };
 
 const AppCategories = [
-  { id: 1, name: 'all', title: 'Всем' },
-  { id: 2, name: 'kids', title: 'Детям' },
-  { id: 3, name: 'adults', title: 'Взрослым' },
-  { id: 4, name: 'elderly', title: 'Пожилым' },
-  { id: 5, name: 'animals', title: 'Животным' },
-  { id: 6, name: 'nature', title: 'Природе' },
+  { id: 0, name: 'all', title: 'Всем' },
+  { id: 1, name: 'kids', title: 'Детям' },
+  { id: 2, name: 'adults', title: 'Взрослым' },
+  { id: 3, name: 'elderly', title: 'Пожилым' },
+  { id: 4, name: 'animals', title: 'Животным' },
+  { id: 5, name: 'nature', title: 'Природе' },
 ];
 
 const AppCities = [

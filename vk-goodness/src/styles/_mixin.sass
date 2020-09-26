@@ -142,6 +142,33 @@
   left: $left
 
 // границы и заливка
+=borderTopRight($width, $color)
+  border-top: $width solid $color
+  border-right: $width solid $color
+=borderTopBottom($width, $color)
+  border-top: $width solid $color
+  border-bottom: $width solid $color
+=borderTopLeft($width, $color)
+  border-top: $width solid $color
+  border-left: $width solid $color
+=borderRightBottom($width, $color)
+  border-right: $width solid $color
+  border-bottom: $width solid $color
+=borderRightLeft($width, $color)
+  border-right: $width solid $color
+  border-left: $width solid $color
+=borderBottomLeft($width, $color)
+  border-bottom: $width solid $color
+  border-left: $width solid $color
+=borderTopRightBottom($width, $color)
+  +borderTopRight($width, $color)
+  border-bottom: $width solid $color
+=borderTopRightLeft($width, $color)
+  +borderTopRight($width, $color)
+  border-left: $width solid $color
+=borderRightBottomLeft($width, $color)
+  +borderRightBottom($width, $color)
+  border-left: $width solid $color
 =radiusTop($radius)
   border-top-left-radius: $radius
   border-top-right-radius: $radius
@@ -153,6 +180,12 @@
   border-bottom-right-radius: $radius
 =radiusLeft($radius)
   border-top-left-radius: $radius
+  border-bottom-left-radius: $radius
+=radiusLeftRight($radius)
+  border-top-left-radius: $radius
+  border-bottom-right-radius: $radius
+=radiusRightLeft($radius)
+  border-top-right-radius: $radius
   border-bottom-left-radius: $radius
 =shadow($x, $y, $deg)
   box-shadow: $x $y $deg $Shadow

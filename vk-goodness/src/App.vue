@@ -45,22 +45,25 @@ a
   text-decoration: none
 
 h1, h2, h3
-  +RobotoSerif
+  +RobotoSlabSerif
   font-weight: bold
 
 li
   list-style-type: none
 
 .main
-  height: 100vh
+  min-height: 100vh
   +flexColumn()
 
 .panel
-  flex-grow: 1
+  +flexColumn()
+  flex-grow: 3
 
 @media (max-width: $Media-SizeS)
   p
     font-size: 1rem
+  button, li
+    font-size: 1.125rem
   h1
     font-size: 1.375rem
     line-height: 1.375rem * 1.25
@@ -74,6 +77,8 @@ li
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
   p
     font-size: 1.125rem
+  button, li
+    font-size: 1.25rem
   h1
     font-size: 1.5rem
     line-height: 1.5rem * 1.25
@@ -87,6 +92,8 @@ li
 @media (min-width: $Media-SizeL)
   p
     font-size: 1.25rem
+  button, li
+    font-size: 1.375rem
   h1
     font-size: 1.625rem
     line-height: 1.625rem * 1.25

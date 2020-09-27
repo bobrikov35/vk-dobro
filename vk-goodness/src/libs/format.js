@@ -1,5 +1,11 @@
 class Format {
-  static numberFinance = (numb) => {
+  /**
+   * Конвертирует число в строку с маской '### [### ...] ₽'
+   * @param numb
+   * @param currency
+   * @returns { string }
+   */
+  static numberFinance = (numb, currency = '₽') => {
     const list = String(numb).split('');
     const result = [];
     if (list.length % 3 > 0) {
@@ -8,7 +14,7 @@ class Format {
     while (list.length > 0) {
       result.push(...list.splice(0, 3), ' ');
     }
-    result.push('₽');
+    result.push(currency);
     return result.join('');
   };
 }

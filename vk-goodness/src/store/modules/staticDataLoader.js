@@ -34,7 +34,7 @@ const staticDataLoader = {
     },
     SET_ERROR(state, { name, error }) {
       state[name].response = true;
-      state[name].result = true;
+      state[name].result = false;
       state.error = error;
     },
   },

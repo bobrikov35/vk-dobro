@@ -73,8 +73,8 @@ export default {
     ...mapGetters({
       isResponse: 'staticDataLoader/isResponseCategories',
       isResult: 'staticDataLoader/isResultCategories',
-      categories: 'staticDataLoader/categories',
-      cities: 'staticDataLoader/cities',
+      categories: 'staticDataLoader/getCategories',
+      cities: 'staticDataLoader/getCities',
       categoryIndex: 'projects/getCategoryIndex',
       cityIndex: 'projects/getCityIndex',
     }),

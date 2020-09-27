@@ -3,22 +3,27 @@ import { ApiUrls } from '@/config';
 const single = {
   namespaced: true,
   state: {
-    project: null,
     response: false,
     result: false,
+    project: null,
+    error: null,
   },
   mutations: {
     RESET(state) {
-      state.project = null;
       state.response = false;
       state.result = false;
-    },
-    SET_RESULT(state, result) {
-      state.response = true;
-      state.result = result;
+      state.project = null;
+      state.error = null;
     },
     SET_PROJECT(state, data) {
+      state.response = true;
+      state.result = typeof data === 'object';
       state.project = data;
+    },
+    SET_ERROR(state, error) {
+      state.response = true;
+      state.result = false;
+      state.error = error;
     },
   },
   actions: {
@@ -26,13 +31,8 @@ const single = {
       commit('RESET');
       fetch(`${ApiUrls.single}/${name}`)
         .then((response) => response.json())
-        .then((data) => {
-          commit('SET_RESULT', true);
-          commit('SET_PROJECT', data);
-        })
-        .catch(() => {
-          commit('SET_RESULT', false);
-        });
+        .then((resData) => commit('SET_PROJECT', resData))
+        .catch((error) => commit('SET_ERROR', error));
     },
   },
   getters: {

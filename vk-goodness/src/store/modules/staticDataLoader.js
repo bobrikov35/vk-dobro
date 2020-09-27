@@ -1,5 +1,21 @@
 import { ApiUrls, AppCategories, AppCities } from '@/config';
 
+const fetchData = ({ commit }, name, data = null) => {
+  commit('RESET', { name, data });
+  fetch(ApiUrls[name])
+    .then((response) => response.json())
+    .then((resData) => {
+      if (name === 'cities') {
+        commit('SET_DATA', { name, data: AppCities.concat(resData.cities) });
+      } else if (name === 'stats') {
+        commit('SET_DATA', { name, data: resData.stats });
+      } else {
+        commit('SET_DATA', { name, data: resData });
+      }
+    })
+    .catch((error) => commit('SET_ERROR', { name, error }));
+};
+
 const staticDataLoader = {
   namespaced: true,
   state: {
@@ -39,44 +55,26 @@ const staticDataLoader = {
     },
   },
   actions: {
-    fetchData({ commit }, { name, data }) {
-      commit('RESET', { name, data });
-      fetch(ApiUrls[name])
-        .then((response) => response.json())
-        .then((resData) => {
-          switch (name) {
-            case 'cities':
-              commit('SET_DATA', { name, data: resData.cities });
-              break;
-            case 'stats':
-              commit('SET_DATA', { name, data: resData.stats });
-              break;
-            default:
-              commit('SET_DATA', { name, data: resData });
-          }
-        })
-        .catch((error) => commit('SET_ERROR', { name, error }));
+    fetchCities({ commit }) {
+      fetchData({ commit }, 'cities', AppCities);
     },
-    getCities({ commit }) {
-      this.fetchData({ commit }, { name: 'cities', data: AppCities });
-    },
-    getStats({ commit }) {
-      this.fetchData({ commit }, { name: 'stats' });
+    fetchStats({ commit }) {
+      fetchData({ commit }, 'stats');
     },
   },
   getters: {
     // Categories
     isResponseCategories: (state) => state.categories.response,
     isResultCategories: (state) => state.categories.result,
-    categories: (state) => state.categories,
+    getCategories: (state) => state.categories,
     // Cities
     isResponseCities: (state) => state.cities.response,
     isResultCities: (state) => state.cities.result,
-    cities: (state) => state.cities.data,
+    getCities: (state) => state.cities.data,
     // Stats
     isResponseStats: (state) => state.stats.response,
     isResultStats: (state) => state.stats.result,
-    stats: (state) => state.stats.data,
+    getStats: (state) => state.stats.data,
   },
 };
 

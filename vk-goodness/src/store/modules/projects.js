@@ -5,27 +5,39 @@ const projects = {
   state: {
     categoryIndex: 0,
     cityIndex: 0,
+    response: false,
+    result: false,
     projects: {
       page: 1,
       pages: 1,
       list: [],
     },
-    response: false,
-    result: false,
+    error: null,
   },
   mutations: {
     RESET(state) {
-      state.projects = {
+      state.response = false;
+      state.result = false;
+      state.project = {
         page: 1,
         pages: 1,
         list: [],
       };
-      state.response = false;
-      state.result = false;
+      state.error = null;
     },
-    SET_RESULT(state, result) {
+    SET_PROJECT(state, data) {
       state.response = true;
-      state.result = result;
+      state.result = typeof data === 'object';
+      state.projects = {
+        page: data.page,
+        pages: data.pages,
+        list: data.projects,
+      };
+    },
+    SET_ERROR(state, error) {
+      state.response = true;
+      state.result = false;
+      state.error = error;
     },
     SET_CATEGORY_INDEX(state, index) {
       state.categoryIndex = index;
@@ -33,33 +45,20 @@ const projects = {
     SET_CITY_INDEX(state, index) {
       state.cityIndex = index;
     },
-    SET_PROJECTS(state, data) {
-      state.projects = {
-        page: data.page,
-        pages: data.pages,
-        list: data.projects,
-      };
-    },
   },
   actions: {
     fetchProjects({ commit }, { category, city, page }) {
       commit('RESET');
       fetch(`${ApiUrls.projects}/?recipient=${category}&city=${city}&page=${page}`)
         .then((response) => response.json())
-        .then((data) => {
-          commit('SET_RESULT', true);
-          commit('SET_PROJECTS', data);
-        })
-        .catch(() => {
-          commit('SET_RESULT', false);
-        });
+        .then((resData) => commit('SET_PROJECT', resData))
+        .catch((error) => commit('SET_ERROR', error));
     },
     setCategoryIndex({ commit }, index) {
       commit('SET_CATEGORY_INDEX', index);
     },
-    setCityIndex({ state, commit }, index) {
+    setCityIndex({ commit }, index) {
       commit('SET_CITY_INDEX', index);
-      console.log(state.cityIndex);
     },
   },
   getters: {

@@ -1,6 +1,8 @@
 <template>
   <div class="projects">
-    <h2 class="projects__title">Я хочу помочь</h2>
+    <div class="projects__title">
+      <h2>Я хочу помочь</h2>
+    </div>
     <SelectCategory />
     <SelectCity />
     <Line />
@@ -38,8 +40,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      categories: 'staticDataLoader/categories',
-      cities: 'staticDataLoader/cities',
+      categories: 'staticDataLoader/getCategories',
+      cities: 'staticDataLoader/getCities',
       isResponse: 'projects/isResponse',
       isResult: 'projects/isResult',
       categoryIndex: 'projects/getCategoryIndex',
@@ -50,10 +52,11 @@ export default {
     }),
   },
   mounted() {
-    const category = this.categories[this.categoryIndex].name;
-    const city = this.cities[this.cityIndex].name;
-    const page = 1;
-    this.fetchProjects({ category, city, page });
+    this.fetchProjects({
+      category: this.categories[this.categoryIndex].name,
+      city: this.cities[this.cityIndex].name,
+      page: 1,
+    });
   },
 };
 </script>
@@ -66,9 +69,11 @@ export default {
   +flexColumn
   flex-grow: 1
   background-color: $Background
-  &__title, &__loading, &__error
+  &__caption, &__loading, &__error
     max-width: $Site-MaxWidth
     margin: 0 auto
+  &__title
+    display: flex
   &__loading, &__error, &__content
     flex-grow: 1
   &__loading, &__error

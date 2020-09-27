@@ -13,7 +13,7 @@
       <router-link class="menu__link" to="/"><i class="fa fa-user"></i></router-link>
     </li>
     <li class="menu__item">
-      <router-link class="menu__link" to="/"><i class="fa fa-users"></i></router-link>
+      <router-link class="menu__link" to="/test"><i class="fa fa-users"></i></router-link>
     </li>
   </ul>
 </template>

@@ -71,9 +71,10 @@ export default {
       return this.categories[this.categoryIndex];
     },
     ...mapGetters({
-      isLoadingCategories: 'dataExchange/isLoadingCategories',
-      categories: 'dataExchange/getCategories',
-      cities: 'dataExchange/getCities',
+      isResponse: 'staticDataLoader/isResponseCategories',
+      isResult: 'staticDataLoader/isResultCategories',
+      categories: 'staticDataLoader/categories',
+      cities: 'staticDataLoader/cities',
       categoryIndex: 'projects/getCategoryIndex',
       cityIndex: 'projects/getCityIndex',
     }),

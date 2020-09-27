@@ -1,9 +1,9 @@
 <template>
   <div class="single">
-    <div v-if="!isResponse" class="projects__loading">
+    <div v-if="!isResponse" class="single__loading">
       <i class="fa fa-spinner fa-pulse"></i>
     </div>
-    <div v-else-if="isResponse && !isResult" class="projects__error">
+    <div v-else-if="isResponse && !isResult" class="single__error">
       <h2>Что-то пошло не так</h2>
     </div>
     <div v-else class="single__content">
@@ -87,6 +87,8 @@ export default {
     margin: 0 auto
   &__loading, &__error, &__content
     flex-grow: 1
+  &__loading, &__error
+    +flexCC()
   &__content
     background-color: $BackgroundSecondary
   &__header
@@ -105,6 +107,8 @@ export default {
 
 @media (max-width: $Media-SizeS)
   .single
+    &__loading
+      font-size: 3rem
     &__title
       padding: 0.5rem 2% 0.75rem
     &__control
@@ -118,6 +122,8 @@ export default {
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
   .single
+    &__loading
+      font-size: 3.5rem
     &__title
       padding: 0.625rem 4% 0.94rem
     &__control
@@ -131,6 +137,8 @@ export default {
 
 @media (min-width: $Media-SizeL)
   .single
+    &__loading
+      font-size: 4rem
     &__title
       padding: 0.75rem 6% 1.125rem
     &__control

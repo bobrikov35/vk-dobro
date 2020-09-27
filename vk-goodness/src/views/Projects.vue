@@ -38,8 +38,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      categories: 'dataExchange/getCategories',
-      cities: 'dataExchange/getCities',
+      categories: 'staticDataLoader/categories',
+      cities: 'staticDataLoader/cities',
       isResponse: 'projects/isResponse',
       isResult: 'projects/isResult',
       categoryIndex: 'projects/getCategoryIndex',
@@ -50,11 +50,10 @@ export default {
     }),
   },
   mounted() {
-    this.fetchProjects({
-      category: this.categories[this.categoryIndex].name,
-      city: this.cities[this.cityIndex].name,
-      page: 1,
-    });
+    const category = this.categories[this.categoryIndex].name;
+    const city = this.cities[this.cityIndex].name;
+    const page = 1;
+    this.fetchProjects({ category, city, page });
   },
 };
 </script>

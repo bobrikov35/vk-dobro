@@ -24,16 +24,35 @@ const AppCities = [
   { id: 0, name: 'any', title: 'В любом городе' },
 ];
 
+const AppDonatesTabs = [
+  { id: 1, value: 5 },
+  { id: 2, value: 10 },
+  { id: 3, value: 25 },
+  { id: 4, value: 50 },
+  { id: 5, value: 100 },
+  { id: 6, value: 250 },
+  { id: 7, value: 500 },
+  { id: 8, value: 1000 },
+  { id: 9, value: 2500 },
+  { id: 10, value: 5000 },
+];
+
 const startParams = new URLSearchParams(window.location.search);
 const entriesParams = startParams.entries();
-const vkParams = {
-  start: startParams,
-  allObject: Object.fromEntries(entriesParams),
+const vkMiniApp = {
+  id: 7585697,
+  secureKey: 'y2pep1CF81uBWcGLg6Qq',
+  serviceAccessKey: 'e4b2c379e4b2c379e4b2c37969e4c17cd8ee4b2e4b2c379bbe566d568a29921a0ca4653',
+  params: {
+    start: startParams,
+    allObject: Object.fromEntries(entriesParams),
+  },
 };
 
 export {
   ApiUrls,
   AppCategories,
   AppCities,
-  vkParams,
+  AppDonatesTabs,
+  vkMiniApp,
 };

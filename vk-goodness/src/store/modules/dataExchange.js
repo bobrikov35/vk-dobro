@@ -1,22 +1,20 @@
 import { axios, bridge } from '@/plugins';
 import {
   ApiUrls,
-  AppCategories,
-  AppCities,
-  vkParams,
+  vkMiniApp,
 } from '@/config';
 
 const dataExchange = {
   namespaced: true,
   state: {
-    categories: { list: AppCategories, isLoading: false },
-    cities: { list: AppCities, isLoading: false },
-    stats: { list: [], isLoading: false },
     bridge: {
       response: false,
       result: false,
       data: null,
       error: null,
+    },
+    vk: {
+      accessToken: null,
     },
   },
   mutations: {
@@ -38,44 +36,39 @@ const dataExchange = {
       state.bridge.response = true;
       state.bridge.result = result;
     },
-    SET_IS_LOADING(state, { name, value }) {
-      state[name].isLoading = value;
-    },
-    SET_LIST(state, { name, list }) {
-      state[name].list = [...AppCities.concat(list)];
+    SET_ACCESS_TOKEN(state, accessToken) {
+      if (state.bridge.result) {
+        state.vk.accessToken = accessToken;
+      }
     },
   },
   actions: {
+    // S E R V I C E
+    setBridgeData(commit, data) {
+      console.log(data);
+      commit('SET_BRIDGE_RESULT', true);
+      commit('SET_BRIDGE_DATA', data);
+    },
+    setBridgeError(commit, error) {
+      console.log(error);
+      commit('SET_BRIDGE_ERROR', error);
+      commit('SET_BRIDGE_RESULT', false);
+    },
     sendGet({ commit }, url) {
       axios.get(url, {
-        params: vkParams.start,
+        params: vkMiniApp.params.start,
       })
-        .then((response) => {
-          console.log(response.data);
-          commit('SET_BRIDGE_DATA', response.data);
-          commit('SET_BRIDGE_RESULT', true);
-        })
-        .catch((error) => {
-          console.log(error);
-          commit('SET_BRIDGE_ERROR', error);
-          commit('SET_BRIDGE_RESULT', false);
-        });
+        .then((response) => this.setBridgeData(commit, response.data))
+        .catch((error) => this.setBridgeError(commit, error));
     },
     sendPost({ commit }, url, data) {
       axios.post(url, data, {
-        params: vkParams.start,
+        params: vkMiniApp.params.start,
       })
-        .then((response) => {
-          console.log(response.data);
-          commit('SET_BRIDGE_DATA', response.data);
-          commit('SET_BRIDGE_RESULT', true);
-        })
-        .catch((error) => {
-          console.log(error);
-          commit('SET_BRIDGE_ERROR', error);
-          commit('SET_BRIDGE_RESULT', false);
-        });
+        .then((response) => this.setBridgeData(commit, response.data))
+        .catch((error) => this.setBridgeError(commit, error));
     },
+    // F E T C H   D A T A
     fetchData({ commit }, listName) {
       commit('SET_IS_LOADING', { name: listName, value: false });
       fetch(ApiUrls[listName])
@@ -93,52 +86,87 @@ const dataExchange = {
           }
           commit('SET_IS_LOADING', { name: listName, value: true });
         })
-        .catch(() => {
-          commit('SET_IS_LOADING', { name: listName, value: true });
-        });
+        .catch(() => commit('SET_IS_LOADING', { name: listName, value: true }));
+    },
+    // G E T T E R S
+    getAchievementsById({ commit }) {
+      commit('RESET_BRIDGE');
+      this.sendGet({ commit }, ApiUrls.donates);
+    },
+    getDonationById({ commit }) {
+      commit('RESET_BRIDGE');
+      this.sendGet({ commit }, ApiUrls.donates);
+    },
+    // B R I D G E:   G E T T E R S
+    getAccessToken({ commit }) {
+      commit('RESET_BRIDGE');
+      bridge.send('VKWebAppGetAuthToken', {
+        app_id: vkMiniApp.id,
+        scope: 'notifications',
+      })
+        .then((data) => {
+          this.setBridgeData(commit, data);
+          console.log(data.access_token);
+          commit('SET_ACCESS_TOKEN', data.access_token);
+        })
+        .catch((error) => this.setBridgeError(commit, error));
+    },
+    // B R I D G E:   A C T I O N S
+    invite({ commit }) {
+      commit('RESET_BRIDGE');
+      bridge.send('VKWebAppGetFriends', {
+        multi: true,
+      })
+        .then((friends) => {
+          bridge.send('VKWebAppCallAPIMethod', {
+            method: 'notifications.sendMessage',
+            params: {
+              user_ids: friends.users[0].id,
+              message: 'test',
+              fragment: '',
+              random_id: '1234567',
+              v: '5.1234',
+              access_token: 'e4b2c379e4b2c379e4b2c37969e4c17cd8ee4b2e4b2c379bbe566d568a29921a0ca4653',
+            },
+          })
+            .then((data) => this.setBridgeData(commit, data))
+            .catch((error) => this.setBridgeError(commit, error));
+        })
+        .catch((error) => this.setBridgeError(commit, error));
+    },
+    makePayment({ commit }, data) {
+      commit('RESET_BRIDGE');
+      this.sendPost({ commit }, ApiUrls.donates, {
+        vk_user_id: vkMiniApp.params.allObject.vk_user_id,
+        project_id: data.projectId,
+        amount: data.amount,
+      });
     },
     shareOnWall({ commit }, massage = '') {
       commit('RESET_BRIDGE');
       bridge.send('VKWebAppShowWallPostBox', {
         message: massage,
       })
-        .then((result) => {
+        .then((data) => {
           this.sendPost({ commit }, ApiUrls.wall, {
-            post_id: result.post_id,
+            post_id: data.post_id,
           });
         })
-        .catch((error) => {
-          console.log(error);
-          commit('SET_BRIDGE_ERROR', error);
-          commit('SET_BRIDGE_RESULT', false);
-        });
+        .catch((error) => this.setBridgeError(commit, error));
     },
-    makePayment({ commit }, data) {
-      commit('RESET_BRIDGE');
-      this.sendPost({ commit }, ApiUrls.donates, {
-        vk_user_id: vkParams.allObject.vk_user_id,
-        project_id: data.project_id,
-        amount: data.amount,
-      });
-    },
-    shareStory({ commit }, data) {
+    shareStory({ commit }, { imageLink, requestId }) {
       commit('RESET_BRIDGE');
       bridge.send('VKWebAppShowStoryBox', {
         background_type: 'image',
-        url: data.image_link,
-        request_id: data.request_id,
+        url: imageLink,
+        request_id: requestId,
       })
-        .then((result) => {
-          console.log({ result });
-          commit('SET_BRIDGE_DATA', { result });
-          commit('SET_BRIDGE_RESULT', true);
-        })
-        .catch((error) => {
-          console.log(error);
-          commit('SET_BRIDGE_ERROR', error);
-          commit('SET_BRIDGE_RESULT', false);
-        });
+        .then((data) => this.setBridgeData(commit, data))
+        .catch((error) => this.setBridgeError(commit, error));
     },
+    //
+    //
+    //
     subscribe({ commit }) {
       commit('RESET_BRIDGE');
       bridge.subscribe((event) => {
@@ -151,22 +179,9 @@ const dataExchange = {
         }
       });
     },
-    getAchievementsById({ commit }) {
-      commit('RESET_BRIDGE');
-      this.sendGet({ commit }, ApiUrls.donates);
-    },
-    getDonationById({ commit }) {
-      commit('RESET_BRIDGE');
-      this.sendGet({ commit }, ApiUrls.donates);
-    },
   },
   getters: {
-    isLoadingCategories: (state) => state.categories.isLoading,
-    getCategories: (state) => state.categories.list,
-    isLoadingCities: (state) => state.cities.isLoading,
-    getCities: (state) => state.cities.list,
-    isLoadingStats: (state) => state.stats.isLoading,
-    getStats: (state) => state.stats.list,
+    getAccessToken: (state) => state.vk.accessToken,
   },
 };
 

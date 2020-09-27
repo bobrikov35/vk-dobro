@@ -58,11 +58,12 @@ export default {
       return this.cities[this.cityIndex];
     },
     ...mapGetters({
-      isLoadingCities: 'dataExchange/isLoadingCities',
-      categories: 'dataExchange/getCategories',
-      cities: 'dataExchange/getCities',
-      categoryIndex: 'projects/getCategoryIndex',
+      isResponse: 'staticDataLoader/isResponseCities',
+      isResult: 'staticDataLoader/isResultCities',
+      cities: 'staticDataLoader/cities',
+      categories: 'staticDataLoader/categories',
       cityIndex: 'projects/getCityIndex',
+      categoryIndex: 'projects/getCategoryIndex',
     }),
   },
   mounted() {

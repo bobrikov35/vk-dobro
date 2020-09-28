@@ -34,6 +34,12 @@ const routes = [
     props: true,
     component: () => import('../views/Dobrothon.vue'),
   },
+  {
+    path: '/test',
+    name: 'Test',
+    props: true,
+    component: () => import('../views/_Test.vue'),
+  },
 ];
 
 const router = createRouter({

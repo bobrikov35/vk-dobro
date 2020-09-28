@@ -57,7 +57,6 @@ export default {
     ...mapActions({
       fetchProject: 'single/fetchProject',
       shareOnWall: 'dataExchange/shareOnWall',
-      makePayment: 'dataExchange/makePayment',
       getDonation: 'dataExchange/getDonationById',
     }),
   },

@@ -79,6 +79,10 @@ const dataExchange = {
       commit('RESET');
       axiosGet({ commit }, ApiUrls.donates);
     },
+    // getDonationById({ commit }) {
+    //   commit('RESET');
+    //   axiosGet({ commit }, ApiUrls.donates);
+    // },
     // A C T I O N S
     invite({ commit }) {
       commit('BRIDGE');
@@ -101,6 +105,16 @@ const dataExchange = {
             .catch((error) => setError({ commit }, error));
         })
         .catch((error) => setError({ commit }, error));
+    },
+    makeDobrothon({ commit }, { projectId, amount, target }) {
+      commit('RESET');
+      axiosPost({ commit }, ApiUrls.donates, {
+        vk_user_id: vkMiniApp.params.allObject.vk_user_id,
+        project_id: projectId,
+        fragment: 'test',
+        amount,
+        target,
+      });
     },
     makePayment({ commit }, { projectId, amount }) {
       commit('RESET');

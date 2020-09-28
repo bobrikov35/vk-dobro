@@ -2,7 +2,10 @@
   <div class="test">
     <div class="test__container">
       <Button :vClick="getAccessToken" vTitle="Get access token" vClass="test__button"/>
+      <Button :vClick="getAchievementsById" vTitle="Get achievements" vClass="test__button"/>
+      <Button :vClick="getDonationById" vTitle="Get donation" vClass="test__button"/>
       <Button :vClick="invite" vTitle="Invite" vClass="test__button"/>
+      <Button :vClick="makeDobrothon" vTitle="Make Dobrothon" vClass="test__button"/>
     </div>
   </div>
 </template>
@@ -19,7 +22,10 @@ export default {
   methods: {
     ...mapActions({
       getAccessToken: 'dataExchange/getAccessToken',
+      getAchievementsById: 'dataExchange/getAchievementsById',
+      getDonationById: 'dataExchange/getDonationById',
       invite: 'dataExchange/invite',
+      makeDobrothon: 'dataExchange/makeDobrothon',
     }),
   },
 };

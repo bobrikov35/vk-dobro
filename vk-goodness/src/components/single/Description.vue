@@ -28,13 +28,13 @@ export default {
 
 @media (max-width: $Media-SizeS)
   .single-description
-    padding: 2%
+    padding: 0.5% 2%
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
   .single-description
-    padding: 4%
+    padding: 1% 4%
 
 @media (min-width: $Media-SizeL)
   .single-description
-    padding: 6%
+    padding: 1.5% 6%
 </style>

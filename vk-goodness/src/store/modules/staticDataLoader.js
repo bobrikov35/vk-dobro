@@ -1,4 +1,9 @@
-import { ApiUrls, AppCategories, AppCities } from '@/config';
+import {
+  ApiUrls,
+  AppCategories,
+  AppCities,
+  AppDonatesTabs,
+} from '@/config';
 
 const fetchData = ({ commit }, name, data = null) => {
   commit('RESET', { name, data });
@@ -20,6 +25,7 @@ const staticDataLoader = {
   namespaced: true,
   state: {
     categories: AppCategories,
+    donatesTabs: AppDonatesTabs,
     cities: {
       response: false,
       result: false,
@@ -63,10 +69,9 @@ const staticDataLoader = {
     },
   },
   getters: {
-    // Categories
-    isResponseCategories: (state) => state.categories.response,
-    isResultCategories: (state) => state.categories.result,
+    getError: (state) => state.error,
     getCategories: (state) => state.categories,
+    getDonatesTabs: (state) => state.donatesTabs,
     // Cities
     isResponseCities: (state) => state.cities.response,
     isResultCities: (state) => state.cities.result,

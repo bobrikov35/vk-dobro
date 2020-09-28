@@ -70,7 +70,7 @@ export default {
   .button
     border-width: 0.065rem
     border-radius: 0.25rem
-    padding: 0.75rem 1rem
+    padding: 0.5rem 1rem
     &__type-2
       height: 2.5rem
       +shadowText(0, 0, 0.125rem)
@@ -82,7 +82,7 @@ export default {
   .button
     border-width: 0.125rem
     border-radius: 0.315rem
-    padding: 1rem 1.35rem
+    padding: 0.75rem 1.35rem
     &__type-2
       height: 3.25rem
       +shadowText(0, 0, 0.19rem)
@@ -94,7 +94,7 @@ export default {
   .button
     border-width: 0.19rem
     border-radius: 0.375rem
-    padding: 1.25rem 1.685rem
+    padding: 1rem 1.685rem
     &__type-2
       height: 4rem
       +shadowText(0, 0, 0.25rem)

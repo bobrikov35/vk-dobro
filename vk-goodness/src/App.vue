@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Header from '@/components/header/Header.vue';
 import Footer from '@/components/footer/Footer.vue';
 
@@ -17,6 +18,14 @@ export default {
   components: {
     Header,
     Footer,
+  },
+  methods: {
+    ...mapActions({
+      fetchCities: 'staticDataLoader/fetchCities',
+    }),
+  },
+  mounted() {
+    this.fetchCities();
   },
 };
 </script>
@@ -43,6 +52,11 @@ body
 
 a
   text-decoration: none
+
+button, button:focus, input, input:focus
+  border: none
+  background: none
+  outline: none
 
 h1, h2, h3
   +RobotoSlabSerif

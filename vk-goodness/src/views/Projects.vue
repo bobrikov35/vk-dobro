@@ -1,7 +1,7 @@
 <template>
   <div class="projects">
-    <div class="projects__title">
-      <h2>Я хочу помочь</h2>
+    <div>
+      <h2 class="projects__title">Я хочу помочь</h2>
     </div>
     <SelectCategory />
     <SelectCity />
@@ -69,11 +69,11 @@ export default {
   +flexColumn
   flex-grow: 1
   background-color: $Background
-  &__caption, &__loading, &__error
+  &__title, &__loading, &__error
     max-width: $Site-MaxWidth
     margin: 0 auto
   &__title
-    display: flex
+    display: block
   &__loading, &__error, &__content
     flex-grow: 1
   &__loading, &__error

@@ -4,7 +4,7 @@
       <div class="projects-category__select" v-show="isShowSelect" @click="switchDropbox">
         <h3 class="projects-category__value">{{ getCurrentCategory.title }}</h3>
         <i class="fa fa-angle-down projects-category__icon"></i>
-        <div v-show="isShowDropbox" class="projects-category__dropbox" @click.stop="() => {}" @scroll.stop="() => {}">
+        <div v-show="isShowDropbox" class="projects-category__dropbox" @click.stop>
           <ul class="projects-category__list">
             <li class="projects-category__item" :class="index === categoryIndex ? 'projects-category__item_active' : ''"
                 v-for="(item, index) in categories" :key="item.id" :data-index="index"

@@ -19,6 +19,7 @@
       </header>
       <Line />
       <Description :vHtml="project.html" />
+      <Donation />
     </div>
   </div>
 </template>
@@ -29,6 +30,7 @@ import Cover from '@/components/single/Cover.vue';
 import Button from '@/components/objects/Button.vue';
 import Line from '@/components/objects/Line.vue';
 import Description from '@/components/single/Description.vue';
+import Donation from '@/components/single/Donation.vue';
 
 export default {
   name: 'Single',
@@ -37,6 +39,7 @@ export default {
     Button,
     Line,
     Description,
+    Donation,
   },
   methods: {
     init() {

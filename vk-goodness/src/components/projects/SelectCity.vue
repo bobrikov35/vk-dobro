@@ -4,7 +4,7 @@
       <div class="projects-city__select" @click="switchDropbox">
         <h3 class="projects-city__value">{{ getCurrentCity.title }}</h3>
         <i class="fa fa-angle-down projects-city__icon"></i>
-        <div v-show="isShowDropbox" class="projects-city__dropbox" @click.stop="() => {}" @scroll.prevent="() => {}">
+        <div v-show="isShowDropbox" class="projects-city__dropbox" @click.stop>
           <ul class="projects-city__list">
             <li class="projects-city__item" :class="index === cityIndex ? 'projects-city__item_active' : ''"
                 v-for="(item, index) in cities" :key="item.id" :data-index="index"
@@ -48,7 +48,6 @@ export default {
       this.isShowDropbox = !this.isShowDropbox;
     },
     ...mapActions({
-      fetchCities: 'staticDataLoader/fetchCities',
       fetchProjects: 'projects/fetchProjects',
       setCityIndex: 'projects/setCityIndex',
     }),
@@ -65,9 +64,6 @@ export default {
       cityIndex: 'projects/getCityIndex',
       categoryIndex: 'projects/getCategoryIndex',
     }),
-  },
-  mounted() {
-    this.fetchCities();
   },
 };
 </script>

@@ -1,14 +1,15 @@
-const Hostname = 'http://localhost:3005';
+// const Hostname = 'http://localhost:3005';
+const Hostname = 'https://vk-dobro-1.herokuapp.com';
 
 const ApiUrls = {
-  achievements: `${Hostname}/account/achievements`,
-  cities: `${Hostname}/projects-data/cities`,
-  donates: `${Hostname}/account/donations`,
-  projects: `${Hostname}/projects-data`,
-  single: `${Hostname}/projects-data`,
-  stats: `${Hostname}/projects-data/cities`,
-  stories: `${Hostname}/account/achievements/stories`,
-  wall: `${Hostname}/account/achievements/wall`,
+  achievements: `${Hostname}/account/achievements/`,
+  cities: `${Hostname}/projects-data/cities/`,
+  donates: `${Hostname}/account/donations/`,
+  projects: `${Hostname}/projects-data/`,
+  single: `${Hostname}/projects-data/`,
+  stats: `${Hostname}/projects-data/cities/`,
+  stories: `${Hostname}/account/achievements/stories/`,
+  wall: `${Hostname}/account/achievements/wall/`,
 };
 
 const AppCategories = [

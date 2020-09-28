@@ -4,12 +4,12 @@ module.exports = {
     port: 10888,
     proxy: {
       '^/projects-data': {
-        target: 'http://localhost:3005',
+        target: 'https://vk-dobro-1.herokuapp.com/',
         ws: true,
         changeOrigin: true,
       },
       '^/account': {
-        target: 'http://localhost:3005',
+        target: 'https://vk-dobro-1.herokuapp.com/',
         ws: true,
         changeOrigin: true,
       },

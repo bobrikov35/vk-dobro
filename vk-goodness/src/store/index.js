@@ -1,22 +1,16 @@
 import { createStore } from 'vuex';
-import staticDataLoader from '@/store/modules/staticDataLoader';
-import dataExchange from '@/store/modules/dataExchange';
-import projects from '@/store/modules/projects';
-import single from '@/store/modules/single';
+import account from '@/store/modules/account/index';
+import cities from '@/store/modules/static/cities';
+import project from '@/store/modules/project/index';
+import stats from '@/store/modules/static/stats';
+import vkBridge from '@/store/modules/vkBridge';
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  getters: {
-  },
   modules: {
-    staticDataLoader,
-    dataExchange,
-    projects,
-    single,
+    account,
+    cities,
+    project,
+    stats,
+    vkBridge,
   },
 });

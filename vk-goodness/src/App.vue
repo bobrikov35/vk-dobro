@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchCities: 'staticDataLoader/fetchCities',
+      fetchCities: 'cities/fetchCities',
     }),
   },
   mounted() {
@@ -40,15 +40,17 @@ export default {
   padding: 0
   margin: 0
 
-html
-  font-size: 16px
-
 body
   user-select: none
-  min-width: $Site-MinWidth
   +RobotoSansSerif()
+  min-width: $Site-MinWidth
   color: $Text
   font-weight: 400
+
+h1, h2, h3
+  +RobotoSerif
+  font-weight: 700
+  line-height: 1.4em
 
 a
   text-decoration: none
@@ -57,10 +59,6 @@ button, button:focus, input, input:focus
   border: none
   background: none
   outline: none
-
-h1, h2, h3
-  +RobotoSlabSerif
-  font-weight: bold
 
 li
   list-style-type: none
@@ -71,50 +69,41 @@ li
 
 .panel
   +flexColumn()
-  flex-grow: 3
+  flex-grow: 1
 
 @media (max-width: $Media-SizeS)
-  p
-    font-size: 1rem
-  button, li
-    font-size: 1.125rem
-  h1
-    font-size: 1.375rem
-    line-height: 1.375rem * 1.25
+  html
+    font-size: 15px
+  body, p, a
+    font-size: 15px
+  button, li, h3
+    font-size: 17px
   h2
-    font-size: 1.25rem
-    line-height: 1.25rem * 1.25
-  h3
-    font-size: 1.125rem
-    line-height: 1.125rem * 1.25
+    font-size: 19px
+  h1
+    font-size: 21px
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  p
-    font-size: 1.125rem
-  button, li
-    font-size: 1.25rem
-  h1
-    font-size: 1.5rem
-    line-height: 1.5rem * 1.25
+  html
+    font-size: 20px
+  body, p, a
+    font-size: 17px
+  button, li, h3
+    font-size: 19px
   h2
-    font-size: 1.375rem
-    line-height: 1.375rem * 1.25
-  h3
-    font-size: 1.25rem
-    line-height: 1.25rem * 1.25
+    font-size: 21px
+  h1
+    font-size: 23px
 
 @media (min-width: $Media-SizeL)
-  p
-    font-size: 1.25rem
-  button, li
-    font-size: 1.375rem
-  h1
-    font-size: 1.625rem
-    line-height: 1.625rem * 1.25
+  html
+    font-size: 25px
+  body, p, a
+    font-size: 19px
+  button, li, h3
+    font-size: 21px
   h2
-    font-size: 1.5rem
-    line-height: 1.5rem * 1.25
-  h3
-    font-size: 1.375rem
-    line-height: 1.375rem * 1.25
+    font-size: 23px
+  h1
+    font-size: 25px
 </style>

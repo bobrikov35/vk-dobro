@@ -34,7 +34,7 @@ const stats = {
           if (CONFIG.debug) {
             console.log(JSON.parse(JSON.stringify(data)));
           }
-          commit('SET_STATS', data);
+          commit('SET_STATS', data.stats);
         })
         .catch((error) => {
           if (CONFIG.debug) {

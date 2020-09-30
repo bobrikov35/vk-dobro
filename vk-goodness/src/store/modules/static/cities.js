@@ -26,7 +26,7 @@ const cities = {
       if (state.result) {
         state.cities = {
           current: 0,
-          list: DATA.cities.concat(data),
+          list: DATA.cities.concat(...data),
         };
       }
     },
@@ -46,7 +46,7 @@ const cities = {
           if (CONFIG.debug) {
             console.log(JSON.parse(JSON.stringify(data)));
           }
-          commit('SET_CITIES', data);
+          commit('SET_CITIES', data.cities);
         })
         .catch((error) => {
           if (CONFIG.debug) {
@@ -62,6 +62,7 @@ const cities = {
   getters: {
     getCities: (state) => state.cities.list,
     getCityIndex: (state) => state.cities.current,
+    getCurrentCity: (state) => state.cities.list[state.cities.current],
     isResponse: (state) => state.response,
     isResult: (state) => state.result,
   },

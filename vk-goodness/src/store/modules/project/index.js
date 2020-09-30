@@ -41,6 +41,7 @@ const project = {
     getAmount: (state) => state.amount,
     getCategories: (state) => state.categories.list,
     getCategoryIndex: (state) => state.categories.current,
+    getCurrentCategory: (state) => state.categories.list[state.categories.current],
     getDonatesTabs: (state) => state.donatesTabs.list,
     getDonatesTabIndex: (state) => state.donatesTabs.current,
   },

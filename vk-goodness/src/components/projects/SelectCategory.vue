@@ -1,22 +1,21 @@
 <template>
   <div class="projects-category">
     <div class="projects-category__container">
-      <div class="projects-category__select" v-show="isShowSelect" @click="switchDropbox">
-        <h3 class="projects-category__value">{{ getCurrentCategory.title }}</h3>
+      <div class="projects-category__select" @click="this.isShowDropbox = true" v-show="isShowSelect">
+        <h3 class="projects-category__value">{{ currentCategory.title }}</h3>
         <i class="fa fa-angle-down projects-category__icon"></i>
         <div v-show="isShowDropbox" class="projects-category__dropbox" @click.stop>
           <ul class="projects-category__list">
-            <li class="projects-category__item" :class="index === categoryIndex ? 'projects-category__item_active' : ''"
-                v-for="(item, index) in categories" :key="item.id" :data-index="index"
-                @click.stop="choiceDropboxItem">
+            <li v-for="(item, index) in categories" :key="item.id" @click.stop="choiceItem(index)"
+                class="projects-category__item" :class="index === categoryIndex ? 'projects-category__active' : ''">
               {{ item.title }}
             </li>
           </ul>
         </div>
       </div>
       <ul class="projects-category__tabs" v-show="isShowTabs">
-        <li class="projects-category__tab" :class="index === categoryIndex ? 'projects-category__tab_active' : ''"
-            v-for="(item, index) in categories" :key="item.id" :data-index="index" @click="choiceItem">
+        <li v-for="(item, index) in categories" :key="item.id" @click="choiceItem(index)"
+            class="projects-category__tab" :class="index === categoryIndex ? 'projects-category__active' : ''">
           {{ item.title }}
         </li>
       </ul>
@@ -37,46 +36,36 @@ export default {
     };
   },
   methods: {
-    choiceItem(event) {
-      const index = parseInt(event.target.getAttribute('data-index'), 10);
+    choiceItem(index) {
+      this.isShowDropbox = false;
       if (index === this.categoryIndex) {
-        event.preventDefault();
         return;
       }
       this.setCategoryIndex(index);
       this.fetchProjects({
-        category: this.categories[this.categoryIndex].name,
-        city: this.cities[this.cityIndex].name,
+        category: this.currentCategory.name,
+        city: this.currentCity.name,
         page: 1,
       });
     },
-    choiceDropboxItem(event) {
-      this.choiceItem(event);
-      this.switchDropbox();
-    },
-    switchDropbox() {
-      this.isShowDropbox = !this.isShowDropbox;
-    },
     switchControlObject() {
-      this.isShowTabs = (this.$el.clientWidth >= 594 && this.$el.clientWidth <= 630) || this.$el.clientWidth >= 692;
+      this.isShowTabs = (this.$el.clientWidth >= 588 && this.$el.clientWidth <= 630) || this.$el.clientWidth >= 666;
       this.isShowSelect = !this.isShowTabs;
+      if (this.isShowTabs) {
+        this.isShowDropbox = false;
+      }
     },
     ...mapActions({
-      fetchProjects: 'projects/fetchProjects',
-      setCategoryIndex: 'projects/setCategoryIndex',
+      fetchProjects: 'project/projects/fetchProjects',
+      setCategoryIndex: 'project/setCategoryIndex',
     }),
   },
   computed: {
-    getCurrentCategory() {
-      return this.categories[this.categoryIndex];
-    },
     ...mapGetters({
-      isResponse: 'staticDataLoader/isResponseCategories',
-      isResult: 'staticDataLoader/isResultCategories',
-      categories: 'staticDataLoader/getCategories',
-      cities: 'staticDataLoader/getCities',
-      categoryIndex: 'projects/getCategoryIndex',
-      cityIndex: 'projects/getCityIndex',
+      categories: 'project/getCategories',
+      categoryIndex: 'project/getCategoryIndex',
+      currentCategory: 'project/getCurrentCategory',
+      currentCity: 'cities/getCurrentCity',
     }),
   },
   created() {
@@ -97,15 +86,19 @@ export default {
   +borderTopBottom(1px, $Border)
   &__container
     max-width: $Site-MaxWidth
+    padding: 0.40rem 0.30rem
     margin: 0 auto
   &__select
     cursor: pointer
     background-color: $Background
     border: 1px solid $Border
+    border-radius: 0.30rem
     +flexSb
+    padding: 0.45rem 0.70rem 0.45rem 0.85rem
   &__value
     font-weight: 400
   &__icon
+    font-size: 1rem
     margin-top: 1px
   &__dropbox
     z-index: 11
@@ -114,103 +107,36 @@ export default {
     width: 100%
     height: 100%
     background-color: $BackgroundDarkened
-    +flexColumn
-    align-items: center
+    +flexColumnAiC
     position: fixed
     +posTopLeft(0, 0)
   &__list
     min-width: $Site-MinWidth
     max-width: $Site-MaxWidth
+    padding: 0.85rem
   &__item
     cursor: pointer
     text-align: center
     background-color: $Background
     border-top: 1px solid $Border
+    padding: 0.8rem 1.6rem
     &:first-of-type
       border-top: none
-    &_active
-      background-color: $ColorMainYellow
-      border-color: $ColorMainYellowActive
+      +radiusTop(0.30rem)
+    &:last-of-type
+      +radiusBottom(0.30rem)
   &__tabs
     +flexJcC
   &__tab
     cursor: pointer
-    font-weight: 700
     text-align: center
     border: 1px solid $Border
+    border-radius: 0.30rem
+    padding: 0.45rem 0.30rem
+    margin-right: 0.30rem
     &:last-of-type
       margin-right: 0
-    &_active
-      font-weight: 700
-      background-color: $ColorMainYellow
-      border-color: $ColorMainYellowActive
-
-@media (max-width: $Media-SizeS)
-  .projects-category
-    &__container
-      padding: 0.5rem 0.75rem
-    &__select
-      border-radius: 0.25rem
-      padding: 0.375rem 0.625rem 0.375rem 0.75rem
-    &__icon
-      font-size: 1.125rem
-    &__list
-      padding: 0.75rem
-    &__item
-      padding: 0.75rem 1.5rem
-      &:first-of-type
-        +radiusTop(0.25rem)
-      &:last-of-type
-        +radiusBottom(0.25rem)
-    &__tab
-      font-size: 1rem
-      border-radius: 0.25rem
-      padding: 0.375rem 0.25rem
-      margin-right: 0.25rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .projects-category
-    &__container
-      padding: 0.625rem 1.125rem
-    &__select
-      border-radius: 0.315rem
-      padding: 0.565rem 0.875rem 0.565rem 1.125rem
-    &__icon
-      font-size: 1.25rem
-    &__list
-      padding: 1.125rem
-    &__item
-      padding: 1rem 2rem
-      &:first-of-type
-        +radiusTop(0.375rem)
-      &:last-of-type
-        +radiusBottom(0.375rem)
-    &__tab
-      font-size: 1.125rem
-      border-radius: 0.315rem
-      padding: 0.565rem 0.375rem
-      margin-right: 0.375rem
-
-@media (min-width: $Media-SizeL)
-  .projects-category
-    &__container
-      padding: 0.75rem 1.5rem
-    &__select
-      border-radius: 0.375rem
-      padding: 0.75rem 1.125rem 0.75rem 1.5rem
-    &__icon
-      font-size: 1.375rem
-    &__list
-      padding: 1.5rem
-    &__item
-      padding: 1.25rem 2.5rem
-      &:first-of-type
-        +radiusTop(0.5rem)
-      &:last-of-type
-        +radiusBottom(0.5rem)
-    &__tab
-      font-size: 1.25rem
-      border-radius: 0.375rem
-      padding: 0.75rem 0.5rem
-      margin-right: 0.5rem
+  &__active
+    background-color: $ColorMainYellow
+    border-top: 1px solid $ColorMainYellowActive
 </style>

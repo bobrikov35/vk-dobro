@@ -56,8 +56,8 @@ export default {
     },
     ...mapActions({
       fetchProject: 'single/fetchProject',
-      shareOnWall: 'dataExchange/shareOnWall',
-      getDonation: 'dataExchange/getDonationById',
+      shareOnWall: 'vkBridge/shareOnWall',
+      getDonation: 'vkBridge/getDonationById',
     }),
   },
   computed: {

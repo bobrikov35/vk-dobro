@@ -49,11 +49,15 @@ export default {
 @import '../../styles/mixin'
 
 .button
+  +RobotoSlabSerif
   cursor: pointer
   outline: none
-  +RobotoSlabSerif
   font-weight: 700
+  border-width: 0.10rem
   border-style: solid
+  border-radius: 0.30rem
+  +flexCC
+  padding: 0.60rem 1.10rem
   &__default
     background-color: $BackgroundSecondary
     border-color: $Border
@@ -61,44 +65,11 @@ export default {
     background-color: $ColorMainYellow
     border-color: $ColorMainYellowActive
   &__type-2
+    height: 2.6rem
     color: $ColorWhite
+    +shadowText(0, 0, 0.15rem)
     background-color: $ButtonType2Background
     border-color: $ColorMainYellow
-    +flexCC
-
-@media (max-width: $Media-SizeS)
-  .button
-    border-width: 0.065rem
-    border-radius: 0.25rem
-    padding: 0.5rem 1rem
-    &__type-2
-      height: 2.5rem
-      +shadowText(0, 0, 0.125rem)
-      border-width: 0.125rem
-      border-radius: 1.5rem
-      +shadow(0, 0, 0.125rem)
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .button
-    border-width: 0.125rem
-    border-radius: 0.315rem
-    padding: 0.75rem 1.35rem
-    &__type-2
-      height: 3.25rem
-      +shadowText(0, 0, 0.19rem)
-      border-width: 0.19rem
-      border-radius: 1.75rem
-      +shadow(0, 0, 0.19rem)
-
-@media (min-width: $Media-SizeL)
-  .button
-    border-width: 0.19rem
-    border-radius: 0.375rem
-    padding: 1rem 1.685rem
-    &__type-2
-      height: 4rem
-      +shadowText(0, 0, 0.25rem)
-      border-width: 0.19rem
-      border-radius: 2rem
-      +shadow(0, 0, 0.25rem)
+    border-radius: 2.6rem
+    box-shadow: none
 </style>

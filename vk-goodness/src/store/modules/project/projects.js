@@ -60,7 +60,7 @@ const projects = {
     getPage: (state) => state.projects.page,
     getPages: (state) => state.projects.pages,
     getProjects: (state) => state.projects.list,
-    isResponse: (state) => state.response,
+    isLoading: (state) => !state.response,
     isResult: (state) => state.result,
   },
 };

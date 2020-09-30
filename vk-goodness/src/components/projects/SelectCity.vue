@@ -1,14 +1,13 @@
 <template>
   <div class="projects-city">
     <div class="projects-city__container">
-      <div class="projects-city__select" @click="switchDropbox">
-        <h3 class="projects-city__value">{{ getCurrentCity.title }}</h3>
+      <div class="projects-city__select" @click="this.isShowDropbox = true">
+        <h3 class="projects-city__value">{{ currentCity.title }}</h3>
         <i class="fa fa-angle-down projects-city__icon"></i>
         <div v-show="isShowDropbox" class="projects-city__dropbox" @click.stop>
           <ul class="projects-city__list">
-            <li class="projects-city__item" :class="index === cityIndex ? 'projects-city__item_active' : ''"
-                v-for="(item, index) in cities" :key="item.id" :data-index="index"
-                @click.stop="choiceDropboxItem">
+            <li v-for="(item, index) in cities" :key="item.id" @click.stop="choiceItem(index)"
+                class="projects-city__item" :class="index === cityIndex ? 'projects-city__active' : ''">
               {{ item.title }}
             </li>
           </ul>
@@ -29,40 +28,30 @@ export default {
     };
   },
   methods: {
-    choiceDropboxItem(event) {
-      const index = parseInt(event.target.getAttribute('data-index'), 10);
+    choiceItem(index) {
+      this.isShowDropbox = false;
       if (index === this.cityIndex) {
-        event.preventDefault();
-        this.switchDropbox();
         return;
       }
       this.setCityIndex(index);
       this.fetchProjects({
-        category: this.categories[this.categoryIndex].name,
-        city: this.cities[this.cityIndex].name,
+        category: this.currentCategory.name,
+        city: this.currentCity.name,
         page: 1,
       });
-      this.switchDropbox();
-    },
-    switchDropbox() {
-      this.isShowDropbox = !this.isShowDropbox;
     },
     ...mapActions({
-      fetchProjects: 'projects/fetchProjects',
-      setCityIndex: 'projects/setCityIndex',
+      fetchProjects: 'project/projects/fetchProjects',
+      setCityIndex: 'cities/setCityIndex',
     }),
   },
   computed: {
-    getCurrentCity() {
-      return this.cities[this.cityIndex];
-    },
     ...mapGetters({
-      isResponse: 'staticDataLoader/isResponseCities',
-      isResult: 'staticDataLoader/isResultCities',
-      cities: 'staticDataLoader/getCities',
-      categories: 'staticDataLoader/getCategories',
-      cityIndex: 'projects/getCityIndex',
-      categoryIndex: 'projects/getCategoryIndex',
+      categoryIndex: 'project/getCategoryIndex',
+      cities: 'cities/getCities',
+      cityIndex: 'cities/getCityIndex',
+      currentCategory: 'project/getCurrentCategory',
+      currentCity: 'cities/getCurrentCity',
     }),
   },
 };
@@ -74,18 +63,21 @@ export default {
 
 .projects-city
   background-color: $BackgroundSecondary
-  border-bottom: 1px solid $Border
   &__container
     max-width: $Site-MaxWidth
+    padding: 0.40rem 0.30rem
     margin: 0 auto
   &__select
     cursor: pointer
     background-color: $Background
     border: 1px solid $Border
+    border-radius: 0.30rem
     +flexSb
+    padding: 0.45rem 0.70rem 0.45rem 0.85rem
   &__value
     font-weight: 400
   &__icon
+    font-size: 1rem
     margin-top: 1px
   &__dropbox
     z-index: 11
@@ -94,75 +86,25 @@ export default {
     width: 100%
     height: 100%
     background-color: $BackgroundDarkened
-    +flexColumn
-    align-items: center
+    +flexColumnAiC
     position: fixed
     +posTopLeft(0, 0)
   &__list
     min-width: $Site-MinWidth
     max-width: $Site-MaxWidth
+    padding: 0.85rem
   &__item
     cursor: pointer
     text-align: center
     background-color: $Background
     border-top: 1px solid $Border
+    padding: 0.8rem 1.6rem
     &:first-of-type
       border-top: none
-    &_active
-      background-color: $ColorMainYellow
-      border-color: $ColorMainYellowActive
-
-@media (max-width: $Media-SizeS)
-  .projects-city
-    &__container
-      padding: 0.5rem 0.75rem
-    &__select
-      border-radius: 0.25rem
-      padding: 0.375rem 0.625rem 0.375rem 0.75rem
-    &__icon
-      font-size: 1.125rem
-    &__list
-      padding: 0.75rem
-    &__item
-      padding: 0.75rem 1.5rem
-      &:first-of-type
-        +radiusTop(0.25rem)
-      &:last-of-type
-        +radiusBottom(0.25rem)
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .projects-city
-    &__container
-      padding: 0.625rem 1.125rem
-    &__select
-      border-radius: 0.315rem
-      padding: 0.565rem 0.875rem 0.565rem 1.125rem
-    &__icon
-      font-size: 1.25rem
-    &__list
-      padding: 1.125rem
-    &__item
-      padding: 1rem 2rem
-      &:first-of-type
-        +radiusTop(0.375rem)
-      &:last-of-type
-        +radiusBottom(0.375rem)
-
-@media (min-width: $Media-SizeL)
-  .projects-city
-    &__container
-      padding: 0.75rem 1.5rem
-    &__select
-      border-radius: 0.375rem
-      padding: 0.75rem 1.125rem 0.75rem 1.5rem
-    &__icon
-      font-size: 1.375rem
-    &__list
-      padding: 1.5rem
-    &__item
-      padding: 1.25rem 2.5rem
-      &:first-of-type
-        +radiusTop(0.5rem)
-      &:last-of-type
-        +radiusBottom(0.5rem)
+      +radiusTop(0.30rem)
+    &:last-of-type
+      +radiusBottom(0.30rem)
+  &__active
+    background-color: $ColorMainYellow
+    border-top: 1px solid $ColorMainYellowActive
 </style>

@@ -18,17 +18,6 @@ export default {
 @import '../../styles/var'
 
 .line
+  height: 0.30rem
   background-color: $LineColor
-
-@media (max-width: $Media-SizeS)
-  .line
-    height: 0.25rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .line
-    height: 0.375rem
-
-@media (min-width: $Media-SizeL)
-  .line
-    height: 0.5rem
 </style>

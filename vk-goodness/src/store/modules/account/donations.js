@@ -70,7 +70,7 @@ const donations = {
           commit('SET_ERROR');
         });
     },
-    makePayment({ projectId, amount }) {
+    makePayment(empty, { projectId, amount }) {
       axios.post(CONFIG.apiUrls.donations, {
         vk_user_id: VK_MINI_APP.params.allObject.vk_user_id,
         project_id: projectId,

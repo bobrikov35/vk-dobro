@@ -22,14 +22,14 @@ const account = {
     },
     SET_NEXT_REWARD(state) {
       const next = state.rewards.current + 1;
-      state.rewards.current = next < state.rewards.current.length ? next : 0;
+      state.rewards.current = next < state.rewards.list.length ? next : 0;
     },
     SET_POINTS(state, { points }) {
       state.points = typeof points === 'number' ? points : 0;
     },
     SET_PREV_REWARD(state) {
       const prev = state.rewards.current - 1;
-      state.rewards.current = prev < 0 ? state.rewards.current.length - 1 : prev;
+      state.rewards.current = prev < 0 ? state.rewards.list.length - 1 : prev;
     },
   },
   actions: {
@@ -60,6 +60,8 @@ const account = {
     },
   },
   getters: {
+    getCurrentReward: (state) => state.rewards.list[state.rewards.current],
+    getCurrentTab: (state) => state.tabs.list[state.tabs.current],
     getPoints: (state) => state.points,
     getRewards: (state) => state.rewards.list,
     getRewardIndex: (state) => state.rewards.current,

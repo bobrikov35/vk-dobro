@@ -45,8 +45,8 @@ const dobrothons = {
           commit('SET_ERROR');
         });
     },
-    makeDobrothon({ projectId, amount, target }) {
-      axios.post(CONFIG.apiUrls.donations, {
+    makeDobrothon(empty, { projectId, amount, target }) {
+      axios.post(CONFIG.apiUrls.dobrothons, {
         vk_user_id: VK_MINI_APP.params.allObject.vk_user_id,
         project_id: projectId,
         fragment: 'test',

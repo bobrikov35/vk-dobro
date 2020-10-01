@@ -63,7 +63,7 @@ const vkBridge = {
           }
         });
     },
-    shareOnWall(massage = '') {
+    shareOnWall(empty, massage = '') {
       bridge.send('VKWebAppShowWallPostBox', {
         message: massage,
       })
@@ -88,7 +88,7 @@ const vkBridge = {
           }
         });
     },
-    shareStory({ imageLink, requestId }) {
+    shareStory(empty, { imageLink, requestId }) {
       bridge.send('VKWebAppShowStoryBox', {
         background_type: 'image',
         url: imageLink,

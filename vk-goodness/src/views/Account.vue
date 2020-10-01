@@ -5,8 +5,8 @@
     <link rel="preload" href="./icons/medal-gold.png" as="image">
     <Rewards />
     <Tabs />
-    <Donations :vShow="currentTab === 1" />
-    <Dobrothons :vShow="currentTab === 2" />
+    <Donations />
+    <Dobrothons />
   </div>
 </template>
 
@@ -27,17 +27,17 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchPoints: 'index/fetchPointsById',
-      fetchDobrothons: 'dobrothons/fetchDobrothonsById',
-      fetchDonations: 'donations/fetchDonationsById',
+      fetchPoints: 'account/fetchPointsById',
+      fetchDobrothons: 'account/dobrothons/fetchDobrothonsById',
+      fetchDonations: 'account/donations/fetchDonationsById',
     }),
   },
   computed: {
     ...mapGetters({
-      currentTab: 'index/getCurrentTab',
+      currentTab: 'account/getTabIndex',
     }),
   },
-  mounted() {
+  created() {
     this.fetchPoints();
     this.fetchDonations();
     this.fetchDobrothons();

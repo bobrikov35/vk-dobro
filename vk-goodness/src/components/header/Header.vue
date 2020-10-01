@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import Logo from '@/components/header/Logo.vue';
 import Line from '@/components/objects/Line.vue';
+import Logo from '@/components/header/Logo.vue';
 
 export default {
   name: 'Header',
   components: {
-    Logo,
     Line,
+    Logo,
   },
 };
 </script>
@@ -29,17 +29,6 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     +flexSbC
+    padding: 0.30rem
     margin: 0 auto
-
-@media (max-width: $Media-SizeS)
-  .header__container
-    padding: 0.25rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .header__container
-    padding: 0.375rem
-
-@media (min-width: $Media-SizeL)
-  .header__container
-    padding: 0.5rem
 </style>

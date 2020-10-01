@@ -1,8 +1,8 @@
 <template>
-  <div class="logo">
+  <router-link class="logo" to="/">
     <LogoDobro />
     <TextDobro />
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -24,5 +24,5 @@ export default {
 
 .logo
   background-color: $ColorMainBlue
-  +flexLC
+  +flexAiC
 </style>

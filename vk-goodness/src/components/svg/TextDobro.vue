@@ -22,21 +22,9 @@ export default {
 <style scoped lang="sass">
 @import '../../styles/var'
 
-.text-dobro__g
-  fill: $ColorWhite
-
-@media (max-width: $Media-SizeS)
-  .text-dobro
-    height: 1rem
-    margin-right: 0.5rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .text-dobro
-    height: 1.5rem
-    margin-right: 0.75rem
-
-@media (min-width: $Media-SizeL)
-  .text-dobro
-    height: 2rem
-    margin-right: 1rem
+.text-dobro
+  height: 1.20rem
+  margin-right: 0.60rem
+  &__g
+    fill: $ColorWhite
 </style>

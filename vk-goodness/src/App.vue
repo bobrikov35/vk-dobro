@@ -24,7 +24,7 @@ export default {
       fetchCities: 'cities/fetchCities',
     }),
   },
-  mounted() {
+  created() {
     this.fetchCities();
   },
 };

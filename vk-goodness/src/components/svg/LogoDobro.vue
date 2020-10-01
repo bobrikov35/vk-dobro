@@ -17,24 +17,9 @@ export default {
 <style scoped lang="sass">
 @import '../../styles/var'
 
-.logo-dobro__g
-  fill: $LogoDobroColor
-
-@media (max-width: $Media-SizeS)
-  .logo-dobro
-    height: 2rem
-    padding: 0 0.25rem
-    margin-left: 0.25rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .logo-dobro
-    height: 3rem
-    padding: 0 0.375rem
-    margin-left: 0.375rem
-
-@media (min-width: $Media-SizeL)
-  .logo-dobro
-    height: 4rem
-    padding: 0 0.5rem
-    margin-left: 0.5rem
+.logo-dobro
+  height: 2.40rem
+  margin-left: 0.30rem
+  &__g
+    fill: $LogoDobroColor
 </style>

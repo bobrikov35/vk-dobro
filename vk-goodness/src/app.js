@@ -1,5 +1,5 @@
-const Hostname = 'http://localhost:3005/';
-// const Hostname = 'https://vk-dobro-1.herokuapp.com/';
+// const Hostname = 'http://localhost:3005/';
+const Hostname = 'https://vk-dobro-1.herokuapp.com/';
 
 const CONFIG = {
   debug: true,

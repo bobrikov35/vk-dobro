@@ -1,20 +1,24 @@
 <template>
-  <div class="single-donation" v-show="isShowPayForm">
-    <div class="single-donation__container">
-      <div class="single-donation__exit">
-        <button class="single-donation__exit-button" @click="switchPayForm"><i class="fa fa-times"></i></button>
+  <div class="single-dobrothon" v-show="isShowCreatorDobrothon">
+    <div class="single-dobrothon__container">
+      <div class="single-dobrothon__exit">
+        <button class="single-dobrothon__exit-button" @click="switchCreatorDobrothon">
+          <i class="fa fa-times"></i>
+        </button>
       </div>
-      <h3 class="single-donation__title">Сумма пожертвования</h3>
-      <ul class="single-donation__tabs">
+      <h3 class="single-dobrothon__title">Сумма вашего взноса</h3>
+      <ul class="single-dobrothon__tabs">
         <li v-for="(item, index) in formatDonatesTabs" :key="item.id" v-show="index < 7" @click.stop="choiceItem(index)"
-            class="single-donation__tab" :class="index === donatesTabIndex ? 'single-donation__tab_active' : ''">
+            class="single-dobrothon__tab" :class="index === donatesTabIndex ? 'single-dobrothon__tab_active' : ''">
           {{ formatDonatesTabs[index] }}
         </li>
-        <li class="single-donation__tab" :class="donatesTabIndex < 0 ? 'single-donation__tab_active' : ''"
+        <li class="single-dobrothon__tab" :class="donatesTabIndex < 0 ? 'single-dobrothon__tab_active' : ''"
             @click.stop="choiceItem(-1)">Своя</li>
       </ul>
-      <EditAmount vClass="single-donation__amount" :vMax="project.target - project.sum" />
-      <Button vClass="single-donation__pay" vTitle="Пожертвовать" @click="pay"/>
+      <EditAmount vClass="single-dobrothon__amount" :vMax="project.target - project.sum" />
+      <h3 class="single-dobrothon__title single-dobrothon__title_target">Целевая сумма ДОБРОфона</h3>
+      <EditTarget vClass="single-dobrothon__target" :vMax="project.target - project.sum" />
+      <Button vClass="single-dobrothon__pay" vTitle="Запустить" @click="make"/>
     </div>
   </div>
 </template>
@@ -23,12 +27,14 @@
 import format from '@/libs/format';
 import { mapActions, mapGetters } from 'vuex';
 import EditAmount from '@/components/single/EditAmount.vue';
+import EditTarget from '@/components/single/EditTarget.vue';
 import Button from '@/components/objects/Button.vue';
 
 export default {
-  name: 'Donation',
+  name: 'Dobrothon',
   components: {
     EditAmount,
+    EditTarget,
     Button,
   },
   methods: {
@@ -41,17 +47,18 @@ export default {
         this.setAmount(this.currentDonatesTab.value);
       }
     },
-    pay() {
-      this.makePayment({
+    make() {
+      this.makeDobrothon({
         projectId: this.project.id,
         amount: this.amount,
+        target: this.target,
       });
     },
     ...mapActions({
-      makePayment: 'account/donations/makePayment',
+      makeDobrothon: 'account/dobrothons/makeDobrothon',
       setAmount: 'project/setAmount',
       setDonatesTabIndex: 'project/setDonatesTabIndex',
-      switchPayForm: 'project/switchPayForm',
+      switchCreatorDobrothon: 'project/switchCreatorDobrothon',
     }),
   },
   computed: {
@@ -63,8 +70,9 @@ export default {
       currentDonatesTab: 'project/getCurrentDonatesTab',
       donatesTabs: 'project/getDonatesTabs',
       donatesTabIndex: 'project/getDonatesTabIndex',
-      isShowPayForm: 'project/isShowPayForm',
+      isShowCreatorDobrothon: 'project/isShowCreatorDobrothon',
       project: 'project/single/getProject',
+      target: 'project/getTarget',
     }),
   },
   mounted() {
@@ -77,7 +85,7 @@ export default {
 @import '../../styles/var'
 @import '../../styles/mixin'
 
-.single-donation
+.single-dobrothon
   z-index: 11
   width: 100%
   height: 100%
@@ -95,6 +103,8 @@ export default {
     position: relative
   &__title
     margin-bottom: 0.60rem
+  &__title_target
+    margin-top: 1.20rem
   &__tabs
     display: grid
     grid-template-columns: repeat(4, 1fr)
@@ -109,7 +119,7 @@ export default {
       font-weight: 700
       background-color: $ColorMainYellow
       border-color: $ColorMainYellowActive
-  &__amount
+  &__amount, &__target
     margin-top: 0.60rem
   &__pay
     border-width: 1px
@@ -135,7 +145,7 @@ export default {
       +marginTopLeft(-2px, 1px)
 
 @media (max-width: $Media-SizeS)
-  .single-donation
+  .single-dobrothon
     &__container
       +marginRightLeftSingle(2%)
     &__tabs
@@ -146,14 +156,14 @@ export default {
       +marginTopLeft(-1px, 0)
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .single-donation
+  .single-dobrothon
     &__container
       +marginRightLeftSingle(4%)
     &__pay
       width: 74%
 
 @media (min-width: $Media-SizeL)
-  .single-donation
+  .single-dobrothon
     &__container
       +marginRightLeftSingle(6%)
     &__pay

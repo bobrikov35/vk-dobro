@@ -1,14 +1,12 @@
 <template>
   <div class="progressbar" :class="vClass">
     <div class="progressbar__caption">
-      <h2 class="progressbar__value">
-        {{ formatValue }}
-        <span class="progressbar__title" v-show="!trimmed"> собрано</span>
+      <h2 class="progressbar__title">
+        {{ formatValue }}<span class="progressbar__value" v-show="!trimmed">собрано</span>
       </h2>
       <p v-show="trimmed">из</p>
-      <h2 class="progressbar__max">
-        <span class="progressbar__title" v-show="!trimmed">цель </span>
-        {{ formatMax }}
+      <h2 class="progressbar__title">
+        <span class="progressbar__max" v-show="!trimmed">цель</span>{{ formatMax }}
       </h2>
     </div>
     <div class="progressbar__box">
@@ -78,9 +76,13 @@ export default {
     color: $ColorWhite
     +flexSbC
     margin-bottom: 0.20rem
-  &__title
-    font-size: 0.60em
   &__value, &__max
+    font-size: 0.60em
+  &__value
+    margin-left: 0.25rem
+  &__max
+    margin-right: 0.25rem
+  &__title
     padding: 0 0.60rem
   &__box
     overflow: hidden

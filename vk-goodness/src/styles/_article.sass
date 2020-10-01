@@ -2,11 +2,12 @@
 @import 'mixin'
 
 .article__item
-  & p
-    line-height: 1.33em
+  line-height: 1.40em
+  margin-top: 0.60rem
   &_text
     text-align: justify
   &_quote
+    font-size: 1.2em
     text-align: center
     .quote
       +RobotoSlabSerif
@@ -14,58 +15,15 @@
       &::before
         +Awesome()
         content: "\f10d"
+        margin-right: 0.60rem
       &::after
         +Awesome()
         content: "\f10e"
+        margin-left: 0.60rem
   &_image
     width: 92%
+    margin: 0.80rem auto
     & img
       max-width: 100%
-
-@media (max-width: $Media-SizeS)
-  .article__item
-    margin-top: 0.5rem
-    &_quote
-      font-size: 1.125rem
-    &_quote .quote
-      &::before
-        margin-right: 0.5rem
-      &::after
-        margin-left: 0.5rem
-    &_image
-      margin: 0.75rem auto
-      & img
-        border-radius: 4px
-        +shadow(0, 0, 3px)
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .article__item
-    margin-top: 0.75rem
-    &_quote
-      font-size: 1.25rem
-    &_quote .quote
-      &::before
-        margin-right: 0.75rem
-      &::after
-        margin-left: 0.75rem
-    &_image
-      margin: 1rem auto
-      & img
-        border-radius: 6px
-        +shadow(0, 0, 5px)
-
-@media (min-width: $Media-SizeL)
-  .article__item
-    margin-top: 1rem
-    &_quote
-      font-size: 1.375rem
-    &_quote .quote
-      &::before
-        margin-right: 1rem
-      &::after
-        margin-left: 1rem
-    &_image
-      margin: 1.25rem auto
-      & img
-        border-radius: 8px
-        +shadow(0, 0, 7px)
+      border-radius: 0.30rem
+      +shadow(0, 0, 0.25rem)

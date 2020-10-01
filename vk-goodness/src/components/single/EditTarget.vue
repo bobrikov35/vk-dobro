@@ -1,16 +1,15 @@
 <template>
-  <div class="single-amount" :class="vClass">
-    <div class="single-amount__container">
-      <div class="single-amount__field">
-        <button class="single-amount__button single-amount__dec" :disabled="donatesTabIndex >= 0" @click="decrease">
+  <div class="single-target" :class="vClass">
+    <div class="single-target__container">
+      <div class="single-target__field">
+        <button class="single-target__button single-target__dec" @click="decrease">
           <i class="fa fa-caret-down"></i>
         </button>
-        <input class="single-amount__input" type="number" :value="amount" :readonly="donatesTabIndex >= 0"
-               @keydown="keyIgnore" @input="changeValue">
-        <button class="single-amount__button single-amount__inc" :disabled="donatesTabIndex >= 0" @click="increase">
+        <input class="single-target__input" type="number" :value="target" @keydown="keyIgnore" @input="changeValue">
+        <button class="single-target__button single-target__inc" @click="increase">
           <i class="fa fa-caret-up"></i>
         </button>
-        <h3 class="single-amount__rub">₽</h3>
+        <h3 class="single-target__rub">₽</h3>
       </div>
     </div>
   </div>
@@ -20,7 +19,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'EditAmount',
+  name: 'EditTarget',
   props: {
     vMax: {
       type: Number,
@@ -36,14 +35,16 @@ export default {
   methods: {
     changeValue() {
       const value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
-      if (value > this.vMax) {
-        this.edit.value = this.vMax;
-        this.setAmount(this.vMax);
+      const max = Math.min(this.amount * 100, this.vMax);
+      if (value > max) {
+        this.edit.value = max;
+        this.setTarget(max);
       } else {
-        this.setAmount(value);
+        this.setTarget(value);
       }
     },
     decrease() {
+      const min = this.amount * 2;
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
       for (let i = this.donatesTabs.length - 1; i >= 0; i--) {
         if (value >= this.donatesTabs[i].value * 5) {
@@ -53,11 +54,12 @@ export default {
         }
         if (i === 0) value -= 1;
       }
-      if (value < 0) value = 0;
+      if (value < min) value = min;
       this.edit.value = value;
-      this.setAmount(value);
+      this.setTarget(value);
     },
     increase() {
+      const max = Math.min(this.amount * 100, this.vMax);
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
       for (let i = this.donatesTabs.length - 1; i >= 0; i--) {
         if (value >= this.donatesTabs[i].value * 4) {
@@ -67,9 +69,9 @@ export default {
         }
         if (i === 0) value += 1;
       }
-      if (value > this.vMax) value = this.vMax;
+      if (value > max) value = max;
       this.edit.value = value;
-      this.setAmount(value);
+      this.setTarget(value);
     },
     keyIgnore(event) {
       if (event.key === '-' || event.key === '+' || event.key === 'e') {
@@ -77,18 +79,19 @@ export default {
       }
     },
     ...mapActions({
-      setAmount: 'project/setAmount',
+      setTarget: 'project/setTarget',
     }),
   },
   computed: {
     ...mapGetters({
       amount: 'project/getAmount',
+      target: 'project/getTarget',
       donatesTabs: 'project/getDonatesTabs',
       donatesTabIndex: 'project/getDonatesTabIndex',
     }),
   },
   mounted() {
-    this.edit = this.$el.querySelector('.single-amount__input');
+    this.edit = this.$el.querySelector('.single-target__input');
   },
 };
 </script>
@@ -99,7 +102,7 @@ export default {
 
 $height: 2.20rem
 
-.single-amount
+.single-target
   &__container
     max-width: $Site-MaxWidth
     margin: 0 auto
@@ -143,17 +146,17 @@ $height: 2.20rem
     +posTopRight(0, $height - 0.15rem)
 
 @media (max-width: $Media-SizeS)
-  .single-amount
+  .single-target
     &__input
       width: 78%
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .single-amount
+  .single-target
     &__input
       width: 74%
 
 @media (min-width: $Media-SizeL)
-  .single-amount
+  .single-target
     &__input
       width: 72%
 </style>

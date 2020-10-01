@@ -60,6 +60,13 @@ button, button:focus, input, input:focus
   background: none
   outline: none
 
+input
+  &[type=number]
+    appearance: none
+    -moz-appearance: textfield
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+      -webkit-appearance: none
+
 li
   list-style-type: none
 
@@ -76,7 +83,7 @@ li
     font-size: 15px
   body, p, a
     font-size: 15px
-  button, li, h3
+  button, input, li, h3
     font-size: 17px
   h2
     font-size: 19px
@@ -88,7 +95,7 @@ li
     font-size: 20px
   body, p, a
     font-size: 17px
-  button, li, h3
+  button, input, li, h3
     font-size: 19px
   h2
     font-size: 21px
@@ -100,7 +107,7 @@ li
     font-size: 25px
   body, p, a
     font-size: 19px
-  button, li, h3
+  button, input, li, h3
     font-size: 21px
   h2
     font-size: 23px

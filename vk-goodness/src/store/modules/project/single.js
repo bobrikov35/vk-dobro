@@ -10,16 +10,16 @@ const single = {
   },
   mutations: {
     RESET(state) {
-      state.project = null;
       state.response = false;
       state.result = false;
+      state.project = null;
     },
     SET_PROJECT(state, data) {
-      state.response = true;
       state.result = typeof data === 'object';
       if (state.result) {
         state.project = data;
       }
+      state.response = true;
     },
     SET_ERROR(state) {
       state.response = true;
@@ -46,7 +46,7 @@ const single = {
   },
   getters: {
     getProject: (state) => state.project,
-    isResponse: (state) => state.response,
+    isLoading: (state) => !state.response,
     isResult: (state) => state.result,
   },
 };

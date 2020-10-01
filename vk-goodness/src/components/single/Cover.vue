@@ -1,14 +1,13 @@
 <template>
-  <div class="single-cover" id="">
-    <div class="single-cover__content" :style="`background-image: url(${vProject.image})`">
+  <div class="single-cover">
+    <div class="single-cover__container" :style="`background-image: url(${image})`">
       <div class="single-cover__info">
-        <p class="single-cover__text">{{ vProject.city }}</p>
-        <p class="single-cover__text">{{ vProject.date }}</p>
+        <h3 class="single-cover__text">{{ city }}</h3>
+        <h3 class="single-cover__text">{{ date }}</h3>
       </div>
-      <p v-if="vProject['urgent']" class="single-cover__urgent">СРОЧНО</p>
+      <p v-if="urgent" class="single-cover__urgent">СРОЧНО</p>
       <div class="single-cover__box">
-        <Progressbar vClass="single-cover__progressbar"
-                     :vValue="parseInt(vProject.sum)" :vMax="parseInt(vProject.target)" />
+        <Progressbar vClass="single-cover__progressbar" :vValue="sum" :vMax="target" />
       </div>
     </div>
   </div>
@@ -28,10 +27,26 @@ export default {
   components: {
     Progressbar,
   },
+  data() {
+    const {
+      city,
+      date,
+      image,
+      urgent,
+    } = this.vProject;
+    return {
+      city,
+      date,
+      image,
+      sum: parseInt(this.vProject.sum, 10),
+      target: parseInt(this.vProject.target, 10),
+      urgent,
+    };
+  },
   methods: {
     resize() {
-      const content = this.$el.querySelector('.single-cover__content');
-      content.style.height = `${content.clientWidth * 0.6}px`;
+      const content = this.$el.querySelector('.single-cover__container');
+      content.style.height = `${content.clientWidth * 0.60}px`;
     },
   },
   created() {
@@ -49,87 +64,53 @@ export default {
 
 .single-cover
   width: 100%
-  color: $TextContrast
-  font-weight: 700
-  margin: 0 auto
-  &__content
-    width: 92%
+  background-color: $BackgroundSecondary
+  +flexJcC
+  padding: 0.60rem 0
+  &__container
     overflow: hidden
-    max-width: $Site-MaxWidth
+    width: 88%
+    color: $TextContrast
+    font-weight: 700
+    +shadowText(0, 0, 0.15rem)
     background-size: cover
     background-repeat: no-repeat
     background-position-x: 50%
     background-position-y: 50%
+    border-radius: 0.30rem
+    +shadow(0, 0, 0.25rem)
     position: relative
-    margin: 0 auto
+  &__info
+    padding: 0.60rem 0.45rem
   &__text
-    overflow: hidden
-    white-space: nowrap
-    text-overflow: ellipsis
     width: 64%
-    height: 1.25em
     text-align: left
   &__urgent
+    +RobotoSlabSerif
     width: 30%
     color: $Text
+    letter-spacing: 0.15rem
     text-shadow: none
     text-align: center
     background-color: $UrgentColor
     +borderBottomLeft(1px, $Border)
+    +radiusRightLeft(0.30rem)
     position: absolute
-    +posTopRight(0, 0)
-    padding-left: 0.125rem
+    +posTopRightSingle(0)
+    padding: 0.60rem 0 0.60rem 0.10rem
   &__box
     width: 100%
+    padding: 0.60rem
     position: absolute
+    bottom: 0
   &__progressbar
     width: 88%
+    padding-bottom: 0.50rem
 
 @media (max-width: $Media-SizeS)
   .single-cover
-    +shadowText(0, 0, 0.125rem)
-    &__content
-      border-radius: 0.25rem
-      +shadow(0, 0, 0.19rem)
-    &__info
-      padding: 0.5rem 0.375rem
     &__text
       width: 62%
     &__urgent
       width: 32%
-      letter-spacing: 0.125rem
-      +radiusRightLeft(0.25rem)
-      +paddingTopBottom(0.5rem, 0.5rem)
-    &__box
-      bottom: 0.5rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .single-cover
-    +shadowText(0, 0, 0.19rem)
-    &__content
-      border-radius: 0.375rem
-      +shadow(0, 0, 0.315rem)
-    &__info
-      padding: 0.75rem 0.565rem
-    &__urgent
-      letter-spacing: 0.125rem
-      +radiusRightLeft(0.375rem)
-      +paddingTopBottom(0.75rem, 0.75rem)
-    &__box
-      bottom: 0.75rem
-
-@media (min-width: $Media-SizeL)
-  .single-cover
-    +shadowText(0, 0, 0.25rem)
-    &__content
-      border-radius: 0.5rem
-      +shadow(0, 0, 0.44rem)
-    &__info
-      padding: 1rem 0.75rem
-    &__urgent
-      letter-spacing: 0.25rem
-      +radiusRightLeft(0.5rem)
-      +paddingTopBottom(1rem, 1rem)
-    &__box
-      bottom: 1rem
 </style>

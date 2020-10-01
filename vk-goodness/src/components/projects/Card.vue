@@ -121,12 +121,11 @@ export default {
     position: absolute
     +posTopRight(0, 0)
     padding: 0.60rem 0 0.60rem 0.10rem
-  &__control, &__button, &__progressbar
-    bottom: 0
   &__control
     width: 100%
     padding: 0.60rem
     position: absolute
+    bottom: 0
   &__button
     letter-spacing: 0.15rem
     margin: 0.40rem auto

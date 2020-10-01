@@ -18,18 +18,18 @@ const routes = [
     component: () => import('../views/Single.vue'),
   },
   {
-    path: '/account',
+    path: '/index',
     name: 'Account',
     component: () => import('../views/Account.vue'),
   },
   {
-    path: '/donation/:name',
+    path: '/donations/:name',
     name: 'Donation',
     props: true,
     component: () => import('../views/Single.vue'),
   },
   {
-    path: '/dobrothon/:name',
+    path: '/dobrothons/:name',
     name: 'Dobrothon',
     props: true,
     component: () => import('../views/Dobrothon.vue'),

@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import Menu from '@/components/footer/Menu.vue';
 import Line from '@/components/objects/Line.vue';
+import Menu from '@/components/footer/Menu.vue';
 
 export default {
   name: 'Footer',
   components: {
-    Line,
     Menu,
+    Line,
   },
 };
 </script>
@@ -39,21 +39,6 @@ export default {
     max-width: $Site-MaxWidth
     +flexCC
     margin: 0 auto
-
-@media (max-width: $Media-SizeS)
-  .footer
-    &__space, &__fixed, &__container
-      height: 3rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .footer
-    height: 4.5rem
-    &__space, &__fixed, &__container
-      height: 4.5rem
-
-@media (min-width: $Media-SizeL)
-  .footer
-    height: 6rem
-    &__space, &__fixed, &__container
-      height: 6rem
+  &__space, &__fixed, &__container
+    height: 3rem
 </style>

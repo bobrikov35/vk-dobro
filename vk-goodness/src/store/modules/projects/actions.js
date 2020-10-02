@@ -7,7 +7,7 @@ const fetchCities = ({ commit }) => {
 
 const fetchProjects = ({ commit }, { category, city, page }) => {
   commit('RESET_LIST');
-  GET_WITH_PARAMS('projects', `recipient=${category}&city=${city}&page=${page}`)
+  GET_WITH_PARAMS('projects', `?recipient=${category}&city=${city}&page=${page}`)
     .then(({ data }) => commit('SET_LIST', data))
     .catch((error) => commit('ERROR', { name: 'list', error }));
 };

@@ -1,19 +1,20 @@
-import dobrothon from '@/store/modules/dobrothon/index';
-import projects from '@/store/modules/projects/index';
-import single from '@/store/modules/single/index';
-import account from '@/store/modules/account/index';
-import stats from '@/store/modules/static/stats';
-import vkBridge from '@/store/modules/vkBridge';
-
 import { createStore } from 'vuex';
+import actions from './actions';
+import mutations from './mutations';
+import getters from './getters';
+import modules from './modules';
 
 export default createStore({
-  modules: {
-    dobrothon,
-    single,
-    projects,
-    account,
-    stats,
-    vkBridge,
+  state: {
+    stats: {
+      loading: true,
+      result: false,
+      data: null,
+      error: null,
+    },
   },
+  actions,
+  mutations,
+  getters,
+  modules,
 });

@@ -1,12 +1,27 @@
 import { DATA } from '@/app';
-import { ERROR_OBJECT, RESET_LIST as RESET_LIST_FROM_LIB, SET_LIST as SET_LIST_FROM_LIB } from '@/store/modules/lib';
+import {
+  ERROR_OBJECT,
+  RESET_OBJECT,
+  SET_LIST,
+} from '@/store/modules/lib';
 
-const ERROR = ERROR_OBJECT;
+const ERROR_PROJECTS = (state, error) => ERROR_OBJECT(state, { name: 'projects', error });
 
-const RESET_LIST = (state) => {
-  RESET_LIST_FROM_LIB(state);
+const RESET_PROJECTS = (state) => {
+  RESET_OBJECT(state, 'projects');
   state.page = 0;
   state.pages = 0;
+};
+
+const SET_PROJECTS = (state, { projects, page, pages }) => {
+  SET_LIST(state, { name: 'projects', projects });
+  if (state.projects.result) {
+    state.page = page;
+    state.pages = pages;
+  } else {
+    state.page = 0;
+    state.pages = 0;
+  }
 };
 
 const SET_CATEGORY_INDEX = (state, index) => {
@@ -26,22 +41,11 @@ const SET_CITY_INDEX = (state, index) => {
   state.cities.current = index;
 };
 
-const SET_LIST = (state, { projects, page, pages }) => {
-  SET_LIST_FROM_LIB(state, projects);
-  if (state.list.result) {
-    state.page = 0;
-    state.pages = 0;
-  } else {
-    state.page = page;
-    state.pages = pages;
-  }
-};
-
 export default {
-  ERROR,
-  RESET_LIST,
+  ERROR_PROJECTS,
+  RESET_PROJECTS,
+  SET_PROJECTS,
   SET_CATEGORY_INDEX,
   SET_CITIES,
   SET_CITY_INDEX,
-  SET_LIST,
 };

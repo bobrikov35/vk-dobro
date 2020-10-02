@@ -6,8 +6,6 @@ import getters from './getters';
 export default {
   namespaced: true,
   state: {
-    amount: 0,
-    target: 0,
     donationTabs: {
       current: 3,
       list: DATA.donationTabs,
@@ -18,6 +16,8 @@ export default {
       data: null,
       error: null,
     },
+    amount: 0,
+    target: 0,
     visibilityDobrothonForm: false,
     visibilityDonationForm: false,
   },

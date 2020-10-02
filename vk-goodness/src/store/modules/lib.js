@@ -23,13 +23,6 @@ const ERROR_OBJECT = (state, { name, error }) => {
   state[name].error = error;
 };
 
-const RESET_LIST = (state) => {
-  state.list.loading = true;
-  state.list.result = false;
-  state.list.data = null;
-  state.list.error = null;
-};
-
 const RESET_OBJECT = (state, name) => {
   state[name].loading = true;
   state[name].result = false;
@@ -37,15 +30,15 @@ const RESET_OBJECT = (state, name) => {
   state[name].error = null;
 };
 
-const SET_LIST = (state, data) => {
-  state.list.loading = false;
-  state.list.result = data !== null && typeof data === 'object';
-  if (state.list.result) {
-    state.list.data = [...data];
-    state.list.error = null;
+const SET_LIST = (state, { name, data }) => {
+  state[name].loading = false;
+  state[name].result = data !== null && typeof data === 'object';
+  if (state[name].result) {
+    state[name].data = [...data];
+    state[name].error = null;
   } else {
-    state.list.data = null;
-    state.list.error = 'Type error';
+    state[name].data = null;
+    state[name].error = 'Type error';
   }
 };
 
@@ -66,7 +59,6 @@ export {
   GET_WITH_PARAMS,
   POST,
   ERROR_OBJECT,
-  RESET_LIST,
   RESET_OBJECT,
   SET_LIST,
   SET_OBJECT,

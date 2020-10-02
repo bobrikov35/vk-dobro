@@ -1,10 +1,13 @@
-import { GET, POST } from '@/store/modules/lib';
+import {
+  GET,
+  POST,
+} from '@/store/modules/lib';
 
 const getDobrothonsById = ({ commit }) => {
-  commit('RESET_LIST');
+  commit('RESET_DOBROTHONS');
   GET('dobrothons')
-    .then(({ data }) => commit('SET_LIST', data))
-    .catch((error) => commit('ERROR', { name: 'list', error }));
+    .then(({ data }) => commit('SET_DOBROTHONS', data))
+    .catch((error) => commit('ERROR_DOBROTHONS', error));
 };
 
 const makeDobrothon = (empty, { projectId, amount, target }) => {

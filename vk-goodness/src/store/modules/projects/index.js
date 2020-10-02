@@ -14,7 +14,7 @@ export default {
       current: 0,
       list: [...DATA.cities],
     },
-    list: {
+    projects: {
       loading: true,
       result: false,
       data: null,

@@ -1,4 +1,7 @@
-import { GET, GET_WITH_PARAMS } from '@/store/modules/lib';
+import {
+  GET,
+  GET_WITH_PARAMS,
+} from '@/store/modules/lib';
 
 const fetchCities = ({ commit }) => {
   GET('cities')
@@ -6,10 +9,10 @@ const fetchCities = ({ commit }) => {
 };
 
 const fetchProjects = ({ commit }, { category, city, page }) => {
-  commit('RESET_LIST');
+  commit('RESET_PROJECTS');
   GET_WITH_PARAMS('projects', `?recipient=${category}&city=${city}&page=${page}`)
-    .then(({ data }) => commit('SET_LIST', data))
-    .catch((error) => commit('ERROR', { name: 'list', error }));
+    .then(({ data }) => commit('SET_PROJECTS', data))
+    .catch((error) => commit('ERROR_PROJECTS', error));
 };
 
 const setCategoryIndex = ({ commit }, index) => {

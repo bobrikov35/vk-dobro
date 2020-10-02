@@ -5,13 +5,13 @@ import getters from './getters';
 export default {
   namespaced: true,
   state: {
-    list: {
+    dobrothon: {
       loading: true,
       result: false,
       data: null,
       error: null,
     },
-    single: {
+    dobrothons: {
       loading: true,
       result: false,
       data: null,

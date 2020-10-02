@@ -7,6 +7,10 @@ const fetchProject = ({ commit }, name) => {
     .catch((error) => commit('ERROR_PROJECT', error));
 };
 
+const setDonationTabIndex = ({ commit }, index) => {
+  commit('SET_DONATION_TAB_INDEX', index);
+};
+
 const setAmount = ({ commit }, amount) => {
   commit('SET_AMOUNT', amount);
 };
@@ -15,23 +19,19 @@ const setTarget = ({ commit }, target) => {
   commit('SET_TARGET', target);
 };
 
-const setDonationTabIndex = ({ commit }, index) => {
-  commit('SET_DONATION_TAB_INDEX', index);
-};
-
 const switchVisibilityDobrothonForm = ({ state, commit }) => {
-  commit('SET_SHOW_DOBROTHON_FORM', !state.showDobrothonForm);
+  commit('SET_VISIBILITY_DOBROTHON_FORM', !state.visibilityDobrothonForm);
 };
 
 const switchVisibilityDonationForm = ({ state, commit }) => {
-  commit('SET_SHOW_DONATION_FORM', !state.showDonationForm);
+  commit('SET_VISIBILITY_DONATION_FORM', !state.visibilityDonationForm);
 };
 
 export default {
   fetchProject,
+  setDonationTabIndex,
   setAmount,
   setTarget,
-  setDonationTabIndex,
   switchVisibilityDobrothonForm,
   switchVisibilityDonationForm,
 };

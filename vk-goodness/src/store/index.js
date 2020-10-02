@@ -1,3 +1,4 @@
+import dobrothon from '@/store/modules/dobrothon/index';
 import account from '@/store/modules/account/index';
 import cities from '@/store/modules/static/cities';
 import project from '@/store/modules/project/index';
@@ -8,6 +9,7 @@ import { createStore } from 'vuex';
 
 export default createStore({
   modules: {
+    dobrothon,
     account,
     cities,
     project,

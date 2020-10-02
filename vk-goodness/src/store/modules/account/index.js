@@ -1,6 +1,5 @@
 import { axios } from '@/plugins';
 import { CONFIG, DATA, VK_MINI_APP } from '@/app';
-import dobrothons from '@/store/modules/account/dobrothons';
 import donations from '@/store/modules/account/donations';
 
 const account = {
@@ -69,7 +68,6 @@ const account = {
     getTabIndex: (state) => state.tabs.current,
   },
   modules: {
-    dobrothons,
     donations,
   },
 };

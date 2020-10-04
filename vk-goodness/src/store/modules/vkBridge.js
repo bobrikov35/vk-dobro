@@ -1,5 +1,5 @@
 import { axios, bridge } from '@/plugins';
-import { CONFIG, VK_MINI_APP } from '@/app';
+import { CONFIG, VK_PARAMS } from '@/app';
 
 const vkBridge = {
   namespaced: true,
@@ -15,7 +15,7 @@ const vkBridge = {
     getAccessTokenBridge({ commit }) {
       commit('RESET');
       bridge.send('VKWebAppGetAuthToken', {
-        app_id: VK_MINI_APP.id,
+        app_id: VK_PARAMS.app.vk_app_id,
         scope: 'notifications',
       })
         .then((data) => {
@@ -69,7 +69,7 @@ const vkBridge = {
       })
         .then((data) => {
           axios.post(CONFIG.apiUrls.wall, { post_id: data.post_id }, {
-            params: VK_MINI_APP.params.start,
+            params: VK_PARAMS.app,
           })
             .then((response) => {
               if (CONFIG.debug) {
@@ -113,7 +113,7 @@ const vkBridge = {
           axios.post(CONFIG.apiUrls.stories, {
             story_id: data.story_id,
           }, {
-            params: VK_MINI_APP.params.start,
+            params: VK_PARAMS.app,
           })
             .then((response) => {
               if (CONFIG.debug) {

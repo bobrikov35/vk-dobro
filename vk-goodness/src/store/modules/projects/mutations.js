@@ -14,7 +14,7 @@ const RESET_PROJECTS = (state) => {
 };
 
 const SET_PROJECTS = (state, { projects, page, pages }) => {
-  SET_LIST(state, { name: 'projects', projects });
+  SET_LIST(state, { name: 'projects', data: projects });
   if (state.projects.result) {
     state.page = page;
     state.pages = pages;
@@ -42,10 +42,13 @@ const SET_CITY_INDEX = (state, index) => {
 };
 
 export default {
+  // projects
   ERROR_PROJECTS,
   RESET_PROJECTS,
   SET_PROJECTS,
+  // category
   SET_CATEGORY_INDEX,
+  // city
   SET_CITIES,
   SET_CITY_INDEX,
 };

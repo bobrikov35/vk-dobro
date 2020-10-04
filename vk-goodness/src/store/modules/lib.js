@@ -1,19 +1,19 @@
 import { axios } from '@/plugins';
-import { CONFIG, VK_MINI_APP } from '@/app';
+import { CONFIG, VK_PARAMS } from '@/app';
 
 const GET = (urlName) => axios.get(CONFIG.apiUrls[urlName], {
-  params: VK_MINI_APP.params.start,
+  params: VK_PARAMS.app,
 });
 
 const GET_WITH_PARAMS = (urlName, params = '') => axios.get(`${CONFIG.apiUrls[urlName]}${params}`, {
-  params: VK_MINI_APP.params.start,
+  params: VK_PARAMS.app,
 });
 
 const POST = (urlName, data) => axios.post(CONFIG.apiUrls[urlName], {
-  vk_user_id: VK_MINI_APP.params.allObject.vk_user_id,
+  vk_user_id: VK_PARAMS.all.vk_user_id,
   ...data,
 }, {
-  params: VK_MINI_APP.params.start,
+  params: VK_PARAMS.app,
 });
 
 const ERROR_OBJECT = (state, { name, error }) => {

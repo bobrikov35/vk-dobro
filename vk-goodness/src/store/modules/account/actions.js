@@ -1,4 +1,4 @@
-import { VK_MINI_APP } from '@/app';
+import { VK_PARAMS } from '@/app';
 import {
   GET,
   POST,
@@ -13,7 +13,7 @@ const getDonationsById = ({ commit }) => {
 
 const makePayment = (empty, { projectId, amount }) => {
   POST('donations', {
-    vk_user_id: VK_MINI_APP.params.allObject.vk_user_id,
+    vk_user_id: VK_PARAMS.all.vk_user_id,
     project_id: projectId,
     amount,
   })

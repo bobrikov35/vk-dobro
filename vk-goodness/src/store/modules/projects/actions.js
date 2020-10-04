@@ -24,8 +24,11 @@ const setCityIndex = ({ commit }, index) => {
 };
 
 export default {
-  fetchCities,
+  // projects
   fetchProjects,
+  // category
   setCategoryIndex,
+  // city
+  fetchCities,
   setCityIndex,
 };

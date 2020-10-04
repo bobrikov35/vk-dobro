@@ -1,13 +1,13 @@
 <template>
   <div class="projects-city">
     <div class="projects-city__container">
-      <div class="projects-city__select" @click="this.isShowDropbox = true">
-        <h3 class="projects-city__value">{{ currentCity.title }}</h3>
-        <i class="fa fa-angle-down projects-city__icon"></i>
-        <div v-show="isShowDropbox" class="projects-city__dropbox" @click.stop>
-          <ul class="projects-city__list">
+      <div class="cs-select" @click="turnOnVisibilityDropdown">
+        <h3 class="cs-select__value">{{ currentCity.title }}</h3>
+        <i class="fa fa-angle-down cs-select__icon"></i>
+        <div class="cs-select__dropbox" id="city" v-show="isVisibilityDropdown" @click.stop>
+          <ul class="cs-select__list">
             <li v-for="(item, index) in cities" :key="item.id" @click.stop="choiceItem(index)"
-                class="projects-city__item" :class="index === cityIndex ? 'projects-city__active' : ''">
+                class="cs-select__item" :class="index === cityIndex ? 'cs-select__item_active' : ''">
               {{ item.title }}
             </li>
           </ul>
@@ -24,15 +24,13 @@ export default {
   name: 'SelectCity',
   data() {
     return {
-      isShowDropbox: false,
+      isVisibilityDropdown: false,
     };
   },
   methods: {
     choiceItem(index) {
-      this.isShowDropbox = false;
-      if (index === this.cityIndex) {
-        return;
-      }
+      this.turnOffVisibilityDropdown();
+      if (index === this.cityIndex) return;
       this.setCityIndex(index);
       this.fetchProjects({
         category: this.currentCategory.name,
@@ -40,18 +38,27 @@ export default {
         page: 1,
       });
     },
+    turnOnVisibilityDropdown() {
+      this.isVisibilityDropdown = true;
+      this.fixedBody();
+    },
+    turnOffVisibilityDropdown() {
+      this.isVisibilityDropdown = false;
+      this.unfixedBody();
+    },
     ...mapActions({
-      fetchProjects: 'project/projects/fetchProjects',
-      setCityIndex: 'cities/setCityIndex',
+      fetchProjects: 'projects/fetchProjects',
+      setCityIndex: 'projects/setCityIndex',
+      fixedBody: 'fixedBody',
+      unfixedBody: 'unfixedBody',
     }),
   },
   computed: {
     ...mapGetters({
-      categoryIndex: 'project/getCategoryIndex',
-      cities: 'cities/getCities',
-      cityIndex: 'cities/getCityIndex',
-      currentCategory: 'project/getCurrentCategory',
-      currentCity: 'cities/getCurrentCity',
+      cities: 'projects/getCities',
+      cityIndex: 'projects/getCityIndex',
+      currentCity: 'projects/getCurrentCity',
+      currentCategory: 'projects/getCurrentCategory',
     }),
   },
 };
@@ -60,51 +67,28 @@ export default {
 <style scoped lang="sass">
 @import '../../styles/var'
 @import '../../styles/mixin'
+@import '../styles/select'
 
 .projects-city
   background-color: $BackgroundSecondary
+  border-bottom: 1px solid $Border
   &__container
     max-width: $Site-MaxWidth
-    padding: 0.40rem 0.30rem
     margin: 0 auto
-  &__select
-    cursor: pointer
-    background-color: $Background
-    border: 1px solid $Border
-    border-radius: 0.30rem
-    +flexSb
-    padding: 0.45rem 0.70rem 0.45rem 0.85rem
-  &__value
-    font-weight: 400
-  &__icon
-    font-size: 1rem
-    margin-top: 1px
-  &__dropbox
-    z-index: 11
-    cursor: default
-    overflow-y: scroll
-    width: 100%
-    height: 100%
-    background-color: $BackgroundDarkened
-    +flexColumnAiC
-    position: fixed
-    +posTopLeft(0, 0)
-  &__list
-    min-width: $Site-MinWidth
-    max-width: $Site-MaxWidth
-    padding: 0.85rem
-  &__item
-    cursor: pointer
-    text-align: center
-    background-color: $Background
-    border-top: 1px solid $Border
-    padding: 0.8rem 1.6rem
-    &:first-of-type
-      border-top: none
-      +radiusTop(0.30rem)
-    &:last-of-type
-      +radiusBottom(0.30rem)
-  &__active
-    background-color: $ColorMainYellow
-    border-top: 1px solid $ColorMainYellowActive
+    +paddingTopBottomSingle($Site-PuddingVertical)
+
+@media (max-width: $Media-SizeS)
+  .projects-city
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-S)
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .projects-city
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-M)
+
+@media (min-width: $Media-SizeL)
+  .projects-city
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-L)
 </style>

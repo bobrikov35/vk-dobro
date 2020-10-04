@@ -1,21 +1,21 @@
 <template>
   <div class="projects-category">
     <div class="projects-category__container">
-      <div class="projects-category__select" @click="this.isShowDropbox = true" v-show="isShowSelect">
-        <h3 class="projects-category__value">{{ currentCategory.title }}</h3>
-        <i class="fa fa-angle-down projects-category__icon"></i>
-        <div v-show="isShowDropbox" class="projects-category__dropbox" @click.stop>
-          <ul class="projects-category__list">
+      <div class="cs-select" @click="turnOnVisibilityDropdown" v-show="isVisibilityList">
+        <h3 class="cs-select__value">{{ currentCategory.title }}</h3>
+        <i class="fa fa-angle-down cs-select__icon"></i>
+        <div class="cs-select__dropbox" @click.stop v-show="isVisibilityDropdown">
+          <ul class="cs-select__list">
             <li v-for="(item, index) in categories" :key="item.id" @click.stop="choiceItem(index)"
-                class="projects-category__item" :class="index === categoryIndex ? 'projects-category__active' : ''">
+                class="cs-select__item" :class="index === categoryIndex ? 'cs-select__item_active' : ''">
               {{ item.title }}
             </li>
           </ul>
         </div>
       </div>
-      <ul class="projects-category__tabs" v-show="isShowTabs">
+      <ul class="cs-tabs" v-show="isVisibilityTabs">
         <li v-for="(item, index) in categories" :key="item.id" @click="choiceItem(index)"
-            class="projects-category__tab" :class="index === categoryIndex ? 'projects-category__active' : ''">
+            class="cs-tabs__item" :class="index === categoryIndex ? 'cs-tabs__item_active' : ''">
           {{ item.title }}
         </li>
       </ul>
@@ -30,17 +30,17 @@ export default {
   name: 'SelectCategory',
   data() {
     return {
-      isShowTabs: false,
-      isShowSelect: true,
-      isShowDropbox: false,
+      selector: {
+        current: 0,
+        list: ['list', 'tabs'],
+      },
+      isVisibilityDropdown: false,
     };
   },
   methods: {
     choiceItem(index) {
-      this.isShowDropbox = false;
-      if (index === this.categoryIndex) {
-        return;
-      }
+      this.turnOffVisibilityDropdown();
+      if (index === this.categoryIndex) return;
       this.setCategoryIndex(index);
       this.fetchProjects({
         category: this.currentCategory.name,
@@ -48,31 +48,48 @@ export default {
         page: 1,
       });
     },
-    switchControlObject() {
-      this.isShowTabs = (this.$el.clientWidth >= 588 && this.$el.clientWidth <= 630) || this.$el.clientWidth >= 666;
-      this.isShowSelect = !this.isShowTabs;
-      if (this.isShowTabs) {
-        this.isShowDropbox = false;
+    switchSelector() {
+      if ((this.$el.clientWidth >= 610 && this.$el.clientWidth <= 630) || this.$el.clientWidth >= 700) {
+        this.selector.current = 1;
+        this.turnOffVisibilityDropdown();
+      } else {
+        this.selector.current = 0;
       }
     },
+    turnOnVisibilityDropdown() {
+      this.isVisibilityDropdown = true;
+      this.fixedBody();
+    },
+    turnOffVisibilityDropdown() {
+      this.isVisibilityDropdown = false;
+      this.unfixedBody();
+    },
     ...mapActions({
-      fetchProjects: 'project/projects/fetchProjects',
-      setCategoryIndex: 'project/setCategoryIndex',
+      fetchProjects: 'projects/fetchProjects',
+      setCategoryIndex: 'projects/setCategoryIndex',
+      fixedBody: 'fixedBody',
+      unfixedBody: 'unfixedBody',
     }),
   },
   computed: {
+    isVisibilityList() {
+      return this.selector.current === 0;
+    },
+    isVisibilityTabs() {
+      return this.selector.current === 1;
+    },
     ...mapGetters({
-      categories: 'project/getCategories',
-      categoryIndex: 'project/getCategoryIndex',
-      currentCategory: 'project/getCurrentCategory',
-      currentCity: 'cities/getCurrentCity',
+      categories: 'projects/getCategories',
+      categoryIndex: 'projects/getCategoryIndex',
+      currentCategory: 'projects/getCurrentCategory',
+      currentCity: 'projects/getCurrentCity',
     }),
   },
   created() {
-    window.addEventListener('resize', this.switchControlObject);
+    window.addEventListener('resize', this.switchSelector);
   },
   mounted() {
-    this.switchControlObject();
+    this.switchSelector();
   },
 };
 </script>
@@ -80,63 +97,29 @@ export default {
 <style scoped lang="sass">
 @import '../../styles/var'
 @import '../../styles/mixin'
+@import '../styles/select'
+@import '../styles/tabs'
 
 .projects-category
   background-color: $BackgroundSecondary
-  +borderTopBottom(1px, $Border)
+  border-bottom: 1px solid $Border
   &__container
     max-width: $Site-MaxWidth
-    padding: 0.40rem 0.30rem
     margin: 0 auto
-  &__select
-    cursor: pointer
-    background-color: $Background
-    border: 1px solid $Border
-    border-radius: 0.30rem
-    +flexSb
-    padding: 0.45rem 0.70rem 0.45rem 0.85rem
-  &__value
-    font-weight: 400
-  &__icon
-    font-size: 1rem
-    margin-top: 1px
-  &__dropbox
-    z-index: 11
-    cursor: default
-    overflow-y: scroll
-    width: 100%
-    height: 100%
-    background-color: $BackgroundDarkened
-    +flexColumnAiC
-    position: fixed
-    +posTopLeft(0, 0)
-  &__list
-    min-width: $Site-MinWidth
-    max-width: $Site-MaxWidth
-    padding: 0.85rem
-  &__item
-    cursor: pointer
-    text-align: center
-    background-color: $Background
-    border-top: 1px solid $Border
-    padding: 0.8rem 1.6rem
-    &:first-of-type
-      border-top: none
-      +radiusTop(0.30rem)
-    &:last-of-type
-      +radiusBottom(0.30rem)
-  &__tabs
-    +flexJcC
-  &__tab
-    cursor: pointer
-    text-align: center
-    border: 1px solid $Border
-    border-radius: 0.30rem
-    padding: 0.45rem 0.30rem
-    margin-right: 0.30rem
-    &:last-of-type
-      margin-right: 0
-  &__active
-    background-color: $ColorMainYellow
-    border-top: 1px solid $ColorMainYellowActive
+    +paddingTopBottomSingle($Site-PuddingVertical)
+
+@media (max-width: $Media-SizeS)
+  .projects-category
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-S)
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .projects-category
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-M)
+
+@media (min-width: $Media-SizeL)
+  .projects-category
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-L)
 </style>

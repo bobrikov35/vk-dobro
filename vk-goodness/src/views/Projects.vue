@@ -1,8 +1,6 @@
 <template>
   <div class="projects">
-    <div class="projects__caption">
-      <h2 class="projects__title">Я хочу помочь</h2>
-    </div>
+    <Caption />
     <SelectCategory />
     <SelectCity />
     <Line />
@@ -10,7 +8,7 @@
       <i class="fa fa-spinner fa-pulse"></i>
     </div>
     <div v-else-if="!isLoading && !isResult" class="projects__error">
-      <h2>Что-то пошло не так</h2>
+      <h1>Что-то пошло не так</h1>
     </div>
     <div v-else class="projects__content">
       <Card v-for="project of projects" :key="project.id" :vProject="project" />
@@ -20,33 +18,36 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Caption from '@/components/projects/Caption.vue';
+import Card from '@/components/projects/Card.vue';
+import Line from '@/components/objects/Line.vue';
 import SelectCategory from '@/components/projects/SelectCategory.vue';
 import SelectCity from '@/components/projects/SelectCity.vue';
-import Line from '@/components/objects/Line.vue';
-import Card from '@/components/projects/Card.vue';
 
 export default {
   name: 'Projects',
   components: {
+    Caption,
+    Card,
+    Line,
     SelectCategory,
     SelectCity,
-    Line,
-    Card,
   },
   methods: {
     ...mapActions({
-      fetchProjects: 'project/projects/fetchProjects',
+      fetchProjects: 'projects/fetchProjects',
     }),
   },
   computed: {
     ...mapGetters({
-      currentCategory: 'project/getCurrentCategory',
-      currentCity: 'cities/getCurrentCity',
-      isLoading: 'project/projects/isLoading',
-      isResult: 'project/projects/isResult',
-      projects: 'project/projects/getProjects',
-      page: 'project/projects/getPage',
-      pages: 'project/projects/getPages',
+      currentCategory: 'projects/getCurrentCategory',
+      currentCity: 'projects/getCurrentCity',
+      // projects
+      page: 'projects/getPage',
+      pages: 'projects/getPages',
+      isLoading: 'projects/isLoadingProjects',
+      isResult: 'projects/isResultProjects',
+      projects: 'projects/getProjects',
     }),
   },
   mounted() {
@@ -67,15 +68,13 @@ export default {
   background-color: $Background
   +flexColumn
   flex-grow: 1
-  &__title, &__loading, &__error
+  &__loading, &__error
     max-width: $Site-MaxWidth
     margin: 0 auto
-  &__title
-    padding: 0.40rem 0.30rem
   &__loading, &__error
     +flexCC()
   &__loading, &__error, &__content
     flex-grow: 1
   &__loading
-    font-size: 3rem
+    font-size: $Loading-Size
 </style>

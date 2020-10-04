@@ -1,0 +1,30 @@
+@import '../../styles/var'
+@import '../../styles/mixin'
+
+.cs-button-1, .cs-button-2, .cs-button-3
+  +RobotoSlabSerif
+  cursor: pointer
+  outline: none
+  font-weight: 700
+  border-width: 0.15rem
+  border-style: solid
+  border-radius: $Site-Radius
+  +flexCC
+  padding: $Button-PaddingVertical $Button-PaddingHorizontal
+
+.cs-button-1
+  background-color: $BackgroundSecondary
+  border-color: $Border
+
+.cs-button-2
+  background-color: $ColorMainYellow
+  border-color: $ColorMainYellowActive
+
+.cs-button-3
+  height: 2.6rem
+  color: $ColorWhite
+  +shadowText(0, 0, $Site-TextShadow)
+  background-color: rgb(255, 255, 255, 0.33)
+  border-color: $ColorMainYellow
+  border-radius: 2.6rem
+  box-shadow: none

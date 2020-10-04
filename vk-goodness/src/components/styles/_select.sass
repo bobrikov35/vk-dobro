@@ -1,0 +1,56 @@
+@import '../../styles/var'
+@import '../../styles/mixin'
+
+.cs-select
+  cursor: pointer
+  background-color: $Background
+  border: 1px solid $Border
+  border-radius: $Site-Radius
+  +flexSb
+  padding: $Input-PuddingVertical 0.70rem $Input-PuddingVertical 0.85rem
+  &__value
+    font-weight: 400
+  &__icon
+    font-size: 1rem
+    margin-top: 3px
+  &__dropbox
+    z-index: 11
+    cursor: default
+    overflow-y: auto
+    width: 100%
+    height: 100%
+    background-color: $BackgroundDarkened
+    +flexColumnAiC
+    position: fixed
+    +posTopLeftSingle(0)
+  &__list
+    padding: 0.85rem
+  &__item
+    cursor: pointer
+    text-align: center
+    background-color: $Background
+    border-top: 1px solid $Border
+    padding: 0.70rem 1.4rem
+    &:first-of-type
+      border-top: none
+      +radiusTop($Site-Radius)
+    &:last-of-type
+      +radiusBottom($Site-Radius)
+    &_active
+      background-color: $ColorMainYellow
+      border-top: 1px solid $ColorMainYellowActive
+
+@media (max-width: $Media-SizeS)
+  .cs-select
+    &__list
+      width: 80%
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .cs-select
+    &__list
+      width: 76%
+
+@media (min-width: $Media-SizeL)
+  .cs-select
+    &__list
+      width: 72%

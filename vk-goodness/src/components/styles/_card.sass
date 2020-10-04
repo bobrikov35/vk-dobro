@@ -1,0 +1,75 @@
+@import '../../styles/var'
+@import '../../styles/mixin'
+
+.cs-card
+  overflow: hidden
+  color: $TextContrast
+  font-weight: 700
+  +shadowText(0, 0, $Site-TextShadow)
+  text-align: center
+  background-size: cover
+  background-repeat: no-repeat
+  background-position-x: 50%
+  background-position-y: 50%
+  border-radius: $Site-Radius
+  position: relative
+  +shadow(0, 0, $Site-Shadow)
+  margin: $Card-MarginVertical auto
+  &__header
+    padding: $Card-PaddingVertical $Card-PaddingHorizontal
+  &__title
+    overflow: hidden
+    width: 100%
+    text-align: center
+    padding: $Card-PaddingVertical
+  &__text
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    width: 64%
+    text-align: left
+  &__urgent
+    +RobotoSlabSerif
+    width: 30%
+    color: $Text
+    letter-spacing: 0.15rem
+    text-shadow: none
+    text-align: center
+    background-color: $UrgentColor
+    +borderBottomLeft(1px, $Border)
+    +radiusRightLeft($Site-Radius)
+    position: absolute
+    +posTopRightSingle(0)
+    padding: $Card-PaddingVertical 0 $Card-PaddingVertical 0.10rem
+  &__bottom-panel
+    width: 100%
+    padding: $Card-PaddingVertical
+    position: absolute
+    bottom: 0
+  &__button
+    letter-spacing: 0.15rem
+    margin: 0.40rem auto
+  &__button, &__progressbar
+    width: 84%
+
+@media (max-width: $Media-SizeS)
+  .cs-card
+    width: $Card-Width-S
+    &__title
+      height: 62px
+    &__text
+      width: 62%
+    &__urgent
+      width: 32%
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .cs-card
+    width: $Card-Width-M
+    &__title
+      height: 102px
+
+@media (min-width: $Media-SizeL)
+  .cs-card
+    width: $Card-Width-L
+    &__title
+      height: 112px

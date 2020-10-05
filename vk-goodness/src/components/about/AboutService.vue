@@ -21,34 +21,14 @@ export default {
 @import '../../styles/mixin'
 
 .about-service
-  color: white
+  color: $ColorWhite
   background-color: $AboutBlueColor
   &__container
     max-width: $Site-MaxWidth
     text-align: center
+    padding: 1rem + $px3f15
     margin: 0 auto
   &__text
-    +RobotoSlabSerif
-    font-weight: 300
-
-@media (max-width: $Media-SizeS)
-  .about-service
-    &__container
-      padding: 1rem
-    &__text
-      margin-top: 0.75rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .about-service
-    &__container
-      padding: 1.5rem
-    &__text
-      margin-top: 1.125rem
-
-@media (min-width: $Media-SizeL)
-  .about-service
-    &__container
-      padding: 2rem
-    &__text
-      margin-top: 1.5rem
+    +RobotoSerif
+    margin-top: 1rem
 </style>

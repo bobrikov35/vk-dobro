@@ -68,7 +68,7 @@ export default {
     height: 2.6rem
     color: $ColorWhite
     +shadowText(0, 0, 0.15rem)
-    background-color: $ButtonType2Background
+    background-color: rgb(255, 255, 255, 0.33)
     border-color: $ColorMainYellow
     border-radius: 2.6rem
     box-shadow: none

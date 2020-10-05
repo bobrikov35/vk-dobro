@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import Dobrothons from '@/components/account/Dobrothons.vue';
 import Donations from '@/components/account/Donations.vue';
 import Rewards from '@/components/account/Rewards.vue';
@@ -27,18 +27,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchPoints: 'account/fetchPointsById',
-      fetchDobrothons: 'account/dobrothons/fetchDobrothonsById',
-      fetchDonations: 'account/donations/fetchDonationsById',
-    }),
-  },
-  computed: {
-    ...mapGetters({
-      currentTab: 'account/getTabIndex',
+      getPoints: 'account/getPointsById',
+      fetchDonations: 'account/donations/getDonationsById',
+      fetchDobrothons: 'dobrothon/getDobrothonsById',
     }),
   },
   created() {
-    this.fetchPoints();
+    this.getPoints();
     this.fetchDonations();
     this.fetchDobrothons();
   },

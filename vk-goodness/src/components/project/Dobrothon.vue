@@ -1,20 +1,24 @@
 <template>
-  <div class="single-donation" v-show="isShowPayForm">
-    <div class="single-donation__container">
-      <div class="single-donation__exit">
-        <button class="single-donation__exit-button" @click="switchPayForm"><i class="fa fa-times"></i></button>
+  <div class="single-dobrothon" v-show="isVisibilityDobrothonForm">
+    <div class="single-dobrothon__container">
+      <div class="single-dobrothon__exit">
+        <button class="single-dobrothon__exit-button" @click="switchVisibilityDobrothonForm">
+          <i class="fa fa-times-circle"></i>
+        </button>
       </div>
-      <h3 class="single-donation__title">Сумма пожертвования</h3>
-      <ul class="single-donation__tabs">
+      <h3 class="single-dobrothon__title">Сумма вашего взноса</h3>
+      <ul class="single-dobrothon__tabs">
         <li v-for="(item, index) in formatDonatesTabs" :key="item.id" v-show="index < 7" @click.stop="choiceItem(index)"
-            class="single-donation__tab" :class="index === donatesTabIndex ? 'single-donation__tab_active' : ''">
+            class="single-dobrothon__tab" :class="index === donationTabIndex ? 'single-dobrothon__tab_active' : ''">
           {{ formatDonatesTabs[index] }}
         </li>
-        <li class="single-donation__tab" :class="donatesTabIndex < 0 ? 'single-donation__tab_active' : ''"
+        <li class="single-dobrothon__tab" :class="donationTabIndex < 0 ? 'single-dobrothon__tab_active' : ''"
             @click.stop="choiceItem(-1)">Своя</li>
       </ul>
-      <EditAmount vClass="single-donation__amount" :vMax="project.target - project.sum" />
-      <Button vClass="single-donation__pay" vTitle="Пожертвовать" @click="pay"/>
+      <EditAmount vClass="single-dobrothon__amount" :vMax="project.target - project.sum" />
+      <h3 class="single-dobrothon__title single-dobrothon__title_target">Целевая сумма ДОБРОфона</h3>
+      <EditTarget vClass="single-dobrothon__target" :vMax="project.target - project.sum" />
+      <Button vClass="single-dobrothon__pay" vTitle="Запустить" @click="make"/>
     </div>
   </div>
 </template>
@@ -22,53 +26,58 @@
 <script>
 import format from '@/libs/format';
 import { mapActions, mapGetters } from 'vuex';
-import EditAmount from '@/components/single/EditAmount.vue';
+import EditAmount from '@/components/project/EditAmount.vue';
+import EditTarget from '@/components/project/EditTarget.vue';
 import Button from '@/components/objects/Button.vue';
 
 export default {
-  name: 'Donation',
+  name: 'Dobrothon',
   components: {
     EditAmount,
+    EditTarget,
     Button,
   },
   methods: {
     choiceItem(index) {
-      if (index === this.donatesTabIndex) {
+      if (index === this.donationTabIndex) {
         return;
       }
-      this.setDonatesTabIndex(index);
+      this.setDonationTabIndex(index);
       if (index >= 0) {
-        this.setAmount(this.currentDonatesTab.value);
+        this.setAmount(this.currentDonationTab.value);
       }
     },
-    pay() {
-      this.makePayment({
+    make() {
+      this.switchVisibilityDobrothonForm();
+      this.makeDobrothon({
         projectId: this.project.id,
         amount: this.amount,
+        target: this.target,
       });
     },
     ...mapActions({
-      makePayment: 'account/donations/makePayment',
+      makeDobrothon: 'dobrothon/makeDobrothon',
       setAmount: 'project/setAmount',
-      setDonatesTabIndex: 'project/setDonatesTabIndex',
-      switchPayForm: 'project/switchPayForm',
+      setDonationTabIndex: 'project/setDonationTabIndex',
+      switchVisibilityDobrothonForm: 'project/switchVisibilityDobrothonForm',
     }),
   },
   computed: {
     formatDonatesTabs() {
-      return this.donatesTabs.map((item) => format.numberFinance(item.value));
+      return this.donationTabs.map((item) => format.numberFinance(item.value));
     },
     ...mapGetters({
       amount: 'project/getAmount',
-      currentDonatesTab: 'project/getCurrentDonatesTab',
-      donatesTabs: 'project/getDonatesTabs',
-      donatesTabIndex: 'project/getDonatesTabIndex',
-      isShowPayForm: 'project/isShowPayForm',
-      project: 'project/single/getProject',
+      target: 'project/getTarget',
+      currentDonationTab: 'project/getCurrentDonationTab',
+      donationTabs: 'project/getDonationTabs',
+      donationTabIndex: 'project/getDonationTabIndex',
+      isVisibilityDobrothonForm: 'project/isVisibilityDobrothonForm',
+      project: 'project/getProject',
     }),
   },
   mounted() {
-    this.setAmount(this.donatesTabIndex >= 0 ? this.donatesTabs[this.donatesTabIndex].value : 0);
+    this.setAmount(this.donationTabIndex >= 0 ? this.currentDonationTab.value : 0);
   },
 };
 </script>
@@ -77,7 +86,7 @@ export default {
 @import '../../styles/var'
 @import '../../styles/mixin'
 
-.single-donation
+.single-dobrothon
   z-index: 11
   width: 100%
   height: 100%
@@ -95,6 +104,8 @@ export default {
     position: relative
   &__title
     margin-bottom: 0.60rem
+  &__title_target
+    margin-top: 1.20rem
   &__tabs
     display: grid
     grid-template-columns: repeat(4, 1fr)
@@ -109,7 +120,7 @@ export default {
       font-weight: 700
       background-color: $ColorMainYellow
       border-color: $ColorMainYellowActive
-  &__amount
+  &__amount, &__target
     margin-top: 0.60rem
   &__pay
     border-width: 1px
@@ -135,7 +146,7 @@ export default {
       +marginTopLeft(-2px, 1px)
 
 @media (max-width: $Media-SizeS)
-  .single-donation
+  .single-dobrothon
     &__container
       +marginRightLeftSingle(2%)
     &__tabs
@@ -146,14 +157,14 @@ export default {
       +marginTopLeft(-1px, 0)
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .single-donation
+  .single-dobrothon
     &__container
       +marginRightLeftSingle(4%)
     &__pay
       width: 74%
 
 @media (min-width: $Media-SizeL)
-  .single-donation
+  .single-dobrothon
     &__container
       +marginRightLeftSingle(6%)
     &__pay

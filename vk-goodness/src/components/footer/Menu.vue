@@ -1,7 +1,7 @@
 <template>
   <ul class="menu">
     <li class="menu__item">
-      <router-link class="menu__link" to="/"><i class="fa fa-arrow-left"></i></router-link>
+      <button class="menu__link" @click="this.$router.back()"><i class="fa fa-arrow-left"></i></button>
     </li>
     <li class="menu__item">
       <router-link class="menu__link" to="/about"><i class="fa fa-info"></i></router-link>

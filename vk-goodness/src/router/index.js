@@ -7,32 +7,26 @@ const routes = [
     component: () => import('../views/Projects.vue'),
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue'),
-  },
-  {
-    path: '/single/:name',
-    name: 'Single',
+    path: '/project/:name',
+    name: 'Project',
     props: true,
-    component: () => import('../views/Single.vue'),
+    component: () => import('../views/Project.vue'),
   },
   {
-    path: '/index',
+    path: '/account',
     name: 'Account',
     component: () => import('../views/Account.vue'),
   },
   {
-    path: '/donations/:name',
-    name: 'Donation',
-    props: true,
-    component: () => import('../views/Single.vue'),
-  },
-  {
-    path: '/dobrothons/:name',
+    path: '/dobrothon/:id',
     name: 'Dobrothon',
     props: true,
     component: () => import('../views/Dobrothon.vue'),
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About.vue'),
   },
   {
     path: '/test',

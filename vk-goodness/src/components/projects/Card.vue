@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     goToProject() {
-      const path = `/single/${this.vProject.path}`;
+      const path = `/project/${this.vProject.path}`;
       if (this.$route.path !== path) this.$router.push(path);
     },
     resizeCard() {

@@ -1,5 +1,5 @@
-const Hostname = 'http://localhost:3005/';
-// const Hostname = 'https://vk-dobro-1.herokuapp.com/';
+// const Hostname = 'http://localhost:3005/';
+const Hostname = 'https://vk-dobro-1.herokuapp.com/';
 
 const CONFIG = {
   debug: true,
@@ -54,18 +54,18 @@ const DATA = {
 
 const startParams = new URLSearchParams(window.location.search);
 const entriesParams = startParams.entries();
-const VK_MINI_APP = {
-  id: 7585697,
-  secureKey: 'y2pep1CF81uBWcGLg6Qq',
-  serviceAccessKey: 'e4b2c379e4b2c379e4b2c37969e4c17cd8ee4b2e4b2c379bbe566d568a29921a0ca4653',
-  params: {
-    start: startParams,
-    allObject: Object.fromEntries(entriesParams),
+const fragment = window.location.hash.split('/');
+const VK_PARAMS = {
+  app: startParams,
+  all: Object.fromEntries(entriesParams),
+  fragment: {
+    name: fragment[1],
+    id: fragment[2],
   },
 };
 
 export {
   CONFIG,
   DATA,
-  VK_MINI_APP,
+  VK_PARAMS,
 };

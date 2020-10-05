@@ -1,6 +1,6 @@
 <template>
   <div class="account-dobrothons" v-show="tabIndex === 2">
-    Доброфоны
+    {{ dobrothons }}
   </div>
 </template>
 
@@ -11,6 +11,7 @@ export default {
   name: 'Dobrothons',
   computed: {
     ...mapGetters({
+      dobrothons: 'dobrothon/getList',
       tabIndex: 'account/getTabIndex',
     }),
   },

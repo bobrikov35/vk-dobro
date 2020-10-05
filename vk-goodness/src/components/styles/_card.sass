@@ -14,14 +14,14 @@
   border-radius: $Site-Radius
   position: relative
   +shadow(0, 0, $Site-Shadow)
-  margin: $Card-MarginVertical auto
+  margin: $Project-MarginVertical auto
   &__header
-    padding: $Card-PaddingVertical $Card-PaddingHorizontal
+    padding: $Project-PaddingVertical $Project-PaddingHorizontal
   &__title
     overflow: hidden
     width: 100%
     text-align: center
-    padding: $Card-PaddingVertical
+    padding: $Project-PaddingVertical
   &__text
     overflow: hidden
     white-space: nowrap
@@ -40,10 +40,10 @@
     +radiusRightLeft($Site-Radius)
     position: absolute
     +posTopRightSingle(0)
-    padding: $Card-PaddingVertical 0 $Card-PaddingVertical 0.10rem
+    padding: $Project-PaddingVertical 0 $Project-PaddingVertical 0.10rem
   &__bottom-panel
     width: 100%
-    padding: $Card-PaddingVertical
+    padding: $Project-PaddingVertical
     position: absolute
     bottom: 0
   &__button

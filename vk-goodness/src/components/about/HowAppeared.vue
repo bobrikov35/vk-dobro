@@ -31,34 +31,20 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     text-align: center
+    padding: 1rem
     margin: 0 auto
-  &__text
-    font-weight: 400
+  &__text, &__button
+    margin-top: $px12f15
 
 @media (max-width: $Media-SizeS)
-  .how-appeared
-    &__container
-      padding: 1rem
-    &__text, &__button
-      margin-top: 0.75rem
-    &__button
-      width: 80%
+  .how-appeared__button
+    width: 80%
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .how-appeared
-    &__container
-      padding: 1.5rem
-    &__text, &__button
-      margin-top: 1.125rem
-    &__button
-      width: 70%
+  .how-appeared__button
+    width: 70%
 
 @media (min-width: $Media-SizeL)
-  .how-appeared
-    &__container
-      padding: 2rem
-    &__text, &__button
-      margin-top: 1.5rem
-    &__button
-      width: 60%
+  .how-appeared__button
+    width: 60%
 </style>

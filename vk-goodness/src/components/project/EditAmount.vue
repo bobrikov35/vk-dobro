@@ -2,12 +2,12 @@
   <div class="single-amount" :class="vClass">
     <div class="single-amount__container">
       <div class="single-amount__field">
-        <button class="single-amount__button single-amount__dec" :disabled="donatesTabIndex >= 0" @click="decrease">
+        <button class="single-amount__button single-amount__dec" :disabled="donationTabIndex >= 0" @click="decrease">
           <i class="fa fa-caret-down"></i>
         </button>
-        <input class="single-amount__input" type="number" :value="amount" :readonly="donatesTabIndex >= 0"
+        <input class="single-amount__input" type="number" :value="amount" :readonly="donationTabIndex >= 0"
                @keydown="keyIgnore" @input="changeValue">
-        <button class="single-amount__button single-amount__inc" :disabled="donatesTabIndex >= 0" @click="increase">
+        <button class="single-amount__button single-amount__inc" :disabled="donationTabIndex >= 0" @click="increase">
           <i class="fa fa-caret-up"></i>
         </button>
         <h3 class="single-amount__rub">₽</h3>
@@ -45,10 +45,10 @@ export default {
     },
     decrease() {
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
-      for (let i = this.donatesTabs.length - 1; i >= 0; i--) {
-        if (value >= this.donatesTabs[i].value * 5) {
-          const remnant = value % this.donatesTabs[i].value;
-          value -= remnant === 0 ? this.donatesTabs[i].value : remnant;
+      for (let i = this.donationTabs.length - 1; i >= 0; i--) {
+        if (value >= this.donationTabs[i].value * 5) {
+          const remnant = value % this.donationTabs[i].value;
+          value -= remnant === 0 ? this.donationTabs[i].value : remnant;
           break;
         }
         if (i === 0) value -= 1;
@@ -59,10 +59,10 @@ export default {
     },
     increase() {
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
-      for (let i = this.donatesTabs.length - 1; i >= 0; i--) {
-        if (value >= this.donatesTabs[i].value * 4) {
-          const remnant = value % this.donatesTabs[i].value;
-          value += this.donatesTabs[i].value - remnant;
+      for (let i = this.donationTabs.length - 1; i >= 0; i--) {
+        if (value >= this.donationTabs[i].value * 4) {
+          const remnant = value % this.donationTabs[i].value;
+          value += this.donationTabs[i].value - remnant;
           break;
         }
         if (i === 0) value += 1;
@@ -83,8 +83,8 @@ export default {
   computed: {
     ...mapGetters({
       amount: 'project/getAmount',
-      donatesTabs: 'project/getDonatesTabs',
-      donatesTabIndex: 'project/getDonatesTabIndex',
+      donationTabs: 'project/getDonationTabs',
+      donationTabIndex: 'project/getDonationTabIndex',
     }),
   },
   mounted() {

@@ -8,14 +8,14 @@ const fetchStats = ({ commit }) => {
 };
 
 const fixedBody = () => {
-  document.body.style.position = 'fixed';
   document.body.style.width = '100vw';
+  document.body.style.position = 'fixed';
   document.body.style.top = `-${window.scrollY}px`;
 };
 
 const unfixedBody = () => {
-  document.body.style.position = 'relative';
   document.body.style.width = '';
+  document.body.style.position = 'relative';
   document.body.style.top = '';
   window.scrollTo(0, parseInt(document.body.style.top || '0', 10) * -1);
 };

@@ -3,15 +3,15 @@
     <div class="how-to-help__container">
       <h2 class="how-to-help__title">Как помогать на Добре?</h2>
       <div class="how-to-help__content">
-        <HelpCard :vImage="{ link: '/icons/map.png', alter: 'map' }"
+        <HelpCard vImage="/icons/map.png"
                   vHtml="<b>Выберите город</b>,<br>в котором вы хотите сделать доброе дело"/>
-        <HelpCard :vImage="{ link: '/icons/paycards.png', alter: 'paycards' }"
+        <HelpCard vImage="/icons/paycards.png"
                   vHtml="<b>Выберите способ</b>,<br>которым вы хотите помочь"/>
-        <HelpCard :vImage="{ link: '/icons/calendar.png', alter: 'calendar' }"
+        <HelpCard vImage="/icons/calendar.png"
                   vHtml="<b>Начните помогать</b><br>проекту регулярно или поддержите один раз"/>
-        <HelpCard :vImage="{ link: '/icons/postbox.png', alter: 'postbox' }"
+        <HelpCard vImage="/icons/postbox.png"
                   vHtml="<b>Узнавайте новости проекта</b><br>и следите за изменениями, произошедшими благодаря вам"/>
-        <HelpCard :vImage="{ link: '/icons/report.png', alter: 'report' }"
+        <HelpCard vImage="/icons/report.png"
                   vHtml="<b>Получайте отчеты</b><br>о расходовании средств по завершении проекта"/>
       </div>
     </div>
@@ -37,28 +37,9 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     text-align: center
+    padding: 1rem
     margin: 0 auto
   &__content
     +flexSaWrap
-
-@media (max-width: $Media-SizeS)
-  .how-to-help
-    &__container
-      padding: 1rem
-    &__content
-      margin-top: 0.75rem
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .how-to-help
-    &__container
-      padding: 1.5rem
-    &__content
-      margin-top: 1.125rem
-
-@media (min-width: $Media-SizeL)
-  .how-to-help
-    &__container
-      padding: 2rem
-    &__content
-      margin-top: 1.5rem
+    margin-top: $px12f15
 </style>

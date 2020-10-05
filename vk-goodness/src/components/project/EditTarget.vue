@@ -46,10 +46,10 @@ export default {
     decrease() {
       const min = this.amount * 2;
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
-      for (let i = this.donatesTabs.length - 1; i >= 0; i--) {
-        if (value >= this.donatesTabs[i].value * 5) {
-          const remnant = value % this.donatesTabs[i].value;
-          value -= remnant === 0 ? this.donatesTabs[i].value : remnant;
+      for (let i = this.donationTabs.length - 1; i >= 0; i--) {
+        if (value >= this.donationTabs[i].value * 5) {
+          const remnant = value % this.donationTabs[i].value;
+          value -= remnant === 0 ? this.donationTabs[i].value : remnant;
           break;
         }
         if (i === 0) value -= 1;
@@ -61,10 +61,10 @@ export default {
     increase() {
       const max = Math.min(this.amount * 100, this.vMax);
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
-      for (let i = this.donatesTabs.length - 1; i >= 0; i--) {
-        if (value >= this.donatesTabs[i].value * 4) {
-          const remnant = value % this.donatesTabs[i].value;
-          value += this.donatesTabs[i].value - remnant;
+      for (let i = this.donationTabs.length - 1; i >= 0; i--) {
+        if (value >= this.donationTabs[i].value * 4) {
+          const remnant = value % this.donationTabs[i].value;
+          value += this.donationTabs[i].value - remnant;
           break;
         }
         if (i === 0) value += 1;
@@ -86,8 +86,7 @@ export default {
     ...mapGetters({
       amount: 'project/getAmount',
       target: 'project/getTarget',
-      donatesTabs: 'project/getDonatesTabs',
-      donatesTabIndex: 'project/getDonatesTabIndex',
+      donationTabs: 'project/getDonationTabs',
     }),
   },
   mounted() {

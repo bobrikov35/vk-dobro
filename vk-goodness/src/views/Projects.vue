@@ -70,9 +70,8 @@ export default {
   flex-grow: 1
   &__loading, &__error
     max-width: $Site-MaxWidth
-    margin: 0 auto
-  &__loading, &__error
     +flexCC()
+    margin: 0 auto
   &__loading, &__error, &__content
     flex-grow: 1
   &__loading

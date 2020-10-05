@@ -10,6 +10,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { VK_PARAMS } from '@/app';
 import Header from '@/components/header/Header.vue';
 import Footer from '@/components/footer/Footer.vue';
 
@@ -20,12 +21,21 @@ export default {
     Footer,
   },
   methods: {
+    init() {
+      if (VK_PARAMS.fragment.name === 'project') {
+        this.$router.push(`/single/${VK_PARAMS.fragment.id}/`);
+      } else if (VK_PARAMS.fragment.name === 'dobrothon') {
+        this.$router.push(`/single/${VK_PARAMS.fragment.id}/`);
+      } else {
+        this.fetchCities();
+      }
+    },
     ...mapActions({
-      fetchCities: 'cities/fetchCities',
+      fetchCities: 'projects/fetchCities',
     }),
   },
   created() {
-    this.fetchCities();
+    this.init();
   },
 };
 </script>

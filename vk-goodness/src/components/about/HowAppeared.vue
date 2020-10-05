@@ -7,44 +7,50 @@
         нужна помощь. Тщательно проверив все данные, мы передаем их вам, чтобы вы могли выбрать, кому и чем помочь. Мы
         хотим, чтобы вам было удобно совершать добрые дела.
       </p>
-      <Button vType="type1" vTitle="Помочь сейчас" vClass="how-appeared__button" />
+      <router-link class="cs-button-2 how-appeared__button" to="/">Помочь сейчас</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Button from '@/components/objects/Button.vue';
-
 export default {
   name: 'AboutService',
-  components: {
-    Button,
-  },
 };
 </script>
 
 <style scoped lang="sass">
 @import '../../styles/var'
+@import '../styles/buttons'
 
 .how-appeared
   background-color: $AboutSilverColor
   &__container
     max-width: $Site-MaxWidth
     text-align: center
-    padding: 1rem
+    +flexColumnAiC
+    +paddingTopBottomSingle(0.80rem)
     margin: 0 auto
   &__text, &__button
-    margin-top: $px12f15
+    margin-top: 0.80rem
 
 @media (max-width: $Media-SizeS)
-  .how-appeared__button
-    width: 80%
+  .how-appeared
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-S)
+    &__button
+      width: 80%
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .how-appeared__button
-    width: 70%
+  .how-appeared
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-M)
+    &__button
+      width: 72%
 
 @media (min-width: $Media-SizeL)
-  .how-appeared__button
-    width: 60%
+  .how-appeared
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-L)
+    &__button
+      width: 64%
 </style>

@@ -34,12 +34,28 @@ export default {
 @import '../../styles/mixin'
 
 .how-to-help
+  background-color: $ColorWhite
   &__container
     max-width: $Site-MaxWidth
     text-align: center
-    padding: 1rem
+    +paddingTopBottomSingle(0.80rem)
     margin: 0 auto
   &__content
     +flexSaWrap
-    margin-top: $px12f15
+    margin-top: 0.80rem
+
+@media (max-width: $Media-SizeS)
+  .how-to-help
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-S)
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .how-to-help
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-M)
+
+@media (min-width: $Media-SizeL)
+  .how-to-help
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-L)
 </style>

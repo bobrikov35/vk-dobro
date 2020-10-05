@@ -26,9 +26,24 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     text-align: center
-    padding: 1rem + $px3f15
+    +paddingTopBottomSingle(0.80rem)
     margin: 0 auto
   &__text
     +RobotoSerif
-    margin-top: 1rem
+    margin-top: 0.80rem
+
+@media (max-width: $Media-SizeS)
+  .about-service
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-S)
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .about-service
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-M)
+
+@media (min-width: $Media-SizeL)
+  .about-service
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-L)
 </style>

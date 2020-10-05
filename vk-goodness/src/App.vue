@@ -56,6 +56,7 @@ body
   min-width: $Site-MinWidth
   color: $Text
   font-weight: 400
+  line-height: 1.33em
 
 h1, h2, h3
   +RobotoSerif

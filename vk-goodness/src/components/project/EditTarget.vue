@@ -1,15 +1,15 @@
 <template>
-  <div class="single-target" :class="vClass">
-    <div class="single-target__container">
-      <div class="single-target__field">
-        <button class="single-target__button single-target__dec" @click="decrease">
+  <div class="cs-edit">
+    <div class="cs-edit__container">
+      <div class="cs-edit__field">
+        <button class="cs-edit__button cs-edit__dec" @click="decrease">
           <i class="fa fa-caret-down"></i>
         </button>
-        <input class="single-target__input" type="number" :value="target" @keydown="keyIgnore" @input="changeValue">
-        <button class="single-target__button single-target__inc" @click="increase">
+        <input class="cs-edit__input" type="number" :value="target" @keydown="keyIgnore" @input="changeValue">
+        <button class="cs-edit__button cs-edit__inc" @click="increase">
           <i class="fa fa-caret-up"></i>
         </button>
-        <h3 class="single-target__rub">₽</h3>
+        <h3 class="cs-edit__rub">₽</h3>
       </div>
     </div>
   </div>
@@ -20,13 +20,6 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'EditTarget',
-  props: {
-    vMax: {
-      type: Number,
-      required: true,
-    },
-    vClass: String,
-  },
   data() {
     return {
       edit: null,
@@ -35,7 +28,7 @@ export default {
   methods: {
     changeValue() {
       const value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
-      const max = Math.min(this.amount * 100, this.vMax);
+      const max = Math.min(this.amount * 100, this.maxValue);
       if (value > max) {
         this.edit.value = max;
         this.setTarget(max);
@@ -44,8 +37,8 @@ export default {
       }
     },
     decrease() {
-      const min = this.amount * 2;
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
+      const min = this.amount * 2;
       for (let i = this.donationTabs.length - 1; i >= 0; i--) {
         if (value >= this.donationTabs[i].value * 5) {
           const remnant = value % this.donationTabs[i].value;
@@ -59,8 +52,8 @@ export default {
       this.setTarget(value);
     },
     increase() {
-      const max = Math.min(this.amount * 100, this.vMax);
       let value = this.edit.value.length > 0 ? parseInt(this.edit.value, 10) : 0;
+      const max = Math.min(this.amount * 100, this.maxValue);
       for (let i = this.donationTabs.length - 1; i >= 0; i--) {
         if (value >= this.donationTabs[i].value * 4) {
           const remnant = value % this.donationTabs[i].value;
@@ -83,79 +76,22 @@ export default {
     }),
   },
   computed: {
+    maxValue() {
+      return this.project.target - this.project.sum;
+    },
     ...mapGetters({
       amount: 'project/getAmount',
       target: 'project/getTarget',
       donationTabs: 'project/getDonationTabs',
+      project: 'project/getProject',
     }),
   },
   mounted() {
-    this.edit = this.$el.querySelector('.single-target__input');
+    this.edit = this.$el.querySelector('.cs-edit__input');
   },
 };
 </script>
 
 <style scoped lang="sass">
-@import '../../styles/var'
-@import '../../styles/mixin'
-
-$height: 2.20rem
-
-.single-target
-  &__container
-    max-width: $Site-MaxWidth
-    margin: 0 auto
-  &__field
-    overflow: hidden
-    width: 88%
-    height: $height
-    background-color: $Background
-    border: 1px solid $Border
-    border-radius: 0.30rem
-    +flexSbC
-    position: relative
-    margin: 0 auto
-  &__input
-    height: $height
-    text-align: center
-    padding: 0.40rem 1.80rem 0.40rem 0.60rem
-  &__button
-    cursor: pointer
-    overflow: hidden
-    width: $height
-    height: $height
-    +flexCC
-    .fa-caret-down
-      margin-top: 0.10rem
-    .fa-caret-up
-      margin-bottom: 0.10rem
-  &__dec
-    border-right: 1px solid $Border
-    +posTopLeftSingle(1px)
-  &__inc
-    border-left: 1px solid $Border
-    +posTopRightSingle(1px)
-  &__rub
-    width: $height
-    height: $height
-    font-weight: 400
-    +flexCC
-    padding-bottom: 0.10rem
-    position: absolute
-    +posTopRight(0, $height - 0.15rem)
-
-@media (max-width: $Media-SizeS)
-  .single-target
-    &__input
-      width: 78%
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .single-target
-    &__input
-      width: 74%
-
-@media (min-width: $Media-SizeL)
-  .single-target
-    &__input
-      width: 72%
+@import '../styles/edit'
 </style>

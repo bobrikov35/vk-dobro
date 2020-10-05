@@ -3,7 +3,9 @@
     <Caption />
     <Card />
     <ActionPanel />
-    <p class="project-header__description">{{ project.description }}</p>
+    <div class="project-header__description">
+      <p>{{ project.description }}</p>
+    </div>
   </header>
 </template>
 
@@ -36,10 +38,10 @@ export default {
   background-color: $BackgroundSecondary
   +flexColumn
   &__description
-    line-height: 1.33em
+    max-width: $Site-MaxWidth
     text-align: justify
     padding-bottom: $Site-PuddingVertical
-    margin-bottom: $Site-PuddingVertical
+    margin: 0 auto $Site-PuddingVertical
 
 @media (max-width: $Media-SizeS)
   .project-header

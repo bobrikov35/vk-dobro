@@ -32,10 +32,10 @@ export default {
   },
   computed: {
     sum() {
-      return parseInt(this.vProject.sum, 10);
+      return parseInt(this.project.sum, 10);
     },
     target() {
-      return parseInt(this.vProject.target, 10);
+      return parseInt(this.project.target, 10);
     },
     ...mapGetters({
       project: 'project/getProject',

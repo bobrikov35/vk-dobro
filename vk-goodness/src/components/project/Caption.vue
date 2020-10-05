@@ -29,8 +29,8 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     text-align: center
-    margin: 0 auto
     +paddingTopBottomSingle($Site-PuddingVertical)
+    margin: 0 auto
 
 @media (max-width: $Media-SizeS)
   .project-caption

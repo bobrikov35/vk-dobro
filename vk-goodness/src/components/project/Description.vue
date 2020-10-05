@@ -19,7 +19,6 @@ export default {
 
 <style scoped lang="sass">
 @import '../../styles/var'
-@import '../../styles/mixin'
 
 .project-description
   background-color: $Background
@@ -30,15 +29,15 @@ export default {
 @media (max-width: $Media-SizeS)
   .project-description
     &__container
-      padding: ($Site-PuddingHorizontal-S / 2) $Site-PuddingHorizontal-S
+      padding: 1% $Site-PuddingHorizontal-S
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
   .project-description
     &__container
-      padding: ($Site-PuddingHorizontal-M / 2) $Site-PuddingHorizontal-M
+      padding: 1.5% $Site-PuddingHorizontal-M
 
 @media (min-width: $Media-SizeL)
   .project-description
     &__container
-      padding: ($Site-PuddingHorizontal-L / 2) $Site-PuddingHorizontal-L
+      padding: 2% $Site-PuddingHorizontal-L
 </style>

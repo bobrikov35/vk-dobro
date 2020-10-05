@@ -1,31 +1,59 @@
 @import '../../styles/var'
 @import '../../styles/mixin'
 
-.cs-button-1, .cs-button-2, .cs-button-3
-  +RobotoSlabSerif
-  cursor: pointer
-  outline: none
-  font-weight: 700
-  border-width: 1px
-  border-style: solid
-  border-radius: $Site-Radius
-  +flexCC
-  padding: $Button-PaddingVertical $Button-PaddingHorizontal
+$height: 2.40rem
 
-.cs-button-1
-  background-color: $BackgroundSecondary
-  border-color: $Border
+.cs-edit
+  &__container
+    max-width: $Site-MaxWidth
+    margin: 0 auto
+  &__field
+    overflow: hidden
+    width: 88%
+    height: $height
+    background-color: $Background
+    border: 1px solid $Border
+    border-radius: $Site-Radius
+    +flexSbC
+    position: relative
+    margin: 0 auto
+  &__input
+    height: $height
+    text-align: center
+    padding: $Input-PuddingVertical 1.80rem $Input-PuddingVertical 0.60rem
+  &__button
+    cursor: pointer
+    overflow: hidden
+    width: $height
+    height: $height
+    +flexCC
+  &__dec
+    border-right: 1px solid $Border
+    +posTopLeftSingle(1px)
+  &__inc
+    border-left: 1px solid $Border
+    margin-top: -0.10rem
+    +posTopRightSingle(1px)
+  &__rub
+    width: $height
+    height: $height
+    font-weight: 400
+    +flexCC
+    padding-bottom: 0.10rem
+    position: absolute
+    +posTopRight(0, $height - 0.15rem)
 
-.cs-button-2
-  background-color: $ColorMainYellow
-  border-color: $ColorMainYellowActive
+@media (max-width: $Media-SizeS)
+  .cs-edit
+    &__input
+      width: 78%
 
-.cs-button-3
-  height: 2.6rem
-  color: $ColorWhite
-  +shadowText(0, 0, $Site-TextShadow)
-  background-color: rgb(255, 255, 255, 0.33)
-  border-width: 0.15rem
-  border-color: $ColorMainYellow
-  border-radius: 2.6rem
-  box-shadow: none
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .cs-edit
+    &__input
+      width: 74%
+
+@media (min-width: $Media-SizeL)
+  .cs-edit
+    &__input
+      width: 72%

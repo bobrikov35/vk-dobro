@@ -13,15 +13,18 @@
         <li class="cs-modal-pay-form__tab" :class="donationTabIndex < 0 && 'cs-modal-pay-form__tab_active'"
             @click="choiceItem(-1)">Своя</li>
       </ul>
-      <EditAmount vClass="cs-modal-pay-form__amount" :vMax="project.target - project.sum" />
+      <EditAmount />
       <button class="cs-button-1 cs-modal-pay-form__pay" @click="pay">Пожертвовать</button>
     </div>
   </div>
 </template>
 
 <script>
+import {
+  mapActions,
+  mapGetters,
+} from 'vuex';
 import format from '@/libs/format';
-import { mapActions, mapGetters } from 'vuex';
 import EditAmount from '@/components/project/EditAmount.vue';
 
 export default {
@@ -73,8 +76,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '../../styles/var'
-@import '../../styles/mixin'
 @import '../styles/buttons'
 @import '../styles/modalPayForm'
 </style>

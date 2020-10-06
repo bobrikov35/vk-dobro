@@ -1,9 +1,9 @@
 <template>
-  <div class="help-card">
-    <div class="help-card__icon">
+  <div class="account-help-card">
+    <div class="account-help-card__icon">
       <img :src="vImage" alt="icon">
     </div>
-    <p class="help-card__text" v-html="vHtml" />
+    <p class="account-help-card__text" v-html="vHtml" />
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
 @import '../../styles/var'
 @import '../../styles/mixin'
 
-.help-card
+.account-help-card
   width: 12rem
   margin: 0.60rem
   &__icon
@@ -40,7 +40,7 @@ export default {
     margin-top: 0.60rem
 
 @media (max-width: $Media-SizeS)
-  .help-card
+  .account-help-card
     width: 88%
     +flexAiC
     &__icon

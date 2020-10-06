@@ -30,6 +30,5 @@ export default {
 
 .about
   background-color: $Background
-  +flexColumn
-  flex-grow: 1
+  +flexColumnGrow(1)
 </style>

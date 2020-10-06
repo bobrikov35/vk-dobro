@@ -1,8 +1,8 @@
 <template>
-  <div class="how-to-help">
-    <div class="how-to-help__container">
-      <h2 class="how-to-help__title">Как помогать на Добре?</h2>
-      <div class="how-to-help__content">
+  <div class="about-how-to-help">
+    <div class="about-how-to-help__container">
+      <h2 class="about-how-to-help__title">Как помогать на Добре?</h2>
+      <div class="about-how-to-help__content">
         <HelpCard vImage="/icons/map.png"
                   vHtml="<b>Выберите город</b>,<br>в котором вы хотите сделать доброе дело"/>
         <HelpCard vImage="/icons/paycards.png"
@@ -33,29 +33,29 @@ export default {
 @import '../../styles/var'
 @import '../../styles/mixin'
 
-.how-to-help
+.about-how-to-help
   background-color: $ColorWhite
   &__container
     max-width: $Site-MaxWidth
     text-align: center
-    +paddingTopBottomSingle(0.80rem)
+    padding: 0.80rem $Site-PuddingHorizontal-MAX
     margin: 0 auto
   &__content
     +flexSaWrap
     margin-top: 0.80rem
 
 @media (max-width: $Media-SizeS)
-  .how-to-help
+  .about-how-to-help
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-S)
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .how-to-help
+  .about-how-to-help
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
-  .how-to-help
+@media (min-width: $Media-MinSizeL) and (max-width: $Media-MaxSizeL)
+  .about-how-to-help
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)
 </style>

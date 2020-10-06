@@ -28,7 +28,7 @@ export default {
     max-width: $Site-MaxWidth
     text-align: center
     +flexColumnAiC
-    +paddingTopBottomSingle(0.80rem)
+    padding: 0.80rem $Site-PuddingHorizontal-MAX
     margin: 0 auto
   &__text, &__button
     margin-top: 0.80rem
@@ -47,7 +47,7 @@ export default {
     &__button
       width: 72%
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-MinSizeL) and (max-width: $Media-MaxSizeL)
   .how-appeared
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)

@@ -26,7 +26,7 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     text-align: center
-    +paddingTopBottomSingle(0.80rem)
+    padding: 0.80rem $Site-PuddingHorizontal-MAX
     margin: 0 auto
   &__text
     +RobotoSerif
@@ -42,7 +42,7 @@ export default {
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-MinSizeL) and (max-width: $Media-MaxSizeL)
   .about-service
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)

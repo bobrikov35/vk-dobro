@@ -20,6 +20,36 @@ class Validator {
   }
 
   /**
+   * Проверка допустимости вводимого символа в поле с именем
+   * @param key
+   * @returns {boolean}
+   */
+  static verifyNameSymbol(key) {
+    if (this.isSpecialKey(key)) return true;
+    return /[a-zа-яё\s\-]/i.test(key);
+  }
+
+  /**
+   * Проверка допустимости вводимого символа в поле с номером телефона
+   * @param key
+   * @returns { boolean }
+   */
+  static verifyPhoneSymbol(key) {
+    if (Validator.isSpecialKey(key)) return true;
+    return /[0-9]/.test(key);
+  }
+
+  /**
+   * Проверка допустимости вводимого символа в поле с email
+   * @param key
+   * @returns { boolean }
+   */
+  static verifyEmailSymbol(key) {
+    if (Validator.isSpecialKey(key)) return true;
+    return /[-_0-9a-z@]|\./i.test(key);
+  }
+
+  /**
    * Конвертирует число в строковом формате в номер телефона
    * @param number: число в строковом формате длинной не более 11 символов
    * @returns { string }
@@ -55,16 +85,6 @@ class Validator {
   }
 
   /**
-   * Проверка допустимости вводимого символа в поле с именем
-   * @param key
-   * @returns {boolean}
-   */
-  static verifyNameSymbol(key) {
-    if (this.isSpecialKey(key)) return true;
-    return /[a-zа-яё\s\-]/i.test(key);
-  }
-
-  /**
    * Проверка допустимости введенного номера телефона
    * @param phone: '+9 (999) 999-99-99'
    * @returns { boolean }
@@ -74,32 +94,12 @@ class Validator {
   }
 
   /**
-   * Проверка допустимости вводимого символа в поле с номером телефона
-   * @param key
-   * @returns { boolean }
-   */
-  static verifyPhoneSymbol(key) {
-    if (Validator.isSpecialKey(key)) return true;
-    return /[0-9]/.test(key);
-  }
-
-  /**
    * Проверка допустимости введенного email
    * @param email: '[имя почтового ящика]@[доменное имя сервера]'
    * @returns { boolean }
    */
   static verifyEmail(email) {
     return /^(([0-9a-z]{1}([-_0-9a-z]|\.)+[0-9a-z]{1})@([0-9a-z]{1}[-_0-9a-z]+\.{1}){1,3}[a-z]{2,})$/i.test(email);
-  }
-
-  /**
-   * Проверка допустимости вводимого символа в поле с email
-   * @param key
-   * @returns { boolean }
-   */
-  static verifyEmailSymbol(key) {
-    if (Validator.isSpecialKey(key)) return true;
-    return /[-_0-9a-z@]|\./i.test(key);
   }
 
   /**

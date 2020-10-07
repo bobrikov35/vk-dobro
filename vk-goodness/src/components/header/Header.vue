@@ -29,6 +29,21 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     +flexSbC
-    padding: 0.30rem
+    padding: $Site-PuddingVertical $Site-PuddingHorizontal-MAX
     margin: 0 auto
+
+@media (max-width: $Media-SizeS)
+  .header
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-S)
+
+@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
+  .header
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-M)
+
+@media (min-width: $Media-MinSizeL) and (max-width: $Media-MaxSizeL)
+  .header
+    &__container
+      +paddingRightLeftSingle($Site-PuddingHorizontal-L)
 </style>

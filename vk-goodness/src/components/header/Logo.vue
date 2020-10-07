@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import LogoDobro from '@/components/svg/LogoDobro.vue';
-import TextDobro from '@/components/svg/TextDobro.vue';
+import LogoDobro from '@/components/header/LogoDobro.vue';
+import TextDobro from '@/components/header/TextDobro.vue';
 
 export default {
   name: 'Logo',

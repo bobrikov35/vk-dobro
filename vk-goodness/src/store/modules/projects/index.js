@@ -14,14 +14,13 @@ export default {
       current: 0,
       list: [...DATA.cities],
     },
-    projects: {
+    projectList: {
       loading: true,
-      result: false,
       data: null,
+      page: 0,
+      pages: 0,
       error: null,
     },
-    page: 0,
-    pages: 0,
   },
   mutations,
   actions,

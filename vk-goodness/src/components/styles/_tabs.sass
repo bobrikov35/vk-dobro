@@ -9,24 +9,9 @@
     border: 1px solid $Border
     border-radius: $Site-Radius
     padding: $Tab-PuddingVertical $Tab-PuddingHorizontal
-    margin-right: $Tab-PuddingHorizontal
-    &:last-of-type
-      margin-right: 0
+    margin-left: $Tab-PuddingHorizontal
+    &:first-of-type
+      margin-left: 0
     &_active
       background-color: $ColorMainYellow
       border-top: 1px solid $ColorMainYellowActive
-
-@media (max-width: $Media-SizeS)
-  .cs-select
-    &__list
-      width: 80%
-
-@media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
-  .cs-select
-    &__list
-      width: 76%
-
-@media (min-width: $Media-SizeL)
-  .cs-select
-    &__list
-      width: 72%

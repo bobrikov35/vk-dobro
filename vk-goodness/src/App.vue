@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import { VK_PARAMS } from '@/app';
 import { mapActions } from 'vuex';
+import { VK_PARAMS } from '@/app';
 import Header from '@/components/header/Header.vue';
 import Footer from '@/components/footer/Footer.vue';
 
@@ -21,6 +21,9 @@ export default {
     Footer,
   },
   methods: {
+    ...mapActions({
+      fetchCities: 'projects/fetchCities',
+    }),
     init() {
       this.fetchCities();
       if (VK_PARAMS.fragment.name === 'project') {
@@ -29,12 +32,6 @@ export default {
         this.$router.push(`/dobrothon/${VK_PARAMS.fragment.id}/`);
       }
     },
-    beforeRouteUpdate() {
-      console.dir(this.$router);
-    },
-    ...mapActions({
-      fetchCities: 'projects/fetchCities',
-    }),
   },
   created() {
     this.init();
@@ -69,10 +66,11 @@ h1, h2, h3
 a
   text-decoration: none
 
-button, button:focus, input, input:focus
-  border: none
-  background: none
+button, button:focus,
+input, input:focus
   outline: none
+  background: none
+  border: none
 
 input
   &[type=number]
@@ -86,11 +84,10 @@ li
 
 .main
   min-height: 100vh
-  +flexColumn()
+  +flexColumn
 
 .panel
-  +flexColumn()
-  flex-grow: 1
+  +flexColumnGrow(1)
 
 @media (max-width: $Media-SizeS)
   html

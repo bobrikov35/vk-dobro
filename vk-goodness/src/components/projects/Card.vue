@@ -1,5 +1,5 @@
 <template>
-  <div class="projects-card" :class="vProject.urgent || 'project-card_urgent'">
+  <div class="projects-card" :class="vProject.urgent && 'project-card_urgent'">
     <div class="projects-card__container">
       <div class="cs-card" :style="`background-image: url(${vProject.image})`">
         <div class="cs-card__header">
@@ -57,10 +57,10 @@ export default {
 .projects-card
   background-color: $Background
   border-bottom: 1px solid $Border
+  +paddingTopBottomSingle($Project-PaddingVertical)
   &_urgent
     background-color: $UrgentColor
   &__container
     max-width: $Site-MaxWidth
-    font-weight: 700
     margin: 0 auto
 </style>

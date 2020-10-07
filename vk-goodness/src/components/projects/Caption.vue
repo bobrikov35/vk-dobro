@@ -21,8 +21,8 @@ export default {
   border-bottom: 1px solid $Border
   &__container
     max-width: $Site-MaxWidth
+    padding: $Site-PuddingVertical $Site-PuddingHorizontal-MAX
     margin: 0 auto
-    +paddingTopBottomSingle($Site-PuddingVertical)
 
 @media (max-width: $Media-SizeS)
   .projects-caption
@@ -34,7 +34,7 @@ export default {
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-MinSizeL) and (max-width: $Media-MaxSizeL)
   .projects-caption
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)

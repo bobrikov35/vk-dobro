@@ -1,6 +1,6 @@
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 87 32" class="text-dobro">
-    <g class="text-dobro__g">
+    <g class="text-dobro__canvas">
       <!-- eslint-disable-->
       <path d="M11.753 20.69H5.088c1.193-1.09 1.548-3.269 1.527-5.668l-.002-.257h.002v-2.93h5.138v8.855zm4.932 0h-1.952V8.966h-11.1v5.799h.002l-.001.006.005.797c.009 1.34-.004 5.099-2.814 5.115l-.554.007v6.138h2.981v-3.269h10.452v3.269h2.981V20.69z" />
       <path fill-rule="evenodd"
@@ -25,6 +25,6 @@ export default {
 .text-dobro
   height: 1.20rem
   margin-right: 0.60rem
-  &__g
+  &__canvas
     fill: $ColorWhite
 </style>

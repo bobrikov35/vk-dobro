@@ -17,8 +17,8 @@ import Menu from '@/components/footer/Menu.vue';
 export default {
   name: 'Footer',
   components: {
-    Menu,
     Line,
+    Menu,
   },
 };
 </script>
@@ -29,6 +29,8 @@ export default {
 
 .footer
   background-color: $ColorMainBlue
+  &__space, &__fixed, &__container
+    height: 3rem
   &__fixed
     width: 100%
     background-color: $ColorMainBlue
@@ -39,6 +41,4 @@ export default {
     max-width: $Site-MaxWidth
     +flexCC
     margin: 0 auto
-  &__space, &__fixed, &__container
-    height: 3rem
 </style>

@@ -2,12 +2,12 @@
   <div class="projects-city">
     <div class="projects-city__container">
       <div class="cs-select" @click="turnOnVisibilityDropdown">
-        <h3 class="cs-select__value">{{ currentCity.title }}</h3>
+        <h3 class="cs-select__value">{{ getCurrentCity.title }}</h3>
         <i class="fa fa-angle-down cs-select__icon"></i>
-        <div class="cs-select__dropbox" id="city" v-show="isVisibilityDropdown" @click.stop>
+        <div class="cs-select__dropbox" @click.stop v-show="isVisibilityDropdown">
           <ul class="cs-select__list">
-            <li v-for="(item, index) in cities" :key="item.id" @click.stop="choiceItem(index)"
-                class="cs-select__item" :class="index === cityIndex ? 'cs-select__item_active' : ''">
+            <li v-for="(item, index) in getCities" :key="item.id" @click.stop="choiceItem(index)"
+                class="cs-select__item" :class="index === getCityIndex ? 'cs-select__item_active' : ''">
               {{ item.title }}
             </li>
           </ul>
@@ -28,13 +28,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      fetchProjectList: 'projects/fetchProjectList',
+      setCityIndex: 'projects/setCityIndex',
+      fixedBody: 'fixedBody',
+      unfixedBody: 'unfixedBody',
+    }),
     choiceItem(index) {
       this.turnOffVisibilityDropdown();
-      if (index === this.cityIndex) return;
+      if (index === this.getCityIndex) return;
       this.setCityIndex(index);
-      this.fetchProjects({
-        category: this.currentCategory.name,
-        city: this.currentCity.name,
+      this.fetchProjectList({
+        category: this.getCurrentCategory.name,
+        city: this.getCurrentCity.name,
         page: 1,
       });
     },
@@ -46,19 +52,13 @@ export default {
       this.isVisibilityDropdown = false;
       this.unfixedBody();
     },
-    ...mapActions({
-      fetchProjects: 'projects/fetchProjects',
-      setCityIndex: 'projects/setCityIndex',
-      fixedBody: 'fixedBody',
-      unfixedBody: 'unfixedBody',
-    }),
   },
   computed: {
     ...mapGetters({
-      cities: 'projects/getCities',
-      cityIndex: 'projects/getCityIndex',
-      currentCity: 'projects/getCurrentCity',
-      currentCategory: 'projects/getCurrentCategory',
+      getCities: 'projects/getCities',
+      getCityIndex: 'projects/getCityIndex',
+      getCurrentCity: 'projects/getCurrentCity',
+      getCurrentCategory: 'projects/getCurrentCategory',
     }),
   },
 };
@@ -74,8 +74,8 @@ export default {
   border-bottom: 1px solid $Border
   &__container
     max-width: $Site-MaxWidth
+    padding: $Site-PuddingVertical $Site-PuddingHorizontal-MAX
     margin: 0 auto
-    +paddingTopBottomSingle($Site-PuddingVertical)
 
 @media (max-width: $Media-SizeS)
   .projects-city
@@ -87,7 +87,7 @@ export default {
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-MinSizeL) and (max-width: $Media-MaxSizeL)
   .projects-city
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)

@@ -1,5 +1,5 @@
 @import 'var'
-
+//
 // шрифты
 =Awesome()
   font-family: FontAwesome
@@ -9,27 +9,22 @@
   font-family: Roboto, serif
 =RobotoSansSerif()
   font-family: Roboto, sans-serif
-
+//
 // дисплей
 =flexColumn()
   display: flex
   flex-direction: column
 =flexColumnGrow($grow)
-  display: flex
-  flex-direction: column
+  +flexColumn
   flex-grow: $grow
 =flexColumnJcC()
-  display: flex
-  flex-direction: column
+  +flexColumn
   justify-content: center
 =flexColumnAiC()
-  display: flex
-  flex-direction: column
+  +flexColumn
   align-items: center
 =flexColumnCC()
-  display: flex
-  flex-direction: column
-  justify-content: center
+  +flexColumnJcC
   align-items: center
 =flexJcC()
   display: flex
@@ -38,8 +33,8 @@
   display: flex
   align-items: center
 =flexCC()
-  +flexAiC
-  justify-content: center
+  +flexJcC
+  align-items: center
 =flexLC()
   +flexAiC
   justify-content: flex-start
@@ -70,7 +65,7 @@
 =flexSbCWrap()
   +flexSbC
   flex-wrap: wrap
-
+//
 // отступы
 =marginTopRight($top, $right)
   margin-top: $top
@@ -109,36 +104,28 @@
   margin-bottom: $size
   margin-left: $size
 =marginTopRightBottom($top, $right, $bottom)
-  margin-top: $top
-  margin-right: $top
+  +marginTopRight($top, $right)
   margin-bottom: $bottom
 =marginTopRightBottomSingle($size)
-  margin-top: $size
-  margin-right: $size
+  +marginTopRightSingle($size)
   margin-bottom: $size
 =marginTopRightLeft($top, $right, $left)
-  margin-top: $top
-  margin-right: $right
+  +marginTopRight($top, $right)
   margin-left: $left
 =marginTopRightLeftSingle($size)
-  margin-top: $size
-  margin-right: $size
+  +marginTopRightSingle($size)
   margin-left: $size
 =marginTopBottomLeft($top, $bottom, $left)
-  margin-top: $top
-  margin-bottom: $bottom
+  +marginTopBottom($top, $bottom)
   margin-left: $left
 =marginTopBottomLeftSingle($size)
-  margin-top: $size
-  margin-bottom: $size
+  +marginTopBottomSingle($size)
   margin-left: $size
 =marginRightBottomLeft($right, $bottom, $left)
-  margin-right: $right
-  margin-bottom: $bottom
+  +marginRightBottom($right, $bottom)
   margin-left: $left
 =marginRightBottomLeftSingle($size)
-  margin-right: $size
-  margin-bottom: $size
+  +marginRightBottomSingle($size)
   margin-left: $size
 =paddingTopRight($top, $right)
   padding-top: $top
@@ -177,36 +164,28 @@
   padding-bottom: $size
   padding-left: $size
 =paddingTopRightBottom($top, $right, $bottom)
-  padding-top: $top
-  padding-right: $top
+  +paddingTopRight($top, $right)
   padding-bottom: $bottom
 =paddingTopRightBottomSingle($size)
-  padding-top: $size
-  padding-right: $size
+  +paddingTopRightSingle($size)
   padding-bottom: $size
 =paddingTopRightLeft($top, $right, $left)
-  padding-top: $top
-  padding-right: $right
+  +paddingTopRight($top, $right)
   padding-left: $left
 =paddingTopRightLeftSingle($size)
-  padding-top: $size
-  padding-right: $size
+  +paddingTopRightSingle($size)
   padding-left: $size
 =paddingTopBottomLeft($top, $bottom, $left)
-  padding-top: $top
-  padding-bottom: $bottom
+  +paddingTopBottom($top, $bottom)
   padding-left: $left
 =paddingTopBottomLeftSingle($size)
-  padding-top: $size
-  padding-bottom: $size
+  +paddingTopBottomSingle($size)
   padding-left: $size
 =paddingRightBottomLeft($right, $bottom, $left)
-  padding-right: $right
-  padding-bottom: $bottom
+  +paddingRightBottom($right, $bottom)
   padding-left: $left
 =paddingRightBottomLeftSingle($size)
-  padding-right: $size
-  padding-bottom: $size
+  +paddingRightBottomSingle($size)
   padding-left: $size
 =posTopRight($top, $right)
   top: $top
@@ -232,7 +211,7 @@
 =posBottomLeftSingle($size)
   bottom: $size
   left: $size
-
+//
 // границы и заливка
 =borderTopRight($width, $color)
   border-top: $width solid $color

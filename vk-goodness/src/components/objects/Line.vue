@@ -1,16 +1,10 @@
 <template>
-  <div class="line" :style="vStyle" />
+  <div class="line" />
 </template>
 
 <script>
 export default {
   name: 'Line',
-  props: {
-    vStyle: {
-      type: String,
-      default: '',
-    },
-  },
 };
 </script>
 

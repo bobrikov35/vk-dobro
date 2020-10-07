@@ -16,9 +16,10 @@ function parseProject(data) {
     id: parseInt(data.id, 10),
     image: data.image,
     path: data.path,
-    sum: parseInt(data.target, 10),
+    sum: parseInt(data.sum, 10),
     target: parseInt(data.target, 10),
     title: data.title,
+    urgent: data.urgent,
   };
 }
 

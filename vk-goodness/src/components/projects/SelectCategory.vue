@@ -2,20 +2,20 @@
   <div class="projects-category">
     <div class="projects-category__container">
       <div class="cs-select" @click="turnOnVisibilityDropdown" v-show="isVisibilityList">
-        <h3 class="cs-select__value">{{ currentCategory.title }}</h3>
+        <h3 class="cs-select__value">{{ getCurrentCategory.title }}</h3>
         <i class="fa fa-angle-down cs-select__icon"></i>
         <div class="cs-select__dropbox" @click.stop v-show="isVisibilityDropdown">
           <ul class="cs-select__list">
-            <li v-for="(item, index) in categories" :key="item.id" @click.stop="choiceItem(index)"
-                class="cs-select__item" :class="index === categoryIndex ? 'cs-select__item_active' : ''">
+            <li v-for="(item, index) in getCategories" :key="item.id" @click.stop="choiceItem(index)"
+                class="cs-select__item" :class="index === getCategoryIndex && 'cs-select__item_active'">
               {{ item.title }}
             </li>
           </ul>
         </div>
       </div>
       <ul class="cs-tabs" v-show="isVisibilityTabs">
-        <li v-for="(item, index) in categories" :key="item.id" @click="choiceItem(index)"
-            class="cs-tabs__item" :class="index === categoryIndex ? 'cs-tabs__item_active' : ''">
+        <li v-for="(item, index) in getCategories" :key="item.id" @click="choiceItem(index)"
+            class="cs-tabs__item" :class="index === getCategoryIndex && 'cs-tabs__item_active'">
           {{ item.title }}
         </li>
       </ul>
@@ -38,13 +38,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      fetchProjectList: 'projects/fetchProjectList',
+      setCategoryIndex: 'projects/setCategoryIndex',
+      fixedBody: 'fixedBody',
+      unfixedBody: 'unfixedBody',
+    }),
     choiceItem(index) {
       this.turnOffVisibilityDropdown();
-      if (index === this.categoryIndex) return;
+      if (index === this.getCategoryIndex) return;
       this.setCategoryIndex(index);
-      this.fetchProjects({
-        category: this.currentCategory.name,
-        city: this.currentCity.name,
+      this.fetchProjectList({
+        category: this.getCurrentCategory.name,
+        city: this.getCurrentCity.name,
         page: 1,
       });
     },
@@ -64,26 +70,20 @@ export default {
       this.isVisibilityDropdown = false;
       this.unfixedBody();
     },
-    ...mapActions({
-      fetchProjects: 'projects/fetchProjects',
-      setCategoryIndex: 'projects/setCategoryIndex',
-      fixedBody: 'fixedBody',
-      unfixedBody: 'unfixedBody',
-    }),
   },
   computed: {
+    ...mapGetters({
+      getCategories: 'projects/getCategories',
+      getCategoryIndex: 'projects/getCategoryIndex',
+      getCurrentCategory: 'projects/getCurrentCategory',
+      getCurrentCity: 'projects/getCurrentCity',
+    }),
     isVisibilityList() {
       return this.selector.current === 0;
     },
     isVisibilityTabs() {
       return this.selector.current === 1;
     },
-    ...mapGetters({
-      categories: 'projects/getCategories',
-      categoryIndex: 'projects/getCategoryIndex',
-      currentCategory: 'projects/getCurrentCategory',
-      currentCity: 'projects/getCurrentCity',
-    }),
   },
   created() {
     window.addEventListener('resize', this.switchSelector);
@@ -105,8 +105,8 @@ export default {
   border-bottom: 1px solid $Border
   &__container
     max-width: $Site-MaxWidth
+    padding: $Site-PuddingVertical $Site-PuddingHorizontal-MAX
     margin: 0 auto
-    +paddingTopBottomSingle($Site-PuddingVertical)
 
 @media (max-width: $Media-SizeS)
   .projects-category
@@ -118,7 +118,7 @@ export default {
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-MinSizeL) and (max-width: $Media-MaxSizeL)
   .projects-category
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)

@@ -24,13 +24,14 @@
     position: fixed
     +posTopLeftSingle(0)
   &__list
+    width: 768px * 0.72
     padding: 0.85rem
   &__item
     cursor: pointer
     text-align: center
     background-color: $Background
     border-top: 1px solid $Border
-    padding: 0.70rem 1.4rem
+    padding: 0.60rem 1.2rem
     &:first-of-type
       border-top: none
       +radiusTop($Site-Radius)
@@ -50,7 +51,7 @@
     &__list
       width: 76%
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-SizeL) and (max-width: $Media-MaxSizeL)
   .cs-select
     &__list
       width: 72%

@@ -4,14 +4,14 @@
     <SelectCategory />
     <SelectCity />
     <Line />
-    <div v-if="isLoading" class="projects__loading">
+    <div v-if="isLoadingProjectList" class="projects__loading">
       <i class="fa fa-spinner fa-pulse"></i>
     </div>
-    <div v-else-if="!isLoading && !isResult" class="projects__error">
-      <h1>Что-то пошло не так</h1>
+    <div v-else-if="isError" class="projects__error">
+      <h2>Что-то пошло не так</h2>
     </div>
     <div v-else class="projects__content">
-      <Card v-for="project of projects" :key="project.id" :vProject="project" />
+      <Card v-for="item of getProjectList" :key="item.id" :vProject="item" />
     </div>
   </div>
 </template>
@@ -35,25 +35,27 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchProjects: 'projects/fetchProjects',
+      fetchProjectList: 'projects/fetchProjectList',
     }),
   },
   computed: {
     ...mapGetters({
-      currentCategory: 'projects/getCurrentCategory',
-      currentCity: 'projects/getCurrentCity',
-      // projects
-      page: 'projects/getPage',
-      pages: 'projects/getPages',
-      isLoading: 'projects/isLoadingProjects',
-      isResult: 'projects/isResultProjects',
-      projects: 'projects/getProjects',
+      getCurrentCategory: 'projects/getCurrentCategory',
+      getCurrentCity: 'projects/getCurrentCity',
+      getPage: 'projects/getPage',
+      getPages: 'projects/getPages',
+      getProjectList: 'projects/getProjectList',
+      getProjectListError: 'projects/getProjectListError',
+      isLoadingProjectList: 'projects/isLoadingProjectList',
     }),
+    isError() {
+      return this.getProjectListError !== null;
+    },
   },
   mounted() {
-    this.fetchProjects({
-      category: this.currentCategory.name,
-      city: this.currentCity.name,
+    this.fetchProjectList({
+      category: this.getCurrentCategory.name,
+      city: this.getCurrentCity.name,
       page: 1,
     });
   },
@@ -66,8 +68,7 @@ export default {
 
 .projects
   background-color: $Background
-  +flexColumn
-  flex-grow: 1
+  +flexColumnGrow(1)
   &__loading, &__error
     max-width: $Site-MaxWidth
     +flexCC()

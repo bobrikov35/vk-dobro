@@ -1,19 +1,5 @@
-import {
-  GET,
-  GET_WITH_PARAMS,
-} from '@/store/modules/lib';
-
-const fetchCities = ({ commit }) => {
-  GET('cities')
-    .then(({ data }) => commit('SET_CITIES', data.cities));
-};
-
-const fetchProjects = ({ commit }, { category, city, page }) => {
-  commit('RESET_PROJECTS');
-  GET_WITH_PARAMS('projects', `?recipient=${category}&city=${city}&page=${page}`)
-    .then(({ data }) => commit('SET_PROJECTS', data))
-    .catch((error) => commit('ERROR_PROJECTS', error));
-};
+import { axios } from '@/plugins';
+import { CONFIG, VK_PARAMS } from '@/app';
 
 const setCategoryIndex = ({ commit }, index) => {
   commit('SET_CATEGORY_INDEX', index);
@@ -23,12 +9,24 @@ const setCityIndex = ({ commit }, index) => {
   commit('SET_CITY_INDEX', index);
 };
 
+const fetchCities = ({ commit }) => {
+  axios.get(CONFIG.apiUrls.cities, { params: VK_PARAMS.app })
+    .then(({ data }) => commit('SET_CITIES', data));
+};
+
+const fetchProjectList = ({ commit }, { category, city, page }) => {
+  commit('RESET_PROJECT_LIST');
+  axios.get(`${CONFIG.apiUrls.project}?recipient=${category}&city=${city}&page=${page}`, { params: VK_PARAMS.app })
+    .then(({ data }) => commit('SET_PROJECT_LIST', data))
+    .catch((error) => commit('SET_PROJECT_LIST_ERROR', error));
+};
+
 export default {
-  // projects
-  fetchProjects,
-  // category
+  // categories
   setCategoryIndex,
-  // city
+  // cities
   fetchCities,
   setCityIndex,
+  // projects
+  fetchProjectList,
 };

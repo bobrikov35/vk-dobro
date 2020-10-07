@@ -1,20 +1,23 @@
-const Hostname = 'http://localhost:3005/';
-// const Hostname = 'https://vk-dobro-1.herokuapp.com/';
+const HostList = [
+  'http://localhost:3005/',
+  'https://vk-dobro-1.herokuapp.com/',
+];
+
+const Hostname = HostList[0];
 
 const CONFIG = {
   apiUrls: {
-    host: Hostname,
     cities: `${Hostname}projects-data/cities/`,
     dobrothon: `${Hostname}account/fundraising/`,
+    dobrothonId: `${Hostname}account/fundraising/fundraising_id=`,
     donation: `${Hostname}account/donations/`,
     points: `${Hostname}account/achievements/`,
-    projects: `${Hostname}projects-data/`,
     project: `${Hostname}projects-data/`,
-    singleDobrothon: `${Hostname}account/fundraising/fundraising_id=`,
     stats: `${Hostname}projects-data/cities/`,
     stories: `${Hostname}account/achievements/stories/`,
     wall: `${Hostname}account/achievements/wall/`,
   },
+  hostname: Hostname,
 };
 
 const DATA = {
@@ -36,7 +39,7 @@ const DATA = {
   cities: [
     { id: 0, name: 'any', title: 'В любом городе' },
   ],
-  donationTabs: [
+  donations: [
     { id: 1, value: 5 },
     { id: 2, value: 10 },
     { id: 3, value: 25 },

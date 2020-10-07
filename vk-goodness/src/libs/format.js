@@ -2,10 +2,10 @@ class Format {
   /**
    * Конвертирует число в строку с маской '### [### ...] ₽'
    * @param numb
-   * @param currency
+   * @param symbal
    * @returns { string }
    */
-  static numberFinance = (numb, symb = '₽') => {
+  static numberFinance = (numb, symbal = '₽') => {
     const list = String(numb).split('');
     const result = [];
     if (list.length % 3 > 0) {
@@ -14,7 +14,7 @@ class Format {
     while (list.length > 0) {
       result.push(...list.splice(0, 3), ' ');
     }
-    result.push(symb);
+    result.push(symbal);
     return result.join('');
   };
 }

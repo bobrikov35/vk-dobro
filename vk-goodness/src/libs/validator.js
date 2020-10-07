@@ -1,5 +1,17 @@
 class Validator {
   /**
+   * Возвращает новую строку с замененными на заменитель
+   * @param string: исходная строка
+   * @param subStr: строка, заменяемая на newSubStr - " или '
+   * @param newSubStr: строка, заменяющая подстроку из первого параметра - ' или "
+   * @returns { void | * }
+   */
+  static replaceBackticks(string, subStr = "'", newSubStr = '"') {
+    const regExp = new RegExp('^\\\'|\\W\\\'|\\\'\\W|\\\'\\$', 'g');
+    return string.replace(regExp, (str) => str.replace(subStr, newSubStr));
+  }
+
+  /**
    * Проверяет нажатие спец. клавиш
    * @param key: клавиша
    * @returns { boolean }
@@ -100,18 +112,6 @@ class Validator {
    */
   static verifyEmail(email) {
     return /^(([0-9a-z]{1}([-_0-9a-z]|\.)+[0-9a-z]{1})@([0-9a-z]{1}[-_0-9a-z]+\.{1}){1,3}[a-z]{2,})$/i.test(email);
-  }
-
-  /**
-   * Возвращает новую строку с замененными на заменитель
-   * @param string: исходная строка
-   * @param subStr: строка, заменяемая на newSubStr - " или '
-   * @param newSubStr: строка, заменяющая подстроку из первого параметра - ' или "
-   * @returns { void | * }
-   */
-  static replaceBackticks(string, subStr = "'", newSubStr = '"') {
-    const regExp = new RegExp('^\\\'|\\W\\\'|\\\'\\W|\\\'\\$', 'g');
-    return string.replace(regExp, (str) => str.replace(subStr, newSubStr));
   }
 
   /**

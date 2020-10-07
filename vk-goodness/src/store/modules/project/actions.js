@@ -1,4 +1,15 @@
-import { GET_WITH_PARAMS } from '@/store/modules/lib';
+import { GET_WITH_PARAMS, POST } from '@/store/modules/lib';
+import { VK_PARAMS } from '@/app';
+
+const makePayment = (empty, { projectId, amount }) => {
+  POST('donations', {
+    vk_user_id: VK_PARAMS.all.vk_user_id,
+    project_id: projectId,
+    amount,
+  })
+    .then(({ data }) => console.log({ ...data }))
+    .catch((error) => console.log(error));
+};
 
 const fetchProject = ({ commit }, name) => {
   commit('RESET_PROJECT');
@@ -28,6 +39,7 @@ const switchVisibilityDonationForm = ({ state, commit }) => {
 };
 
 export default {
+  makePayment,
   fetchProject,
   setDonationTabIndex,
   setAmount,

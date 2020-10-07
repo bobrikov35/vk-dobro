@@ -1,41 +1,51 @@
 <template>
   <div class="account">
-    <link rel="preload" href="./icons/medal-bronze.png" as="image">
-    <link rel="preload" href="./icons/medal-silver.png" as="image">
-    <link rel="preload" href="./icons/medal-gold.png" as="image">
     <Rewards />
-    <Tabs />
-    <Donations />
-    <Dobrothons />
+    <Controller />
+    <DonationsGrouped v-if="getControllerIndex === 1"/>
+    <Donations v-else-if="getControllerIndex === 2" />
+    <Dobrothons v-else />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import Controller from '@/components/account/Controller.vue';
 import Dobrothons from '@/components/account/Dobrothons.vue';
 import Donations from '@/components/account/Donations.vue';
+import DonationsGrouped from '@/components/account/DonationsGrouped.vue';
 import Rewards from '@/components/account/Rewards.vue';
-import Tabs from '@/components/account/Tabs.vue';
 
 export default {
   name: 'Account',
   components: {
+    Controller,
     Dobrothons,
     Donations,
+    DonationsGrouped,
     Rewards,
-    Tabs,
   },
   methods: {
     ...mapActions({
-      getPoints: 'account/getPointsById',
-      fetchDonations: 'account/donations/getDonationsById',
-      fetchDobrothons: 'dobrothon/getDobrothonsById',
+      fetchDobrothonList: 'account/fetchDobrothonList',
+      fetchDonationList: 'account/fetchDonationList',
+      fetchPoints: 'account/fetchPoints',
     }),
   },
-  created() {
-    this.getPoints();
-    this.fetchDonations();
-    this.fetchDobrothons();
+  computed: {
+    ...mapGetters({
+      getControllerIndex: 'account/getControllerIndex',
+    }),
+  },
+  mounted() {
+    this.fetchPoints();
+    if (this.getControllerIndex === 0) {
+      this.fetchDobrothonList();
+      this.fetchDonationList();
+    } else {
+      this.fetchDonationList();
+      this.fetchDobrothonList();
+    }
   },
 };
 </script>
@@ -46,6 +56,5 @@ export default {
 
 .account
   background-color: $Background
-  +flexColumn
-  flex-grow: 1
+  +flexColumnGrow(1)
 </style>

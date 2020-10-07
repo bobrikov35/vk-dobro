@@ -1,8 +1,8 @@
 <template>
-  <div class="rewards-item" :style="`background-image: url(${image})`" v-show="id === currentReward.id" @click="next">
-    <div class="rewards-item rewards-item__inactive"
-         :style="`background-image: url(${image});
-                  height: ${points < target ? Math.floor((1 - points / target) * 100) : 100}%`" />
+  <div class="account-reward" :style="`background-image: url(${vReward.image})`" @click="next"
+       v-show="vReward.id === getCurrentReward.id">
+    <link rel="preload" :href="vReward.image" as="image">
+    <div class="account-reward account-reward_inactive" :style="`background-image: url(${vReward.image});`" />
   </div>
 </template>
 
@@ -12,26 +12,36 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'Reward',
   props: {
-    vItem: {
+    vReward: {
       type: Object,
       required: true,
     },
-  },
-  data() {
-    const { id, image, target } = this.vItem;
-    return { id, image, target };
   },
   methods: {
     ...mapActions({
       next: 'account/nextReward',
       prev: 'account/prevReward',
     }),
+    resizeReward() {
+      const rewardInactive = this.$el.querySelector('.account-reward_inactive');
+      if (this.getPoints < this.vReward.target) {
+        rewardInactive.style.height = `${Math.floor((1 - this.getPoints / this.vReward.target) * 100)}%`;
+      } else {
+        rewardInactive.style.height = 0;
+      }
+    },
   },
   computed: {
     ...mapGetters({
-      currentReward: 'account/getCurrentReward',
-      points: 'account/getPoints',
+      getCurrentReward: 'account/getCurrentReward',
+      getPoints: 'account/getPoints',
     }),
+  },
+  created() {
+    window.addEventListener('resize', this.resizeReward);
+  },
+  mounted() {
+    this.resizeReward();
   },
 };
 </script>
@@ -40,7 +50,7 @@ export default {
 @import '../../styles/var'
 @import '../../styles/mixin'
 
-.rewards-item
+.account-reward
   cursor: pointer
   overflow: hidden
   width: 2.50rem
@@ -49,7 +59,7 @@ export default {
   background-repeat: no-repeat
   background-position-x: 50%
   margin-left: 0.50rem
-  &__inactive
+  &_inactive
     filter: grayscale(100%)
     width: 100%
     margin: 0

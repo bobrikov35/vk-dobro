@@ -1,16 +1,16 @@
 <template>
-  <main class="main">
+  <section class="main">
     <Header />
-    <section class="panel">
+    <main class="panel">
       <router-view/>
-    </section>
+    </main>
     <Footer />
-  </main>
+  </section>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import { VK_PARAMS } from '@/app';
+import { mapActions } from 'vuex';
 import Header from '@/components/header/Header.vue';
 import Footer from '@/components/footer/Footer.vue';
 
@@ -22,13 +22,15 @@ export default {
   },
   methods: {
     init() {
+      this.fetchCities();
       if (VK_PARAMS.fragment.name === 'project') {
-        this.$router.push(`/single/${VK_PARAMS.fragment.id}/`);
+        this.$router.push(`/project/${VK_PARAMS.fragment.id}/`);
       } else if (VK_PARAMS.fragment.name === 'dobrothon') {
-        this.$router.push(`/single/${VK_PARAMS.fragment.id}/`);
-      } else {
-        this.fetchCities();
+        this.$router.push(`/dobrothon/${VK_PARAMS.fragment.id}/`);
       }
+    },
+    beforeRouteUpdate() {
+      console.dir(this.$router);
     },
     ...mapActions({
       fetchCities: 'projects/fetchCities',
@@ -36,6 +38,7 @@ export default {
   },
   created() {
     this.init();
+    this.$router.beforeRouteUpdate = this.beforeRouteUpdate;
   },
 };
 </script>
@@ -52,8 +55,8 @@ export default {
 
 body
   user-select: none
-  +RobotoSansSerif()
   min-width: $Site-MinWidth
+  +RobotoSansSerif()
   color: $Text
   font-weight: 400
   line-height: 1.33em

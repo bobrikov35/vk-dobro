@@ -6,20 +6,28 @@ import getters from './getters';
 const account = {
   namespaced: true,
   state: {
-    points: 0,
+    controllers: {
+      current: 0,
+      list: [...DATA.controllers.account],
+    },
     rewards: {
       current: 0,
-      list: DATA.rewards,
+      list: [...DATA.rewards],
     },
-    tabs: {
-      current: 0,
-      list: DATA.accountTabs,
-    },
-    donations: {
+    dobrothonList: {
       loading: true,
-      result: false,
-      data: [],
-      dataGroupByProject: [],
+      data: null,
+      error: null,
+    },
+    donationList: {
+      loading: true,
+      data: null,
+      dataGrouped: null,
+      error: null,
+    },
+    points: {
+      loading: true,
+      data: null,
       error: null,
     },
   },

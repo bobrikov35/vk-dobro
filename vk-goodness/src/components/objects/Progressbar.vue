@@ -5,12 +5,13 @@
         {{ formatValue }}<span class="progressbar__value" v-show="!trimmed">собрано</span>
       </h2>
       <p v-show="trimmed">из</p>
-      <h2 class="progressbar__title">
+      <h2 v-if="isFinished" class="progressbar__title">100%</h2>
+      <h2 v-else class="progressbar__title">
         <span class="progressbar__max" v-show="!trimmed">цель</span>{{ formatMax }}
       </h2>
     </div>
-    <div class="progressbar__box">
-      <div class="progressbar__active">
+    <div v-if="vBarVisibility" class="progressbar__box" :class="isFinished && 'progressbar__box_finish'">
+      <div class="progressbar__active" :class="isFinished && 'progressbar__active_finish'">
         <div class="progressbar__active_background"></div>
       </div>
     </div>
@@ -31,6 +32,10 @@ export default {
       type: Number,
       required: true,
     },
+    vBarVisibility: {
+      type: Boolean,
+      default: true,
+    },
     vClass: String,
   },
   data() {
@@ -40,6 +45,7 @@ export default {
   },
   methods: {
     resize() {
+      if (!this.vBarVisibility) return;
       const bar = this.$el.querySelector('.progressbar__box');
       const width = bar.clientWidth;
       const height = bar.clientHeight;
@@ -54,6 +60,9 @@ export default {
     },
     formatMax() {
       return format.numberFinance(this.vMax);
+    },
+    isFinished() {
+      return this.vValue >= this.vMax;
     },
   },
   created() {
@@ -90,9 +99,13 @@ export default {
     background-color: $ProgressbarColor
     border-radius: 0.25rem
     +shadow(0, 0, 0.15rem)
+    &_finish
+      background: $ColorMainYellow
   &__active
     overflow: hidden
     height: inherit
+    &_finish
+      visibility: hidden
     &_background
       height: inherit
       background: $ProgressbarActiveBackground

@@ -1,72 +1,75 @@
-function getDonationsItem(donation) {
-  return {
-    id: donation.project_id.id,
-    city: donation.project_id.city,
-    title: donation.project_id.title,
-    image: donation.project_id.image,
-    target: donation.project_id.target,
-    amount: donation.amount,
-  };
-}
+import { parseDonationList, parseDobrothonList } from '@/libs/parse';
 
-const preparationDonations = (state, data) => {
-  const list = [...data];
-  const donations = [];
-  const donationsGroupByProject = [];
-  let lastItem = -1;
-  for (let i = 0; i < list.length; i++) {
-    donations.push(getDonationsItem(data[i]));
-    if (list[i].flag) {
-      lastItem += 1;
-      donationsGroupByProject.push(getDonationsItem(data[i]));
-      for (let j = i + 1; j < list.length; j++) {
-        if (list[i].project_id.id === list[j].project_id.id) {
-          list[j].flag = true;
-          donationsGroupByProject[lastItem].amount += list[j].amount;
-        }
-      }
-    }
+const SET_CONTROLLER_INDEX = (state, index) => {
+  state.controllers.current = index;
+};
+
+const RESET_DOBROTHON_LIST = (state) => {
+  state.dobrothonList.loading = true;
+  state.dobrothonList.data = null;
+  state.dobrothonList.error = null;
+};
+
+const SET_DOBROTHON_LIST_ERROR = (state, error) => {
+  state.dobrothonList.data = null;
+  state.dobrothonList.error = error;
+  state.dobrothonList.loading = false;
+};
+
+const SET_DOBROTHON_LIST = (state, data) => {
+  if (data === null || typeof data !== 'object') {
+    SET_DOBROTHON_LIST_ERROR(state, 'Type error');
+    return;
   }
-  return { donations, donationsGroupByProject };
+  state.dobrothonList.data = parseDobrothonList(data);
+  state.dobrothonList.error = null;
+  state.dobrothonList.loading = false;
 };
 
-const ERROR_DONATIONS = (state, error) => {
-  state.donations.loading = false;
-  state.donations.result = false;
-  state.donations.data = [];
-  state.donations.dataGroupByProject = [];
-  state.donations.error = error;
+const RESET_DONATION_LIST = (state) => {
+  state.donationList.loading = true;
+  state.donationList.data = null;
+  state.donationList.error = null;
 };
 
-const RESET_DONATIONS = (state) => {
-  state.donations.loading = false;
-  state.donations.result = false;
-  state.donations.data = [];
-  state.donations.dataGroupByProject = [];
-  state.donations.error = null;
+const SET_DONATION_LIST_ERROR = (state, error) => {
+  state.donationList.data = null;
+  state.donationList.error = error;
+  state.donationList.loading = false;
 };
 
-const SET_DONATIONS = (state, data) => {
-  state.donations.loading = false;
-  state.donations.result = data !== null && typeof data === 'object';
-  const newData = preparationDonations(data);
-  if (state.donations.result) {
-    state.donations.data = newData.donations;
-    state.donations.dataGroupByProject = newData.donationsGroupByProject;
-    state.donations.error = null;
-  } else {
-    state.donations.data = null;
-    state.donations.dataGroupByProject = null;
-    state.donations.error = 'Type error';
+const SET_DONATION_LIST = (state, data) => {
+  if (data === null || typeof data !== 'object') {
+    SET_DONATION_LIST_ERROR(state, 'Type error');
+    return;
   }
+  const lists = parseDonationList(data);
+  state.donationList.data = lists.donations;
+  state.donationList.dataGrouped = lists.donationsGrouped;
+  state.donationList.error = null;
+  state.donationList.loading = false;
+};
+
+const RESET_POINTS = (state) => {
+  state.points.loading = true;
+  state.points.data = null;
+  state.points.error = null;
+};
+
+const SET_POINTS_ERROR = (state, error) => {
+  state.points.data = null;
+  state.points.error = error;
+  state.points.loading = false;
 };
 
 const SET_POINTS = (state, { points }) => {
-  state.points = typeof points === 'number' ? points : 0;
-};
-
-const SET_CURRENT_TAB = (state, index) => {
-  state.tabs.current = index;
+  if (typeof points !== 'number') {
+    SET_POINTS_ERROR(state, 'Type error');
+    return;
+  }
+  state.points.data = points;
+  state.points.error = null;
+  state.points.loading = false;
 };
 
 const SET_REWARD_INDEX = (state, index) => {
@@ -74,12 +77,20 @@ const SET_REWARD_INDEX = (state, index) => {
 };
 
 export default {
+  // main
+  SET_CONTROLLER_INDEX,
+  // dobrothons
+  RESET_DOBROTHON_LIST,
+  SET_DOBROTHON_LIST,
+  SET_DOBROTHON_LIST_ERROR,
   // donations
-  ERROR_DONATIONS,
-  RESET_DONATIONS,
-  SET_DONATIONS,
-  // other
+  RESET_DONATION_LIST,
+  SET_DONATION_LIST,
+  SET_DONATION_LIST_ERROR,
+  // points
+  RESET_POINTS,
   SET_POINTS,
-  SET_CURRENT_TAB,
+  SET_POINTS_ERROR,
+  // other
   SET_REWARD_INDEX,
 };

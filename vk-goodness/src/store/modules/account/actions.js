@@ -1,33 +1,29 @@
-import { VK_PARAMS } from '@/app';
-import {
-  GET,
-  POST,
-} from '@/store/modules/lib';
+import { axios } from '@/plugins';
+import { CONFIG, VK_PARAMS } from '@/app';
 
-const getDonationsById = ({ commit }) => {
-  commit('RESET_DONATIONS');
-  GET('donations')
-    .then(({ data }) => commit('SET_DONATIONS', data))
-    .catch((error) => commit('ERROR_DONATIONS', error));
+const setControllerIndex = ({ commit }, index) => {
+  commit('SET_CONTROLLER_INDEX', index);
 };
 
-const makePayment = (empty, { projectId, amount }) => {
-  POST('donations', {
-    vk_user_id: VK_PARAMS.all.vk_user_id,
-    project_id: projectId,
-    amount,
-  })
-    .then(({ data }) => console.log({ ...data }))
-    .catch((error) => console.log(error));
+const fetchDobrothonList = ({ commit }) => {
+  commit('RESET_DOBROTHON_LIST');
+  axios.get(CONFIG.apiUrls.dobrothon, { params: VK_PARAMS.app })
+    .then(({ data }) => commit('SET_DOBROTHON_LIST', data))
+    .catch((error) => commit('SET_DOBROTHON_LIST_ERROR', error));
 };
 
-const getPointsById = ({ commit }) => {
-  GET('points')
-    .then(({ data }) => commit('SET_POINTS', data));
+const fetchDonationList = ({ commit }) => {
+  commit('RESET_DONATION_LIST');
+  axios.get(CONFIG.apiUrls.donation, { params: VK_PARAMS.app })
+    .then(({ data }) => commit('SET_DONATION_LIST', data))
+    .catch((error) => commit('SET_DONATION_LIST_ERROR', error));
 };
 
-const setCurrentTab = ({ commit }, index) => {
-  commit('SET_CURRENT_TAB', index);
+const fetchPoints = ({ commit }) => {
+  commit('RESET_POINTS');
+  axios.get(CONFIG.apiUrls.points, { params: VK_PARAMS.app })
+    .then(({ data }) => commit('SET_POINTS', data))
+    .catch((error) => commit('SET_POINTS_ERROR', error));
 };
 
 const nextReward = ({ state, commit }) => {
@@ -49,10 +45,10 @@ const prevReward = ({ state, commit }) => {
 };
 
 export default {
-  getDonationsById,
-  makePayment,
-  getPointsById,
-  setCurrentTab,
+  fetchDobrothonList,
+  fetchDonationList,
+  fetchPoints,
   nextReward,
   prevReward,
+  setControllerIndex,
 };

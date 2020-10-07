@@ -14,7 +14,7 @@
   border-radius: $Site-Radius
   position: relative
   +shadow(0, 0, $Site-Shadow)
-  margin: $Project-MarginVertical auto
+  margin: 0 auto
   &__header
     padding: $Project-PaddingVertical $Project-PaddingHorizontal
   &__title
@@ -38,9 +38,16 @@
     background-color: $UrgentColor
     +borderBottomLeft(1px, $Border)
     +radiusRightLeft($Site-Radius)
+    padding: $Project-PaddingVertical 0 $Project-PaddingVertical 0.10rem
     position: absolute
     +posTopRightSingle(0)
-    padding: $Project-PaddingVertical 0 $Project-PaddingVertical 0.10rem
+  &__finish
+    +Awesome
+    font-size: $Finished-Size
+    color: $UrgentColor
+    position: absolute
+    padding: 0.30rem 0.40rem
+    +posTopRightSingle(0)
   &__bottom-panel
     width: 100%
     padding: $Project-PaddingVertical

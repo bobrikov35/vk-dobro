@@ -1,16 +1,16 @@
-// const Hostname = 'http://localhost:3005/';
-const Hostname = 'https://vk-dobro-1.herokuapp.com/';
+const Hostname = 'http://localhost:3005/';
+// const Hostname = 'https://vk-dobro-1.herokuapp.com/';
 
 const CONFIG = {
-  debug: true,
   apiUrls: {
     host: Hostname,
     cities: `${Hostname}projects-data/cities/`,
-    dobrothons: `${Hostname}account/fundraising/`,
-    donations: `${Hostname}account/donations/`,
+    dobrothon: `${Hostname}account/fundraising/`,
+    donation: `${Hostname}account/donations/`,
     points: `${Hostname}account/achievements/`,
     projects: `${Hostname}projects-data/`,
-    single: `${Hostname}projects-data/`,
+    project: `${Hostname}projects-data/`,
+    singleDobrothon: `${Hostname}account/fundraising/fundraising_id=`,
     stats: `${Hostname}projects-data/cities/`,
     stories: `${Hostname}account/achievements/stories/`,
     wall: `${Hostname}account/achievements/wall/`,
@@ -18,6 +18,13 @@ const CONFIG = {
 };
 
 const DATA = {
+  controllers: {
+    account: [
+      { id: 1, name: 'dobrothons', title: 'Доброфоны' },
+      { id: 2, name: 'donationsGrouped', title: 'Участие в проектах' },
+      { id: 3, name: 'donations', title: 'История пожертвований' },
+    ],
+  },
   categories: [
     { id: 0, name: 'all', title: 'Всем' },
     { id: 1, name: 'kids', title: 'Детям' },
@@ -45,10 +52,6 @@ const DATA = {
     { id: 1, image: '/icons/medal-bronze.png', target: 10 },
     { id: 2, image: '/icons/medal-silver.png', target: 20 },
     { id: 3, image: '/icons/medal-gold.png', target: 40 },
-  ],
-  accountTabs: [
-    { id: 1, name: 'donations', title: 'Пожертвования' },
-    { id: 2, name: 'dobrothons', title: 'Доброфоны' },
   ],
 };
 

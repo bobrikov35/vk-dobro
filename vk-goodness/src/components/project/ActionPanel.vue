@@ -4,7 +4,7 @@
       <button class="cs-button-2 project-action-panel__button" @click="switchVisibilityDonationForm">
         Помочь деньгами
       </button>
-      <button class="cs-button-2 project-action-panel__button" @click="shareOnWall(project)">
+      <button class="cs-button-2 project-action-panel__button" @click="shareOnWall">
         Помочь репостом
       </button>
       <button class="cs-button-2 project-action-panel__button" @click="switchVisibilityDobrothonForm">
@@ -15,23 +15,15 @@
 </template>
 
 <script>
-import {
-  mapActions,
-  mapGetters,
-} from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ActionPanel',
   methods: {
     ...mapActions({
-      shareOnWall: 'vkBridge/shareOnWall',
+      shareOnWall: 'project/shareOnWall',
       switchVisibilityDobrothonForm: 'project/switchVisibilityDobrothonForm',
       switchVisibilityDonationForm: 'project/switchVisibilityDonationForm',
-    }),
-  },
-  computed: {
-    ...mapGetters({
-      project: 'project/getProject',
     }),
   },
 };

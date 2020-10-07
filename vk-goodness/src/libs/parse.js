@@ -12,6 +12,7 @@ function parseProject(data) {
   return {
     city: data.city,
     dateCreated: new Date(data.createdAt),
+    description: data.description,
     html: data.html,
     id: parseInt(data.id, 10),
     image: data.image,

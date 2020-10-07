@@ -6,11 +6,11 @@
       </button>
       <h2>Сумма пожертвования</h2>
       <ul class="cs-modal-pay-form__tabs">
-        <li v-for="(item, index) in formatDonationTabs" :key="item.id" @click="choiceItem(index)" v-show="index < 7"
-            class="cs-modal-pay-form__tab" :class="index === donationTabIndex && 'cs-modal-pay-form__tab_active'">
-          {{ formatDonationTabs[index] }}
+        <li v-for="(item, index) in formattedDonationTabs" :key="item.id" @click="choiceItem(index)" v-show="index < 7"
+            class="cs-modal-pay-form__tab" :class="index === getDonationTabIndex && 'cs-modal-pay-form__tab_active'">
+          {{ formattedDonationTabs[index] }}
         </li>
-        <li class="cs-modal-pay-form__tab" :class="donationTabIndex < 0 && 'cs-modal-pay-form__tab_active'"
+        <li class="cs-modal-pay-form__tab" :class="getDonationTabIndex < 0 && 'cs-modal-pay-form__tab_active'"
             @click="choiceItem(-1)">Своя</li>
       </ul>
       <EditAmount />
@@ -20,10 +20,7 @@
 </template>
 
 <script>
-import {
-  mapActions,
-  mapGetters,
-} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import format from '@/libs/format';
 import EditAmount from '@/components/project/EditAmount.vue';
 
@@ -33,44 +30,41 @@ export default {
     EditAmount,
   },
   methods: {
-    choiceItem(index) {
-      if (index === this.donationTabIndex) {
-        return;
-      }
-      this.setDonationTabIndex(index);
-      if (index >= 0) {
-        this.setAmount(this.currentDonationTab.value);
-      }
-    },
-    pay() {
-      this.switchVisibilityDonationForm();
-      this.makePayment({
-        projectId: this.project.id,
-        amount: this.amount,
-      });
-    },
     ...mapActions({
-      makePayment: 'account/makePayment',
+      makePayment: 'project/makePayment',
       setAmount: 'project/setAmount',
       setDonationTabIndex: 'project/setDonationTabIndex',
       switchVisibilityDonationForm: 'project/switchVisibilityDonationForm',
     }),
+    choiceItem(index) {
+      if (index === this.getDonationTabIndex) {
+        return;
+      }
+      this.setDonationTabIndex(index);
+      if (index >= 0) {
+        this.setAmount(this.getCurrentDonationTab.value);
+      }
+    },
+    pay() {
+      this.switchVisibilityDonationForm();
+      this.makePayment();
+    },
   },
   computed: {
-    formatDonationTabs() {
-      return this.donationTabs.map((item) => format.numberFinance(item.value));
-    },
     ...mapGetters({
-      amount: 'project/getAmount',
-      currentDonationTab: 'project/getCurrentDonationTab',
-      donationTabs: 'project/getDonationTabs',
-      donationTabIndex: 'project/getDonationTabIndex',
+      getAmount: 'project/getAmount',
+      getCurrentDonationTab: 'project/getCurrentDonationTab',
+      getDonationTabs: 'project/getDonationTabs',
+      getDonationTabIndex: 'project/getDonationTabIndex',
+      getProject: 'project/getProject',
       isVisibilityDonationForm: 'project/isVisibilityDonationForm',
-      project: 'project/getProject',
     }),
+    formattedDonationTabs() {
+      return this.getDonationTabs.map((item) => format.numberFinance(item.value));
+    },
   },
   mounted() {
-    this.setAmount(this.donationTabIndex >= 0 ? this.currentDonationTab.value : 0);
+    this.setAmount(this.getDonationTabIndex >= 0 ? this.getCurrentDonationTab.value : 0);
   },
 };
 </script>

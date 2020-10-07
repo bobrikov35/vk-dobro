@@ -1,12 +1,30 @@
-import {
-  ERROR_OBJECT,
-  RESET_OBJECT,
-  SET_OBJECT,
-} from '@/store/modules/lib';
+import { parseProject } from '@/libs/parse';
 
-const ERROR_PROJECT = (state, error) => ERROR_OBJECT(state, { name: 'project', error });
-const RESET_PROJECT = (state) => RESET_OBJECT(state, 'project');
-const SET_PROJECT = (state, data) => SET_OBJECT(state, { name: 'project', data });
+const RESET_PROJECT = (state) => {
+  state.project.loading = true;
+  state.project.data = null;
+  state.project.error = null;
+};
+
+const SET_PROJECT_ERROR = (state, error) => {
+  state.project.data = null;
+  state.project.error = error;
+  state.project.loading = false;
+};
+
+const SET_PROJECT = (state, data) => {
+  if (data === null || typeof data !== 'object') {
+    SET_PROJECT_ERROR(state, 'Type error');
+    return;
+  }
+  state.project.data = parseProject(data);
+  state.project.error = null;
+  state.project.loading = false;
+};
+
+const SET_DONATION_TAB_INDEX = (state, index) => {
+  state.donationTabs.current = index;
+};
 
 const SET_AMOUNT = (state, amount) => {
   state.amount = amount;
@@ -14,10 +32,6 @@ const SET_AMOUNT = (state, amount) => {
 
 const SET_TARGET = (state, target) => {
   state.target = target;
-};
-
-const SET_DONATION_TAB_INDEX = (state, index) => {
-  state.donationTabs.current = index;
 };
 
 const SET_VISIBILITY_DOBROTHON_FORM = (state, value) => {
@@ -29,12 +43,14 @@ const SET_VISIBILITY_DONATION_FORM = (state, value) => {
 };
 
 export default {
-  ERROR_PROJECT,
+  // project
   RESET_PROJECT,
   SET_PROJECT,
+  SET_PROJECT_ERROR,
+  // other
   SET_AMOUNT,
-  SET_TARGET,
   SET_DONATION_TAB_INDEX,
+  SET_TARGET,
   SET_VISIBILITY_DOBROTHON_FORM,
   SET_VISIBILITY_DONATION_FORM,
 };

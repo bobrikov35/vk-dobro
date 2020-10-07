@@ -1,6 +1,6 @@
 <template>
   <div class="project-description">
-    <div class="project-description__container" v-html="project.html" />
+    <div class="project-description__container" v-html="getProject.html" />
   </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   name: 'Description',
   computed: {
     ...mapGetters({
-      project: 'project/getProject',
+      getProject: 'project/getProject',
     }),
   },
 };
@@ -19,25 +19,27 @@ export default {
 
 <style scoped lang="sass">
 @import '../../styles/var'
+@import '../../styles/mixin'
 
 .project-description
   background-color: $Background
   &__container
     max-width: $Site-MaxWidth
+    padding: 0.8rem $Site-PuddingHorizontal-MAX
     margin: 0 auto
 
 @media (max-width: $Media-SizeS)
   .project-description
     &__container
-      padding: 1% $Site-PuddingHorizontal-S
+      +paddingRightLeftSingle($Site-PuddingHorizontal-S)
 
 @media (min-width: $Media-MinSizeM) and (max-width: $Media-MaxSizeM)
   .project-description
     &__container
-      padding: 1.5% $Site-PuddingHorizontal-M
+      +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-SizeL) and (max-width: $Media-MaxSizeL)
   .project-description
     &__container
-      padding: 2% $Site-PuddingHorizontal-L
+      +paddingRightLeftSingle($Site-PuddingHorizontal-L)
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="project-caption">
     <div class="project-caption__container">
-      <h1 class="project-caption__title">{{ project.title }}</h1>
+      <h1 class="project-caption__title">{{ getProject.title }}</h1>
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
   name: 'Caption',
   computed: {
     ...mapGetters({
-      project: 'project/getProject',
+      getProject: 'project/getProject',
     }),
   },
 };
@@ -29,7 +29,7 @@ export default {
   &__container
     max-width: $Site-MaxWidth
     text-align: center
-    +paddingTopBottomSingle($Site-PuddingVertical)
+    padding: $Site-PuddingVertical $Site-PuddingHorizontal-MAX
     margin: 0 auto
 
 @media (max-width: $Media-SizeS)
@@ -42,7 +42,7 @@ export default {
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-SizeL) and (max-width: $Media-MaxSizeL)
   .project-caption
     &__container
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)

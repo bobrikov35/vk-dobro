@@ -1,14 +1,15 @@
 <template>
   <div class="project-card">
     <div class="project-card__container">
-      <div class="cs-card" :style="`background-image: url(${project.image})`">
+      <div class="cs-card" :style="`background-image: url(${getProject.image})`">
         <div class="cs-card__header">
-          <h3 class="cs-card__text">{{ project.city }}</h3>
-          <h3 class="cs-card__text">{{ project.date }}</h3>
+          <h3 class="cs-card__text">{{ getProject.city }}</h3>
+          <h3 class="cs-card__text">{{ getProject.date }}</h3>
         </div>
-        <p v-if="project.urgent" class="cs-card__urgent">СРОЧНО</p>
+        <p v-if="isFinished" class="cs-card__finish"><i class="fa fa-check-circle"></i></p>
+        <p v-else-if="getProject.urgent" class="cs-card__urgent">СРОЧНО</p>
         <div class="cs-card__bottom-panel">
-          <Progressbar vClass="cs-card__progressbar" :vValue="project.sum" :vMax="project.target" />
+          <Progressbar vClass="cs-card__progressbar" :vValue="getProject.sum" :vMax="getProject.target" />
         </div>
       </div>
     </div>
@@ -31,15 +32,12 @@ export default {
     },
   },
   computed: {
-    sum() {
-      return parseInt(this.project.sum, 10);
-    },
-    target() {
-      return parseInt(this.project.target, 10);
-    },
     ...mapGetters({
-      project: 'project/getProject',
+      getProject: 'project/getProject',
     }),
+    isFinished() {
+      return this.getProject.sum >= this.getProject.target;
+    },
   },
   created() {
     window.addEventListener('resize', this.resizeCard);
@@ -57,8 +55,8 @@ export default {
 
 .project-card
   background-color: $BackgroundSecondary
+  +paddingTopBottomSingle($Project-PaddingVertical)
   &__container
     max-width: $Site-MaxWidth
-    font-weight: 700
     margin: 0 auto
 </style>

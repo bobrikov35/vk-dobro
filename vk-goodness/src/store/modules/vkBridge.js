@@ -63,31 +63,6 @@ const vkBridge = {
           }
         });
     },
-    shareOnWall(empty, massage = '') {
-      bridge.send('VKWebAppShowWallPostBox', {
-        message: massage,
-      })
-        .then((data) => {
-          axios.post(CONFIG.apiUrls.wall, { post_id: data.post_id }, {
-            params: VK_PARAMS.app,
-          })
-            .then((response) => {
-              if (CONFIG.debug) {
-                console.log(JSON.parse(JSON.stringify(response.data)));
-              }
-            })
-            .catch((error) => {
-              if (CONFIG.debug) {
-                console.log(JSON.parse(JSON.stringify(error)));
-              }
-            });
-        })
-        .catch((error) => {
-          if (CONFIG.debug) {
-            console.log(JSON.parse(JSON.stringify(error)));
-          }
-        });
-    },
     shareStory(empty, { imageLink, requestId }) {
       bridge.send('VKWebAppShowStoryBox', {
         background_type: 'image',

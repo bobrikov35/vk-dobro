@@ -7,10 +7,9 @@ const routes = [
     component: () => import('../views/Projects.vue'),
   },
   {
-    path: '/project/:name',
-    name: 'Project',
-    props: true,
-    component: () => import('../views/Project.vue'),
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About.vue'),
   },
   {
     path: '/account',
@@ -18,21 +17,16 @@ const routes = [
     component: () => import('../views/Account.vue'),
   },
   {
+    path: '/project/:name',
+    name: 'Project',
+    props: true,
+    component: () => import('../views/Project.vue'),
+  },
+  {
     path: '/dobrothon/:id',
     name: 'Dobrothon',
     props: true,
     component: () => import('../views/Dobrothon.vue'),
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue'),
-  },
-  {
-    path: '/test',
-    name: 'Test',
-    props: true,
-    component: () => import('../views/_Test.vue'),
   },
 ];
 

@@ -8,11 +8,10 @@ export default {
   state: {
     donationTabs: {
       current: 3,
-      list: DATA.donationTabs,
+      list: [...DATA.donations],
     },
     project: {
       loading: true,
-      result: false,
       data: null,
       error: null,
     },

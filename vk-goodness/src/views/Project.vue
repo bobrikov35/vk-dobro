@@ -1,10 +1,10 @@
 <template>
   <div class="project">
-    <div v-if="isLoading" class="project__loading">
+    <div v-if="isLoadingProject" class="project__loading">
       <i class="fa fa-spinner fa-pulse"></i>
     </div>
-    <div v-else-if="!isLoading && !isResult" class="project__error">
-      <h1>Что-то пошло не так</h1>
+    <div v-else-if="isError" class="project__error">
+      <h2>Что-то пошло не так</h2>
     </div>
     <div v-else class="project__content">
       <Header />
@@ -43,9 +43,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoading: 'project/isLoadingProject',
-      isResult: 'project/isResultProject',
-      project: 'project/getProject',
+      getProject: 'project/getProject',
+      getProjectError: 'project/getProjectError',
+      isLoadingProject: 'project/isLoadingProject',
     }),
   },
   watch: {
@@ -63,8 +63,7 @@ export default {
 
 .project
   background-color: $Background
-  +flexColumn
-  flex-grow: 1
+  +flexColumnGrow(1)
   &__loading, &__error
     max-width: $Site-MaxWidth
     +flexCC()

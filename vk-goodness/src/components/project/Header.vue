@@ -4,7 +4,7 @@
     <Card />
     <ActionPanel />
     <div class="project-header__description">
-      <p>{{ project.description }}</p>
+      <p>{{ getProject.description }}</p>
     </div>
   </header>
 </template>
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      project: 'project/getProject',
+      getProject: 'project/getProject',
     }),
   },
 };
@@ -40,7 +40,7 @@ export default {
   &__description
     max-width: $Site-MaxWidth
     text-align: justify
-    padding-bottom: $Site-PuddingVertical
+    padding: 0 $Site-PuddingHorizontal-MAX $Site-PuddingVertical
     margin: 0 auto $Site-PuddingVertical
 
 @media (max-width: $Media-SizeS)
@@ -53,7 +53,7 @@ export default {
     &__description
       +paddingRightLeftSingle($Site-PuddingHorizontal-M)
 
-@media (min-width: $Media-SizeL)
+@media (min-width: $Media-SizeL) and (max-width: $Media-MaxSizeL)
   .project-header
     &__description
       +paddingRightLeftSingle($Site-PuddingHorizontal-L)

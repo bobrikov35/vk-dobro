@@ -1,21 +1,49 @@
-import { GET_WITH_PARAMS, POST } from '@/store/modules/lib';
-import { VK_PARAMS } from '@/app';
+import { axios, bridge } from '@/plugins';
+import { CONFIG, VK_PARAMS } from '@/app';
 
-const makePayment = (empty, { projectId, amount }) => {
-  POST('donations', {
-    vk_user_id: VK_PARAMS.all.vk_user_id,
-    project_id: projectId,
-    amount,
+const fetchProject = ({ commit }, name) => {
+  commit('RESET_PROJECT');
+  axios.get(`${CONFIG.apiUrls.project}/${name}/`, { params: VK_PARAMS.app })
+    .then(({ data }) => commit('SET_PROJECT', data))
+    .catch((error) => commit('SET_PROJECT_ERROR', error));
+};
+
+const makeDobrothon = ({ getters }) => {
+  axios.post(CONFIG.apiUrls.dobrothon, {
+    ...VK_PARAMS.all,
+    fragment: 'empty',
+    project_id: getters.getProject.id,
+    amount: getters.getAmount,
+    target: getters.getTarget,
+  }, {
+    params: VK_PARAMS.app,
   })
     .then(({ data }) => console.log({ ...data }))
     .catch((error) => console.log(error));
 };
 
-const fetchProject = ({ commit }, name) => {
-  commit('RESET_PROJECT');
-  GET_WITH_PARAMS('single', `${name}/`)
-    .then(({ data }) => commit('SET_PROJECT', data))
-    .catch((error) => commit('ERROR_PROJECT', error));
+const makePayment = ({ getters }) => {
+  axios.post(CONFIG.apiUrls.donation, {
+    ...VK_PARAMS.all,
+    project_id: getters.getProject.id,
+    amount: getters.getAmount,
+  }, {
+    params: VK_PARAMS.app,
+  })
+    .then(({ data }) => console.log({ ...data }))
+    .catch((error) => console.log(error));
+};
+
+const shareOnWall = ({ getters }) => {
+  bridge.send('VKWebAppShowWallPostBox', {
+    message: getters.getProject.title,
+  })
+    .then((bridgeData) => {
+      axios.post(CONFIG.apiUrls.wall, { post_id: bridgeData.post_id }, { params: VK_PARAMS.app })
+        .then(({ data }) => console.log({ ...data }))
+        .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 };
 
 const setDonationTabIndex = ({ commit }, index) => {
@@ -39,10 +67,12 @@ const switchVisibilityDonationForm = ({ state, commit }) => {
 };
 
 export default {
-  makePayment,
   fetchProject,
-  setDonationTabIndex,
+  makeDobrothon,
+  makePayment,
+  shareOnWall,
   setAmount,
+  setDonationTabIndex,
   setTarget,
   switchVisibilityDobrothonForm,
   switchVisibilityDonationForm,

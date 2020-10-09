@@ -1,15 +1,30 @@
-import {
-  ERROR_OBJECT,
-  RESET_OBJECT,
-  SET_OBJECT,
-} from '@/store/modules/lib';
+const RESET_STATS = (state) => {
+  state.stats.loading = true;
+  state.stats.result = false;
+  state.stats.data = null;
+  state.stats.error = null;
+};
 
-const ERROR_STATS = (state, error) => ERROR_OBJECT(state, { name: 'stats', error });
-const RESET_STATS = (state) => RESET_OBJECT(state, 'stats');
-const SET_STATS = (state, data) => SET_OBJECT(state, { name: 'stats', data });
+const SET_STATS_ERROR = (state, error) => {
+  state.stats.data = null;
+  state.stats.error = error;
+  state.stats.result = false;
+  state.stats.loading = false;
+};
+
+const SET_STATS_LIST = (state, data) => {
+  if (data === null || typeof data !== 'object') {
+    SET_STATS_ERROR(state, 'Type error');
+    return;
+  }
+  state.stats.data = data;
+  state.stats.error = null;
+  state.stats.result = true;
+  state.stats.loading = false;
+};
 
 export default {
-  ERROR_STATS,
   RESET_STATS,
-  SET_STATS,
+  SET_STATS_LIST,
+  SET_STATS_ERROR,
 };

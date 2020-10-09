@@ -3,7 +3,7 @@ const HostList = [
   'https://vk-dobro-1.herokuapp.com/',
 ];
 
-const Hostname = HostList[0];
+const Hostname = HostList[1];
 
 const CONFIG = {
   apiUrls: {

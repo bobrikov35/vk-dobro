@@ -1,8 +1,9 @@
-import { GET } from '@/store/modules/lib';
+import { axios } from '@/plugins';
+import { CONFIG, VK_PARAMS } from '@/app';
 
 const fetchStats = ({ commit }) => {
   commit('RESET_STATS');
-  GET('stats')
+  axios.get(CONFIG.apiUrls.stats, { params: VK_PARAMS.app })
     .then(({ data }) => commit('SET_STATS', data))
     .catch((error) => commit('ERROR_STATS', error));
 };

@@ -3,7 +3,7 @@ import { CONFIG, VK_PARAMS } from '@/app';
 
 const fetchProject = ({ commit }, name) => {
   commit('RESET_PROJECT');
-  axios.get(`${CONFIG.apiUrls.project}/${name}/`, { params: VK_PARAMS.app })
+  axios.get(`${CONFIG.apiUrls.project}${name}/`, { params: VK_PARAMS.app })
     .then(({ data }) => commit('SET_PROJECT', data))
     .catch((error) => commit('SET_PROJECT_ERROR', error));
 };
@@ -23,20 +23,28 @@ const makeDobrothon = ({ getters }) => {
 };
 
 const makePayment = ({ getters }) => {
-  axios.post(CONFIG.apiUrls.donation, {
-    ...VK_PARAMS.all,
-    project_id: getters.getProject.id,
-    amount: getters.getAmount,
-  }, {
-    params: VK_PARAMS.app,
-  })
-    .then(({ data }) => console.log({ ...data }))
+  bridge.send('VKWebAppGetUserInfo')
+    .then((user) => {
+      axios.post(CONFIG.apiUrls.donation, {
+        vk_user_id: VK_PARAMS.all.vk_user_id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        photo_200: user.photo_200,
+        project_id: getters.getProject.id,
+        amount: getters.getAmount,
+      }, {
+        params: VK_PARAMS.app,
+      })
+        .then(({ data }) => console.log({ ...data }))
+        .catch((error) => console.log(error));
+    })
     .catch((error) => console.log(error));
 };
 
 const shareOnWall = ({ getters }) => {
   bridge.send('VKWebAppShowWallPostBox', {
     message: getters.getProject.title,
+    attachments: `https://vk.com/app${VK_PARAMS.all.vk_app_id}#/project/${getters.getProject.path}`,
   })
     .then((bridgeData) => {
       axios.post(CONFIG.apiUrls.wall, { post_id: bridgeData.post_id }, { params: VK_PARAMS.app })

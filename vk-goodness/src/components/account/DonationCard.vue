@@ -1,14 +1,14 @@
 <template>
   <div class="account-donations-card">
     <div class="account-donations-card__container">
-      <div class="cs-card account-donations-card__cover" :style="`background-image: url(${project.image});`"
+      <div class="cs-card account-donations-card__cover" :style="`background-image: url(${vDonation.project.image});`"
            @click="goToProject">
         <div class="cs-card__header">
-          <h3 class="cs-card__text">{{ project.city }}</h3>
-          <h2 class="cs-card__title">{{ project.title }}</h2>
+          <h3 class="cs-card__text">{{ vDonation.project.city }}</h3>
+          <h2 class="cs-card__title">{{ vDonation.project.title }}</h2>
         </div>
         <div class="cs-card__bottom-panel">
-          <Progressbar :vBarVisibility="false" :vValue="vDonation.amount" :vMax="project.target" />
+          <Progressbar :vBarVisibility="false" :vValue="vDonation.amount" :vMax="vDonation.project.target" />
         </div>
       </div>
     </div>
@@ -31,17 +31,12 @@ export default {
   },
   methods: {
     goToProject() {
-      const path = `/project/${this.project.path}`;
+      const path = `/project/${this.vDonation.project.path}`;
       if (this.$route.path !== path) this.$router.push(path);
     },
     resizeCard() {
       const card = this.$el.querySelector('.cs-card');
       card.style.height = `${card.clientWidth * 0.40}px`;
-    },
-  },
-  computed: {
-    project() {
-      return this.vDonation.project;
     },
   },
   created() {

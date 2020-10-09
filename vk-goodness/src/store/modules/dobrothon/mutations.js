@@ -1,25 +1,50 @@
-import {
-  ERROR_OBJECT,
-  RESET_OBJECT,
-  SET_LIST,
-  SET_OBJECT,
-} from '@/store/modules/lib';
+import { parseDobrothon } from '@/libs/parse';
 
-const ERROR_DOBROTHON = (state, error) => ERROR_OBJECT(state, { name: 'dobrothon', error });
-const RESET_DOBROTHON = (state) => RESET_OBJECT(state, 'dobrothon');
-const SET_DOBROTHON = (state, data) => SET_OBJECT(state, { name: 'dobrothon', data });
+const RESET_DOBROTHON = (state) => {
+  state.dobrothon.loading = true;
+  state.dobrothon.data = null;
+  state.dobrothon.error = null;
+};
 
-const ERROR_DOBROTHONS = (state, error) => ERROR_OBJECT(state, { name: 'dobrothons', error });
-const RESET_DOBROTHONS = (state) => RESET_OBJECT(state, 'dobrothons');
-const SET_DOBROTHONS = (state, data) => SET_LIST(state, { name: 'dobrothons', data });
+const SET_DOBROTHON_ERROR = (state, error) => {
+  state.dobrothon.data = null;
+  state.dobrothon.error = error;
+  state.dobrothon.loading = false;
+};
+
+const SET_DOBROTHON = (state, data) => {
+  if (data === null || typeof data !== 'object') {
+    SET_DOBROTHON_ERROR(state, 'Type error');
+    return;
+  }
+  state.dobrothon.data = parseDobrothon(data);
+  if (state.dobrothon.data.id === undefined) {
+    SET_DOBROTHON_ERROR(state, 'Type error');
+    return;
+  }
+  state.dobrothon.error = null;
+  state.dobrothon.loading = false;
+};
+
+const SET_DONATION_TAB_INDEX = (state, index) => {
+  state.donationTabs.current = index;
+};
+
+const SET_AMOUNT = (state, amount) => {
+  state.amount = amount;
+};
+
+const SET_VISIBILITY_DONATION_FORM = (state, value) => {
+  state.visibilityDonationForm = value;
+};
 
 export default {
   // dobrothon
-  ERROR_DOBROTHON,
   RESET_DOBROTHON,
   SET_DOBROTHON,
-  // dobrothons
-  ERROR_DOBROTHONS,
-  RESET_DOBROTHONS,
-  SET_DOBROTHONS,
+  SET_DOBROTHON_ERROR,
+  // other
+  SET_AMOUNT,
+  SET_DONATION_TAB_INDEX,
+  SET_VISIBILITY_DONATION_FORM,
 };

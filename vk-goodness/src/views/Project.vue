@@ -35,7 +35,9 @@ export default {
   },
   methods: {
     init() {
-      this.fetchProject(this.$route.params.name);
+      if (this.$route.params.name) {
+        this.fetchProject(this.$route.params.name);
+      }
     },
     ...mapActions({
       fetchProject: 'project/fetchProject',
@@ -47,6 +49,9 @@ export default {
       getProjectError: 'project/getProjectError',
       isLoadingProject: 'project/isLoadingProject',
     }),
+    isError() {
+      return this.getProjectError !== null;
+    },
   },
   watch: {
     '$route.params.name': 'init',

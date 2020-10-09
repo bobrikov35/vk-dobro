@@ -18,17 +18,8 @@ const vkBridge = {
         app_id: VK_PARAMS.app.vk_app_id,
         scope: 'notifications',
       })
-        .then((data) => {
-          if (CONFIG.debug) {
-            console.log(JSON.parse(JSON.stringify(data)));
-          }
-          commit('SET_ACCESS_TOKEN', data.access_token);
-        })
-        .catch((error) => {
-          if (CONFIG.debug) {
-            console.log(JSON.parse(JSON.stringify(error)));
-          }
-        });
+        .then((data) => commit('SET_ACCESS_TOKEN', data.access_token))
+        .catch((error) => console.log(error));
     },
     invite() {
       bridge.send('VKWebAppGetFriends', {

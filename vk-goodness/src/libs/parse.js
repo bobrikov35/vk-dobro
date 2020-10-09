@@ -40,7 +40,7 @@ function parseDobrothon(data) {
 }
 
 function parseDobrothonList(data) {
-  const list = [...data];
+  const list = [...data.created];
   list.reverse();
   const result = [];
   for (let i = 0; i < list.length; i++) {

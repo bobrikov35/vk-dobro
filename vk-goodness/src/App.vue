@@ -5,33 +5,60 @@
       <router-view/>
     </main>
     <Footer />
+    <LoadingForm />
   </section>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { VK_PARAMS } from '@/app';
-import Header from '@/components/header/Header.vue';
 import Footer from '@/components/footer/Footer.vue';
+import Header from '@/components/header/Header.vue';
+import LoadingForm from '@/components/popup/LoadingForm.vue';
 
 export default {
   name: 'App',
   components: {
-    Header,
     Footer,
+    Header,
+    LoadingForm,
   },
   methods: {
     ...mapActions({
+      fetchDobrothonList: 'account/fetchDobrothonList',
+      fetchDonationList: 'account/fetchDonationList',
       fetchCities: 'projects/fetchCities',
+      fetchPoints: 'account/fetchPoints',
+      fetchProjectList: 'projects/fetchProjectList',
+      removeLoadingFlag: 'popup/removeLoadingFlag',
+      setLoadingFlag: 'popup/setLoadingFlag',
     }),
     init() {
       this.fetchCities();
+      this.fetchPoints();
+      this.fetchDobrothonList();
+      this.fetchDonationList();
+      this.fetchProjectList({
+        category: this.getCurrentCategory.name,
+        city: this.getCurrentCity.name,
+        page: 1,
+        startLoading: this.setLoadingFlag,
+        stopLoading: this.removeLoadingFlag,
+      });
       if (VK_PARAMS.fragment.name === 'project') {
         this.$router.push(`/project/${VK_PARAMS.fragment.id}/`);
       } else if (VK_PARAMS.fragment.name === 'dobrothon') {
         this.$router.push(`/dobrothon/${VK_PARAMS.fragment.id}/`);
       }
     },
+  },
+  computed: {
+    ...mapGetters({
+      getCurrentCategory: 'projects/getCurrentCategory',
+      getCurrentCity: 'projects/getCurrentCity',
+      getProjectList: 'projects/getProjectList',
+      getProjectListError: 'projects/getProjectListError',
+    }),
   },
   created() {
     this.init();

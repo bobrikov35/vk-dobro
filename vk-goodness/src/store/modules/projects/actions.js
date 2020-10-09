@@ -14,11 +14,19 @@ const fetchCities = ({ commit }) => {
     .then(({ data }) => commit('SET_CITIES', data));
 };
 
-const fetchProjectList = ({ commit }, { category, city, page }) => {
-  commit('RESET_PROJECT_LIST');
-  axios.get(`${CONFIG.apiUrls.project}?recipient=${category}&city=${city}&page=${page}`, { params: VK_PARAMS.app })
-    .then(({ data }) => commit('SET_PROJECT_LIST', data))
-    .catch((error) => commit('SET_PROJECT_LIST_ERROR', error));
+const fetchProjectList = (state, props) => {
+  if (props.startLoading) props.startLoading('projectList');
+  axios.get(CONFIG.apiUrls.project, {
+    params: {
+      ...VK_PARAMS.app,
+      recipient: props.category,
+      city: props.city,
+      page: props.page,
+    },
+  })
+    .then(({ data }) => state.commit('SET_PROJECT_LIST', data))
+    .catch((error) => state.commit('SET_PROJECT_LIST_ERROR', error))
+    .finally(() => { if (props.stopLoading) props.stopLoading('projectList'); });
 };
 
 export default {

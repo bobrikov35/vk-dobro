@@ -1,11 +1,13 @@
 import { axios, bridge } from '@/plugins';
 import { CONFIG, VK_PARAMS } from '@/app';
 
-const fetchProject = ({ commit }, name) => {
+const fetchProject = ({ commit }, props) => {
+  if (props.startLoading) props.startLoading('project');
   commit('RESET_PROJECT');
-  axios.get(`${CONFIG.apiUrls.project}${name}/`, { params: VK_PARAMS.app })
+  axios.get(`${CONFIG.apiUrls.project}${props.path}/`, { params: VK_PARAMS.app })
     .then(({ data }) => commit('SET_PROJECT', data))
-    .catch((error) => commit('SET_PROJECT_ERROR', error));
+    .catch((error) => commit('SET_PROJECT_ERROR', error))
+    .finally(() => { if (props.stopLoading) props.stopLoading('project'); });
 };
 
 const makeDobrothon = ({ getters }) => {

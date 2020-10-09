@@ -15,7 +15,6 @@ export default {
       list: [...DATA.cities],
     },
     projectList: {
-      loading: true,
       data: null,
       page: 0,
       pages: 0,

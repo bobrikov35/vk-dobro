@@ -11,7 +11,6 @@ export default {
       list: [...DATA.donations],
     },
     project: {
-      loading: true,
       data: null,
       error: null,
     },

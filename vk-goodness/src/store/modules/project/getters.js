@@ -2,7 +2,6 @@ export default {
   // project
   getProject: (state) => state.project.data,
   getProjectError: (state) => state.project.error,
-  isLoadingProject: (state) => state.project.loading,
   // donation tabs
   getDonationTabs: (state) => state.donationTabs.list,
   getDonationTabIndex: (state) => state.donationTabs.current,

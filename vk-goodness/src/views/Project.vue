@@ -1,8 +1,6 @@
 <template>
   <div class="project">
-    <div v-if="isLoadingProject" class="project__loading">
-      <i class="fa fa-spinner fa-pulse"></i>
-    </div>
+    <div v-if="differentPath" class="project__loading"></div>
     <div v-else-if="isError" class="project__error">
       <h2>Что-то пошло не так</h2>
     </div>
@@ -35,22 +33,29 @@ export default {
   },
   methods: {
     init() {
-      if (this.$route.params.name) {
-        this.fetchProject(this.$route.params.name);
-      }
+      if (this.$route.params.path === undefined || !this.differentPath) return;
+      this.fetchProject({
+        path: this.$route.params.path,
+        startLoading: this.setLoadingFlag,
+        stopLoading: this.removeLoadingFlag,
+      });
     },
     ...mapActions({
       fetchProject: 'project/fetchProject',
+      removeLoadingFlag: 'popup/removeLoadingFlag',
+      setLoadingFlag: 'popup/setLoadingFlag',
     }),
   },
   computed: {
     ...mapGetters({
       getProject: 'project/getProject',
       getProjectError: 'project/getProjectError',
-      isLoadingProject: 'project/isLoadingProject',
     }),
     isError() {
       return this.getProjectError !== null;
+    },
+    differentPath() {
+      return this.getProject === null || this.getProject.path !== `/${this.$route.params.path}/`;
     },
   },
   watch: {

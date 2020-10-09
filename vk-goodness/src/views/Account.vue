@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import Controller from '@/components/account/Controller.vue';
 import Dobrothons from '@/components/account/Dobrothons.vue';
 import Donations from '@/components/account/Donations.vue';
@@ -25,27 +25,13 @@ export default {
     DonationsGrouped,
     Rewards,
   },
-  methods: {
-    ...mapActions({
-      fetchDobrothonList: 'account/fetchDobrothonList',
-      fetchDonationList: 'account/fetchDonationList',
-      fetchPoints: 'account/fetchPoints',
-    }),
-  },
   computed: {
     ...mapGetters({
       getControllerIndex: 'account/getControllerIndex',
     }),
   },
   mounted() {
-    this.fetchPoints();
-    if (this.getControllerIndex === 0) {
-      this.fetchDobrothonList();
-      this.fetchDonationList();
-    } else {
-      this.fetchDonationList();
-      this.fetchDobrothonList();
-    }
+    window.scrollTo(0, 0);
   },
 };
 </script>

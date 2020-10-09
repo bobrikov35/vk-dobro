@@ -1,7 +1,6 @@
 import { parseProject } from '@/libs/parse';
 
 const RESET_PROJECT = (state) => {
-  state.project.loading = true;
   state.project.data = null;
   state.project.error = null;
 };
@@ -9,7 +8,6 @@ const RESET_PROJECT = (state) => {
 const SET_PROJECT_ERROR = (state, error) => {
   state.project.data = null;
   state.project.error = error;
-  state.project.loading = false;
 };
 
 const SET_PROJECT = (state, data) => {
@@ -19,7 +17,6 @@ const SET_PROJECT = (state, data) => {
   }
   state.project.data = parseProject(data);
   state.project.error = null;
-  state.project.loading = false;
 };
 
 const SET_DONATION_TAB_INDEX = (state, index) => {

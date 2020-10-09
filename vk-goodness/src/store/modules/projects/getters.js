@@ -12,5 +12,4 @@ export default {
   getPages: (state) => state.projectList.pages,
   getProjectList: (state) => state.projectList.data,
   getProjectListError: (state) => state.projectList.error,
-  isLoadingProjectList: (state) => state.projectList.loading,
 };

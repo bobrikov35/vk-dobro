@@ -4,10 +4,7 @@
     <SelectCategory />
     <SelectCity />
     <Line />
-    <div v-if="isLoadingProjectList" class="projects__loading">
-      <i class="fa fa-spinner fa-pulse"></i>
-    </div>
-    <div v-else-if="isError" class="projects__error">
+    <div v-if="isError" class="projects__error">
       <h2>Что-то пошло не так</h2>
     </div>
     <div v-else class="projects__content">
@@ -17,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import Caption from '@/components/projects/Caption.vue';
 import Card from '@/components/projects/Card.vue';
 import Line from '@/components/objects/Line.vue';
@@ -33,31 +30,14 @@ export default {
     SelectCategory,
     SelectCity,
   },
-  methods: {
-    ...mapActions({
-      fetchProjectList: 'projects/fetchProjectList',
-    }),
-  },
   computed: {
     ...mapGetters({
-      getCurrentCategory: 'projects/getCurrentCategory',
-      getCurrentCity: 'projects/getCurrentCity',
-      getPage: 'projects/getPage',
-      getPages: 'projects/getPages',
       getProjectList: 'projects/getProjectList',
       getProjectListError: 'projects/getProjectListError',
-      isLoadingProjectList: 'projects/isLoadingProjectList',
     }),
     isError() {
       return this.getProjectListError !== null;
     },
-  },
-  mounted() {
-    this.fetchProjectList({
-      category: this.getCurrentCategory.name,
-      city: this.getCurrentCity.name,
-      page: 1,
-    });
   },
 };
 </script>

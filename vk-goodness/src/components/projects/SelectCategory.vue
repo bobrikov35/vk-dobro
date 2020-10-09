@@ -41,6 +41,8 @@ export default {
     ...mapActions({
       fetchProjectList: 'projects/fetchProjectList',
       setCategoryIndex: 'projects/setCategoryIndex',
+      setLoadingFlag: 'popup/setLoadingFlag',
+      removeLoadingFlag: 'popup/removeLoadingFlag',
       fixedBody: 'fixedBody',
       unfixedBody: 'unfixedBody',
     }),
@@ -52,6 +54,8 @@ export default {
         category: this.getCurrentCategory.name,
         city: this.getCurrentCity.name,
         page: 1,
+        startLoading: this.setLoadingFlag,
+        stopLoading: this.removeLoadingFlag,
       });
     },
     switchSelector() {

@@ -19,7 +19,6 @@ const SET_CITIES = (state, { cities }) => {
 };
 
 const RESET_PROJECT_LIST = (state) => {
-  state.projectList.loading = true;
   state.projectList.data = null;
   state.projectList.page = 0;
   state.projectList.pages = 0;
@@ -31,7 +30,6 @@ const SET_PROJECT_LIST_ERROR = (state, error) => {
   state.projectList.page = 0;
   state.projectList.pages = 0;
   state.projectList.error = error;
-  state.projectList.loading = false;
 };
 
 const SET_PROJECT_LIST = (state, { projects, page, pages }) => {
@@ -43,7 +41,6 @@ const SET_PROJECT_LIST = (state, { projects, page, pages }) => {
   state.projectList.page = typeof page === 'number' ? page : 1;
   state.projectList.pages = typeof pages === 'number' ? pages : 1;
   state.projectList.error = null;
-  state.projectList.loading = false;
 };
 
 export default {

@@ -14,6 +14,10 @@ const fixedBody = () => {
   document.body.style.top = `-${window.scrollY}px`;
 };
 
+const setPageTitle = ({ commit }, title) => {
+  commit('SET_PAGE_TITLE', title);
+};
+
 const unfixedBody = () => {
   document.body.style.width = '';
   document.body.style.position = 'relative';
@@ -24,5 +28,6 @@ const unfixedBody = () => {
 export default {
   fetchStats,
   fixedBody,
+  setPageTitle,
   unfixedBody,
 };

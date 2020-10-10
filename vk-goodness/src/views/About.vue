@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import AboutService from '@/components/about/AboutService.vue';
 import HowAppeared from '@/components/about/HowAppeared.vue';
 import HowToHelp from '@/components/about/HowToHelp.vue';
@@ -20,6 +21,19 @@ export default {
     HowAppeared,
     HowToHelp,
     Line,
+  },
+  methods: {
+    ...mapActions({
+      setPageTitle: 'setPageTitle',
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      getPageTitle: 'getPageTitle',
+    }),
+  },
+  mounted() {
+    this.setPageTitle('О нас');
   },
 };
 </script>

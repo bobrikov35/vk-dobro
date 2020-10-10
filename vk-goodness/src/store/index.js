@@ -7,6 +7,7 @@ import modules from './modules';
 
 export default createStore({
   state: {
+    pageTitle: '',
     stats: {
       loading: true,
       result: false,

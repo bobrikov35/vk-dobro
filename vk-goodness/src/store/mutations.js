@@ -1,3 +1,7 @@
+const SET_PAGE_TITLE = (state, title) => {
+  state.pageTitle = title;
+};
+
 const RESET_STATS = (state) => {
   state.stats.loading = true;
   state.stats.result = false;
@@ -24,6 +28,7 @@ const SET_STATS_LIST = (state, data) => {
 };
 
 export default {
+  SET_PAGE_TITLE,
   RESET_STATS,
   SET_STATS_LIST,
   SET_STATS_ERROR,

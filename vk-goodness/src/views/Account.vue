@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Controller from '@/components/account/Controller.vue';
 import Dobrothons from '@/components/account/Dobrothons.vue';
 import Donations from '@/components/account/Donations.vue';
@@ -25,12 +25,19 @@ export default {
     DonationsGrouped,
     Rewards,
   },
+  methods: {
+    ...mapActions({
+      setPageTitle: 'setPageTitle',
+    }),
+  },
   computed: {
     ...mapGetters({
       getControllerIndex: 'account/getControllerIndex',
+      getPageTitle: 'getPageTitle',
     }),
   },
   mounted() {
+    this.setPageTitle('Кабинет');
     window.scrollTo(0, 0);
   },
 };

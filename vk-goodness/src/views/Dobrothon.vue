@@ -38,12 +38,14 @@ export default {
     },
     ...mapActions({
       fetchDobrothon: 'dobrothon/fetchDobrothon',
+      setPageTitle: 'setPageTitle',
     }),
   },
   computed: {
     ...mapGetters({
       getDobrothon: 'dobrothon/getDobrothon',
       getDobrothonError: 'dobrothon/getDobrothonError',
+      getPageTitle: 'getPageTitle',
       isLoadingDobrothon: 'dobrothon/isLoadingDobrothon',
     }),
     isError() {
@@ -54,6 +56,7 @@ export default {
     '$route.params.id': 'init',
   },
   mounted() {
+    this.setPageTitle('Доброфон');
     this.init();
   },
 };

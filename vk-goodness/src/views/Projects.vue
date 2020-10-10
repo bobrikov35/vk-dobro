@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Caption from '@/components/projects/Caption.vue';
 import Card from '@/components/projects/Card.vue';
 import Line from '@/components/objects/Line.vue';
@@ -30,14 +30,23 @@ export default {
     SelectCategory,
     SelectCity,
   },
+  methods: {
+    ...mapActions({
+      setPageTitle: 'setPageTitle',
+    }),
+  },
   computed: {
     ...mapGetters({
+      getPageTitle: 'getPageTitle',
       getProjectList: 'projects/getProjectList',
       getProjectListError: 'projects/getProjectListError',
     }),
     isError() {
       return this.getProjectListError !== null;
     },
+  },
+  mounted() {
+    this.setPageTitle('Проекты');
   },
 };
 </script>

@@ -41,6 +41,7 @@ export default {
       });
     },
     ...mapActions({
+      setPageTitle: 'setPageTitle',
       fetchProject: 'project/fetchProject',
       removeLoadingFlag: 'popup/removeLoadingFlag',
       setLoadingFlag: 'popup/setLoadingFlag',
@@ -48,6 +49,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      getPageTitle: 'getPageTitle',
       getProject: 'project/getProject',
       getProjectError: 'project/getProjectError',
     }),
@@ -62,6 +64,7 @@ export default {
     '$route.params.name': 'init',
   },
   mounted() {
+    this.setPageTitle('Проект');
     this.init();
   },
 };

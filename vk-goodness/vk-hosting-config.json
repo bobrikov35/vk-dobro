@@ -1,6 +1,7 @@
 {
   "static_path": "dist",
   "app_id": "7585697",
+  "access_token": "e4b2c379e4b2c379e4b2c37969e4c17cd8ee4b2e4b2c379bbe566d568a29921a0ca4653",
   "endpoints": {
     "mobile": "index.html",
     "mvk": "index.html",

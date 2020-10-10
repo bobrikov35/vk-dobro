@@ -1,6 +1,6 @@
 .DS_Store
 vk-goodness/node_modules
-/dist
+vk-goodness/dist
 
 # local env files
 .env.local

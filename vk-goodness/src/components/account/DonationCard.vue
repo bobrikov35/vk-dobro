@@ -4,7 +4,6 @@
       <div class="cs-card account-donations-card__cover" :style="`background-image: url(${vDonation.project.image});`"
            @click="goToProject">
         <div class="cs-card__header">
-          <h3 class="cs-card__text">{{ vDonation.project.city }}</h3>
           <h2 class="cs-card__title">{{ vDonation.project.title }}</h2>
         </div>
         <div class="cs-card__bottom-panel">

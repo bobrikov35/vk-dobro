@@ -6,6 +6,7 @@
     </main>
     <Footer />
     <LoadingForm />
+    <MessageForm />
   </section>
 </template>
 
@@ -15,6 +16,7 @@ import { VK_PARAMS } from '@/app';
 import Footer from '@/components/footer/Footer.vue';
 import Header from '@/components/header/Header.vue';
 import LoadingForm from '@/components/popup/LoadingForm.vue';
+import MessageForm from '@/components/popup/MessageForm.vue';
 
 export default {
   name: 'App',
@@ -22,6 +24,7 @@ export default {
     Footer,
     Header,
     LoadingForm,
+    MessageForm,
   },
   methods: {
     ...mapActions({

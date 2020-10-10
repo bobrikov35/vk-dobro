@@ -12,7 +12,7 @@
           <p class="account-donations__date">{{ printDate(item.dateCreated) }}</p>
           <p class="account-donations__project">Проект №
             <router-link class="account-donations__link" :to="`/project/${item.project.path}`">
-              {{ item.project.id }}, {{ item.project.path }}
+              {{ item.project.id }}
             </router-link>
           </p>
           <p class="account-donations__amount">{{ printAmount(item.amount) }}</p>

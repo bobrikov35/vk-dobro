@@ -8,7 +8,7 @@
         </div>
         <p v-if="isFinished" class="cs-card__finish"><i class="fa fa-check-circle"></i></p>
         <div class="cs-card__bottom-panel">
-          <button class="cs-button-3 cs-card__button" @click="goToDobrothon">УЧАСТВОВАТЬ ПОВТОРНО</button>
+          <button class="cs-button-3 cs-card__button" @click="goToDobrothon">ПОМОЧЬ</button>
           <Progressbar :vValue="vDobrothon.amount" :vMax="vDobrothon.target" />
         </div>
       </div>

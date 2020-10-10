@@ -9,7 +9,7 @@ const fetchDobrothon = ({ commit }, id) => {
     .catch((error) => commit('SET_DOBROTHON_ERROR', error));
 };
 
-const makePayment = ({ getters }) => {
+const makePayment = ({ getters }, props) => {
   bridge.send('VKWebAppGetUserInfo')
     .then((user) => {
       axios.post(CONFIG.apiUrls.donation, {
@@ -23,7 +23,14 @@ const makePayment = ({ getters }) => {
       }, {
         params: VK_PARAMS.app,
       })
-        .then(({ data }) => console.log({ ...data }))
+        .then(() => {
+          if (typeof props.showMessage === 'function') {
+            props.showMessage('Благодарим, <b>Вас</b>, за оказанную помощь и участие в Доброфоне!');
+          }
+          if (typeof props.update === 'function') {
+            props.update();
+          }
+        })
         .catch((error) => console.log(error));
     })
     .catch((error) => console.log(error));

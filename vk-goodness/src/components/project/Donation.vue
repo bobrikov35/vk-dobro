@@ -31,9 +31,12 @@ export default {
   },
   methods: {
     ...mapActions({
+      fetchDonationList: 'account/fetchDonationList',
+      fetchPoints: 'account/fetchPoints',
       makePayment: 'project/makePayment',
       setAmount: 'project/setAmount',
       setDonationTabIndex: 'project/setDonationTabIndex',
+      setMessage: 'popup/setMessage',
       switchVisibilityDonationForm: 'project/switchVisibilityDonationForm',
     }),
     choiceItem(index) {
@@ -47,7 +50,14 @@ export default {
     },
     pay() {
       this.switchVisibilityDonationForm();
-      this.makePayment();
+      this.makePayment({
+        showMessage: this.setMessage,
+        update: this.update,
+      });
+    },
+    update() {
+      this.fetchPoints();
+      this.fetchDonationList();
     },
   },
   computed: {

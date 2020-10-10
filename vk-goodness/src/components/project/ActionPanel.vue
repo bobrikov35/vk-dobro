@@ -4,7 +4,7 @@
       <button class="cs-button-2 project-action-panel__button" @click="switchVisibilityDonationForm">
         Помочь деньгами
       </button>
-      <button class="cs-button-2 project-action-panel__button" @click="shareOnWall">
+      <button class="cs-button-2 project-action-panel__button" @click="share">
         Помочь репостом
       </button>
       <button class="cs-button-2 project-action-panel__button" @click="switchVisibilityDobrothonForm">
@@ -21,10 +21,18 @@ export default {
   name: 'ActionPanel',
   methods: {
     ...mapActions({
+      fetchPoints: 'account/fetchPoints',
+      setMessage: 'popup/setMessage',
       shareOnWall: 'project/shareOnWall',
       switchVisibilityDobrothonForm: 'project/switchVisibilityDobrothonForm',
       switchVisibilityDonationForm: 'project/switchVisibilityDonationForm',
     }),
+    share() {
+      this.shareOnWall({
+        showMessage: this.setMessage,
+        update: this.fetchPoints(),
+      });
+    },
   },
 };
 </script>

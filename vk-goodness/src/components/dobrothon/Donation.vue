@@ -31,9 +31,13 @@ export default {
   },
   methods: {
     ...mapActions({
+      fetchDobrothonList: 'account/fetchDobrothonList',
+      fetchDonationList: 'account/fetchDonationList',
+      fetchPoints: 'account/fetchPoints',
       makePayment: 'dobrothon/makePayment',
       setAmount: 'dobrothon/setAmount',
       setDonationTabIndex: 'dobrothon/setDonationTabIndex',
+      setMessage: 'popup/setMessage',
       switchVisibilityDonationForm: 'dobrothon/switchVisibilityDonationForm',
     }),
     choiceItem(index) {
@@ -47,7 +51,15 @@ export default {
     },
     pay() {
       this.switchVisibilityDonationForm();
-      this.makePayment();
+      this.makePayment({
+        showMessage: this.setMessage,
+        update: this.update,
+      });
+    },
+    update() {
+      this.fetchPoints();
+      this.fetchDobrothonList();
+      this.fetchDonationList();
     },
   },
   computed: {

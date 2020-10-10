@@ -81,10 +81,7 @@ export default {
       getDobrothon: 'dobrothon/getDobrothon',
     }),
     maxValue() {
-      return this.getProject.target - this.getProject.sum;
-    },
-    project() {
-      return this.getDobrothon.project;
+      return this.getDobrothon.target - this.getDobrothon.amount;
     },
   },
   mounted() {
